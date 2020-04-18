@@ -3,24 +3,20 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
-
 class Wallet extends StatefulWidget {
   final String name;
   final String icon;
   final String rate;
+  final String currency;
   final charts.Color color;
-  Wallet({
-    Key key,
-    this.name, this.icon, this.rate, this.color
-  }) : super(key: key);
-
+  Wallet({Key key, this.name, this.icon, this.rate, this.color, this.currency})
+      : super(key: key);
 
   @override
   _WalletState createState() => _WalletState();
 }
 
 class _WalletState extends State<Wallet> {
-
   static Random random = Random();
   final data = [
     LinearToken(0, random.nextInt(300)),
@@ -57,7 +53,6 @@ class _WalletState extends State<Wallet> {
     LinearToken(31, random.nextInt(300)),
   ];
 
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -75,7 +70,6 @@ class _WalletState extends State<Wallet> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-
                 Row(
                   children: <Widget>[
                     Image.asset(
@@ -92,10 +86,19 @@ class _WalletState extends State<Wallet> {
                     ),
                   ],
                 ),
-
-
+                //todo : align with other assets
+                Row(
+                  children: <Widget>[
+                    Text(
+                      "ISIN",
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
                 Text(
-                  "${widget.rate}",
+                  "${widget.currency}" " " "${widget.rate}",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -106,14 +109,50 @@ class _WalletState extends State<Wallet> {
           ),
 
           Padding(
+            padding: EdgeInsets.fromLTRB(20, 0, 0, 20),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(" "),
+                Container(
+                  width: 200, //MediaQuery.of(context).size.width,
+                  height: 45,
+                  child: charts.LineChart(
+                    <charts.Series<LinearToken, int>>[
+                      charts.Series<LinearToken, int>(
+                        id: '${widget.name}',
+                        colorFn: (_, __) => widget.color,
+                        domainFn: (LinearToken sales, _) => sales.day,
+                        measureFn: (LinearToken sales, _) => sales.value,
+                        data: data,
+                      )
+                    ],
+                    defaultRenderer: charts.LineRendererConfig(
+                      includeArea: true,
+                      stacked: true,
+                    ),
+                    animate: true,
+                    primaryMeasureAxis: charts.NumericAxisSpec(
+                      renderSpec: charts.NoneRenderSpec(),
+                    ),
+                    domainAxis: charts.NumericAxisSpec(
+//                showAxisLine: true,
+                      renderSpec: charts.NoneRenderSpec(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          
+          Padding(
             padding: EdgeInsets.fromLTRB(20, 0, 20, 5),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-
                 Text(" "),
-
                 Text(
                   r"(0.3%) $21.67",
                   style: TextStyle(
@@ -124,42 +163,12 @@ class _WalletState extends State<Wallet> {
               ],
             ),
           ),
-
-
-//           Container(
-//             width: MediaQuery.of(context).size.width,
-//             height: 150,
-//             child: charts.LineChart(
-//               <charts.Series<LinearToken, int>>[
-//                 charts.Series<LinearToken, int>(
-//                   id: '${widget.name}',
-//                   colorFn: (_, __) => widget.color,
-//                   domainFn: (LinearToken sales, _) => sales.day,
-//                   measureFn: (LinearToken sales, _) => sales.value,
-//                   data: data,
-//                 )
-//               ],
-//               defaultRenderer: charts.LineRendererConfig(
-//                 includeArea: true,
-//                 stacked: true,
-//               ),
-//               animate: false,
-//               primaryMeasureAxis: charts.NumericAxisSpec(
-//                 renderSpec: charts.NoneRenderSpec(),
-//               ),
-//               domainAxis: charts.NumericAxisSpec(
-// //                showAxisLine: true,
-//                 renderSpec: charts.NoneRenderSpec(),
-//               ),
-//             ),
-//           ),
-
-
         ],
       ),
     );
   }
 }
+
 class LinearToken {
   final int day;
   final int value;

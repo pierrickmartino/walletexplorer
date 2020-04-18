@@ -1,7 +1,6 @@
 import 'package:walletexplorer/util/data.dart';
 import 'package:flutter/material.dart';
 
-
 class Transactions extends StatefulWidget {
   @override
   _TransactionsState createState() => _TransactionsState();
@@ -35,19 +34,17 @@ class _TransactionsState extends State<Transactions> {
             subtitle: Text(transaction['date']),
             trailing: Text(
               transaction['type'] == "sent"
-                  ?"-${transaction['amount']}"
-                  :"+${transaction['amount']}",
+                  ? "-${transaction['amount']}"
+                  : "+${transaction['amount']}",
               style: TextStyle(
-                color: transaction['type'] == "sent"
-                    ?Colors.red
-                    :Colors.green,
+                color:
+                    transaction['type'] == "sent" ? Colors.red : Colors.green,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
         );
       },
-
     );
   }
 }

@@ -2,16 +2,12 @@ import 'package:walletexplorer/util/data.dart';
 import 'package:walletexplorer/widgets/position.dart';
 import 'package:flutter/material.dart';
 
-
-
 class Positions extends StatefulWidget {
   @override
   _PositionsState createState() => _PositionsState();
 }
 
 class _PositionsState extends State<Positions> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +22,7 @@ class _PositionsState extends State<Positions> {
             name: asset['name'],
             icon: asset['icon'],
             rate: asset['rate'],
+            currency: asset['currency'],
             color: asset['color'],
           );
         },
@@ -33,4 +30,3 @@ class _PositionsState extends State<Positions> {
     );
   }
 }
-
