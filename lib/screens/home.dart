@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:walletexplorer/screens/buyandsell.dart';
 import 'package:walletexplorer/screens/transactions.dart';
 import 'package:walletexplorer/screens/positions.dart';
 import 'package:walletexplorer/screens/wallets.dart';
@@ -35,7 +34,7 @@ class _HomeState extends State<Home> {
           Align(
             alignment: Alignment.center,
             child: DefaultTabController(
-              length: 4,
+              length: 3,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -54,9 +53,6 @@ class _HomeState extends State<Home> {
                       Tab(
                         text: "Transactions",
                       ),
-                      Tab(
-                        text: "Buy/Sell",
-                      ),
                     ],
                   ),
                   Container(
@@ -67,7 +63,6 @@ class _HomeState extends State<Home> {
                         Wallets(),
                         Positions(),
                         Transactions(),
-                        BuyandSell(),
                       ],
                     ),
                   ),

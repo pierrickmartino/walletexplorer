@@ -12,7 +12,6 @@ Develop a simple tool to summarize and analysis of a financial situation thanks 
 * Transactions - Evolution with categories
 * Navigation - Overview / Analysis / Transactions by Account
 * Create widget for each view overview/analysis/transaction 
-* Delete Buy/Sell functionality (not needed)
 * Color scheme modification
 * Ability to switch between light/dark mode
 * Login page to authenticate the user
@@ -20,6 +19,7 @@ Develop a simple tool to summarize and analysis of a financial situation thanks 
 * Asset view - Add flip on card to show extra info
 
 ## Changelog
+* 0.5 - Delete Buy/Sell functionality (not needed)
 * 0.4 - Header - Use a screen to format the header panel
 * 0.3 - Add mini chart on position widget
 * 0.2 - Template from FlutterCryptoUI
