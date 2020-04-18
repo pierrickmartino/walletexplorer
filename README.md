@@ -5,6 +5,7 @@ Develop a simple tool to summarize and analysis of a financial situation thanks 
 
 ## Backlog
 * Ability to import a flat file from UBS eBanking
+* Bug - User avatar changes when we navigate between menu items
 * Auto-creation for new account from an importation if needed
 * Header view - Add a total amount
 * Header view - Add a date analysis (from 01.01.2017 to now)
@@ -19,6 +20,7 @@ Develop a simple tool to summarize and analysis of a financial situation thanks 
 * Asset view - Add flip on card to show extra info
 
 ## Changelog
+* 0.6 - Use of navigation_rail for navigation and menu
 * 0.5 - Delete Buy/Sell functionality (not needed)
 * 0.4 - Header - Use a screen to format the header panel
 * 0.3 - Add mini chart on position widget

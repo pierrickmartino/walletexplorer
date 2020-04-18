@@ -23,6 +23,7 @@ class _Header extends State<Header> {
         ),
         title: Text(name),
         subtitle: Text(name.toLowerCase().replaceAll(" ", ".") + "@gmail.com"),
+        isThreeLine: true,
       ),
     );
   }
