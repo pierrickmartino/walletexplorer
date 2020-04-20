@@ -4,22 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 
-class Wallet extends StatefulWidget {
+class Account extends StatefulWidget {
   final String name;
   final String icon;
   final String rate;
   final charts.Color color;
-  Wallet({
+  Account({
     Key key,
     this.name, this.icon, this.rate, this.color
   }) : super(key: key);
 
 
   @override
-  _WalletState createState() => _WalletState();
+  _AccountState createState() => _AccountState();
 }
 
-class _WalletState extends State<Wallet> {
+class _AccountState extends State<Account> {
 
   static Random random = Random();
   final data = [

@@ -1,15 +1,15 @@
 import 'package:walletexplorer/util/data.dart';
-import 'package:walletexplorer/widgets/wallet.dart';
+import 'package:walletexplorer/widgets/account.dart';
 import 'package:flutter/material.dart';
 
 
 
-class Wallets extends StatefulWidget {
+class Accounts extends StatefulWidget {
   @override
-  _WalletsState createState() => _WalletsState();
+  _AccountsState createState() => _AccountsState();
 }
 
-class _WalletsState extends State<Wallets> {
+class _AccountsState extends State<Accounts> {
 
 
   @override
@@ -22,7 +22,7 @@ class _WalletsState extends State<Wallets> {
         itemBuilder: (BuildContext context, int index) {
           Map coin = coins[index];
 
-          return Wallet(
+          return Account(
             name: coin['name'],
             icon: coin['icon'],
             rate: coin['rate'],

@@ -1,5 +1,6 @@
-import 'package:walletexplorer/screens/home.dart';
 import 'package:walletexplorer/util/const.dart';
+import 'package:walletexplorer/services/authentication.dart';
+import 'package:walletexplorer/pages/root_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -35,37 +36,8 @@ class _MyAppState extends State<MyApp> {
         title: Constants.appName,
         theme: isDark ? Constants.darkTheme : Constants.lightTheme,
 
-        //project in progress
-        home: Home(),
+        home: new RootPage(auth: new Auth()),
 
-        // home: Scaffold(
-        //   resizeToAvoidBottomPadding: true,
-        //   body: new Builder(
-        //       builder: (context) => new Container(
-        //             decoration: BoxDecoration(
-        //                 gradient: LinearGradient(
-        //                     begin: Alignment.topCenter,
-        //                     end: Alignment.bottomCenter,
-        //                     colors: [
-        //                   Theme.of(context).primaryColor,
-        //                   Theme.of(context).primaryColorLight
-        //                 ])),
-        //             child: Padding(
-        //               padding: EdgeInsets.only(top: 40.0),
-        //               //Sets the main padding all widgets has to adhere to.
-        //               child: LogInPage(),
-        //             ),
-        //           )),
-        // )
         );
   }
-
 }
-
-// class LogInPage extends StatefulWidget {
-//   LogInPage({Key key}) : super(key: key);
-
-  // @protected
-  // @override
-  // State<StatefulWidget> createState() => _LogInPageState();
-//}
