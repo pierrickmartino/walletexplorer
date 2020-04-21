@@ -24,7 +24,6 @@ Create a simple tool to summarize and analysis of a financial situation thanks t
 * Ability to import a flat file from UBS eBanking
 * Bug - User avatar changes when we navigate between menu items
 * Bug - Color navigation button with white theme
-* Bug - Fix label "Crypto App" on tab title 
 * Login screen - Press Enter key to validate
 * Auto-creation for new account from an importation if needed
 * Header view - Add a persistent header for overview
@@ -40,6 +39,7 @@ Create a simple tool to summarize and analysis of a financial situation thanks t
 * Asset view - Add flip on card to show extra info
 
 ## Changelog
+* 0.8 - Bug - Fix label "Crypto App" on tab title
 * 0.7 - Login page to authenticate the user (Firebase)
 * 0.6 - Use of navigation_rail for navigation and menu
 * 0.5 - Delete Buy/Sell functionality (not needed)
