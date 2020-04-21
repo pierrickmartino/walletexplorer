@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:walletexplorer/screens/analysis.dart';
 
 import 'package:walletexplorer/services/authentication.dart';
 import 'package:walletexplorer/screens/transactions.dart';
 import 'package:walletexplorer/screens/positions.dart';
+import 'package:walletexplorer/screens/settings.dart';
 import 'package:walletexplorer/screens/accounts.dart';
 import 'package:walletexplorer/util/data.dart';
 import 'package:walletexplorer/util/navigation_rail.dart';
@@ -26,6 +28,7 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   static Random random = Random();
   String name = names[random.nextInt(10)];
+  AssetImage userAccountPicture = AssetImage("assets/cm${random.nextInt(10)}.jpeg",);
 
   signOut() async {
     try {
@@ -40,12 +43,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return NavRail(
       hideTitleBar : true,
-      actions: <Widget>[
-        new FlatButton(
-            child: new Text('Logout',
-                style: new TextStyle(fontSize: 17.0, color: Colors.red)),
-            onPressed: signOut)
-      ],
       drawerHeaderBuilder: (context) {
         return Column(
           children: <Widget>[
@@ -53,9 +50,7 @@ class _HomePageState extends State<HomePage> {
               accountName: Text(name),
               accountEmail: Text(name.toLowerCase().replaceAll(" ", ".") + "@gmail.com"),
               currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage(
-                  "assets/cm${random.nextInt(10)}.jpeg",
-                )
+                backgroundImage: userAccountPicture
               ),
             ),
           ],
@@ -73,7 +68,7 @@ class _HomePageState extends State<HomePage> {
               title: Text("About"),
             ),
             ListTile(
-              leading: Icon(Icons.info_outline),
+              leading: Icon(Icons.exit_to_app),
               title: Text("Logout"),
               onTap: signOut,
             ),
@@ -93,7 +88,8 @@ class _HomePageState extends State<HomePage> {
           Positions(),
           Accounts(),
           Transactions(),
-          Positions(),
+          Analysis(),
+          Settings(),
         ],
       ),
       tabs: <BottomNavigationBarItem>[
@@ -112,6 +108,10 @@ class _HomePageState extends State<HomePage> {
         BottomNavigationBarItem(
           title: Text("Analysis"),
           icon: Icon(Icons.multiline_chart),
+        ),
+        BottomNavigationBarItem(
+          title: Text("Settings"),
+          icon: Icon(Icons.settings),
         ),
       ],
     );

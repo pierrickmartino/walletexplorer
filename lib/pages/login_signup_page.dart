@@ -84,12 +84,12 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     });
   }
 
+  FocusNode _emailFocusNode = FocusNode();
+  FocusNode _passwordFocusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        appBar: new AppBar(
-          title: new Text(''),
-        ),
         body: Stack(
           children: <Widget>[
             _showForm(),
@@ -162,9 +162,10 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 0.0),
       child: new TextFormField(
+        focusNode: _emailFocusNode,
         maxLines: 1,
         keyboardType: TextInputType.emailAddress,
-        autofocus: false,
+        autofocus: true,
         decoration: new InputDecoration(
             hintText: 'Email',
             icon: new Icon(
@@ -173,6 +174,9 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             )),
         validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
         onSaved: (value) => _email = value.trim(),
+        onFieldSubmitted: (_){
+          fieldFocusChange(context, _emailFocusNode, _passwordFocusNode);
+        },
       ),
     );
   }
@@ -181,9 +185,10 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
       child: new TextFormField(
+        focusNode: _passwordFocusNode,
         maxLines: 1,
         obscureText: true,
-        autofocus: false,
+        autofocus: true,
         decoration: new InputDecoration(
             hintText: 'Password',
             icon: new Icon(
@@ -213,11 +218,16 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             elevation: 5.0,
             shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(30.0)),
-            color: Colors.blue,
+            color: Theme.of(context).buttonColor,
             child: new Text(_isLoginForm ? 'Login' : 'Create account',
                 style: new TextStyle(fontSize: 20.0, color: Colors.white)),
             onPressed: validateAndSubmit,
           ),
         ));
+  }
+
+  void fieldFocusChange(BuildContext context, FocusNode currentFocus,FocusNode nextFocus) {
+    currentFocus.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
   }
 }

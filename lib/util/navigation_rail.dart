@@ -149,8 +149,11 @@ class NavRail extends StatelessWidget {
       selectedLabelTextStyle: TextStyle(
         color: Theme.of(context).accentColor,
       ),
+      unselectedLabelTextStyle: TextStyle(
+        color: Theme.of(context).cursorColor,
+      ),
       unselectedIconTheme: IconThemeData(
-        color: Colors.grey,
+        color: Theme.of(context).cursorColor,
       ),
       labelType: extended ? null : NavigationRailLabelType.all,
       selectedIndex: currentIndex,
