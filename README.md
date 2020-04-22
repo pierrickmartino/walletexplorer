@@ -22,7 +22,6 @@ Create a simple tool to summarize and analysis of a financial situation thanks t
 
 ## Backlog
 * Ability to import a flat file from UBS eBanking
-* Bug - Color navigation button with white theme
 * Login screen - Press Enter key to validate
 * Auto-creation for new account from an importation if needed
 * Header view - Add a persistent header for overview
@@ -30,14 +29,17 @@ Create a simple tool to summarize and analysis of a financial situation thanks t
 * Header view - Add a date analysis (from 01.01.2017 to now)
 * Header view - Add a currency
 * Transactions - Evolution with categories
+* Transactions - Edition on card
 * Navigation - Overview / Analysis / Transactions by Account
 * Create widget for each view overview/analysis/transaction/account 
 * Color scheme modification
 * Ability to switch between light/dark mode
 * Menu on left panel with some settings
+* Bug - Color navigation button with white theme
 * Asset view - Add flip on card to show extra info
 
 ## Changelog
+* 0.10 - Addition of a search engine for transactions (+ Theme)
 * 0.9 - Bug - User avatar changes when we navigate between menu items (+ Theme)
 * 0.8 - Bug - Fix label "Crypto App" on tab title
 * 0.7 - Login page to authenticate the user (Firebase)

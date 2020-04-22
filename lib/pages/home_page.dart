@@ -43,6 +43,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return NavRail(
       hideTitleBar : true,
+      //bottomNavigationBarColor: Theme.of(context).dividerColor,
       drawerHeaderBuilder: (context) {
         return Column(
           children: <Widget>[

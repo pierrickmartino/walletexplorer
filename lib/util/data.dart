@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:charts_flutter/flutter.dart' as charts;
-
+import 'package:walletexplorer/widgets/transaction.dart';
 
 Random random = Random();
 List names = [
@@ -100,12 +100,15 @@ List coins = [
   },
 ];
 
-List transactions = List.generate(15, (index)=>{
-  "name": names[random.nextInt(10)],
-  "date": "${random.nextInt(31).toString().padLeft(2,"0")}"
+var transactions = new List<Transaction>.generate(100, (index) {
+  return Transaction(
+    name: names[random.nextInt(10)],
+    date: "${random.nextInt(31).toString().padLeft(2,"0")}"
       "/${random.nextInt(12).toString().padLeft(2,"0")}/2019",
-  "amount": "\$${random.nextInt(1000).toString()}",
-  "type": types[random.nextInt(2)],
-  "dp": "assets/cm${random.nextInt(10)}.jpeg",
+    amount: "\$${random.nextInt(1000).toString()}",
+    type: types[random.nextInt(2)],
+    dp: "assets/cm${random.nextInt(10)}.jpeg",
+  );
 });
+
 
