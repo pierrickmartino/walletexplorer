@@ -8,7 +8,9 @@ class Analysis extends StatefulWidget {
 
 class _AnalysisState extends State<Analysis> {
   TextEditingController editingController = TextEditingController();
-  final transactionsReference = Firestore.instance.collection("transactions");
+  final transactionsReference = Firestore.instance
+      .collection("transactions")
+      .orderBy("accountingDate", descending: true);
 
   @override
   Widget build(BuildContext context) {
@@ -51,24 +53,70 @@ class _AnalysisState extends State<Analysis> {
                       Radius.circular(10),
                     ),
                   ),
-                  child: ListTile(
+                  child: ExpansionTile(
                     leading: CircleAvatar(
-                      backgroundImage: AssetImage("assets/cm1.jpeg"),
-                      radius: 25,
+                      backgroundColor: Theme.of(context).cardColor,
                     ),
-                    title: Text(transactionsItems[index]['description1']),
-                    subtitle: Text(transactionsItems[index]['description2']),
-                    trailing: Text(
-                      transactionsItems[index]['creditAmount'] == ""
-                          ? "-${transactionsItems[index]['debitAmount']}"
-                          : "+${transactionsItems[index]['creditAmount']}",
-                      style: TextStyle(
-                        color: transactionsItems[index]['creditAmount'] == ""
-                            ? Colors.red
-                            : Colors.green,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    trailing: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        Text(
+                          transactionsItems[index]['creditAmount'] == ""
+                              ? "- ${transactionsItems[index]['debitAmount']}"
+                              : "+ ${transactionsItems[index]['creditAmount']}",
+                          style: TextStyle(
+                            color:
+                                transactionsItems[index]['creditAmount'] == ""
+                                    ? Colors.red
+                                    : Colors.green,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
+                        Text(transactionsItems[index]['accountingDate'],
+                            style: TextStyle(
+                              fontSize: 12,
+                            )),
+                      ],
                     ),
+                    title: Text(transactionsItems[index]['description2'],
+                        style: TextStyle(
+                          fontSize: 14,
+                        )),
+                    subtitle: Text(transactionsItems[index]['description1'],
+                        style: TextStyle(
+                          fontSize: 12,
+                        )),
+                    children: <Widget>[
+                      Column(
+                        children: [
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            //height: 100.0,
+                            margin: const EdgeInsets.all(4.0),
+                            padding: const EdgeInsets.all(10.0),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).cardColor,
+                              borderRadius:
+                                  new BorderRadius.all(Radius.circular(10.0)),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(transactionsItems[index]['description1'], style: TextStyle(fontSize: 12,)),
+                                Text(transactionsItems[index]['description2'], style: TextStyle(fontSize: 12,)),
+                                Text(transactionsItems[index]['description3'], style: TextStyle(fontSize: 12,)),
+                                Text(""),
+                                Text("IBAN: " + transactionsItems[index]['refIBAN'], style: TextStyle(fontSize: 12,)),
+                                Text("Accounting date: " + transactionsItems[index]['accountingDate'], style: TextStyle(fontSize: 12,)),
+                                Text("Value date: " + transactionsItems[index]['valueDate'], style: TextStyle(fontSize: 12,)),
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
                 );
               },

@@ -27,6 +27,8 @@ Create a simple tool to summarize and analysis of a financial situation thanks t
 * Header view - Add a total amount
 * Header view - Add a date analysis (from 01.01.2017 to now)
 * Header view - Add a currency
+* Transactions - Add currency before the amount
+* Transactions - Search engine with firestore data
 * Transactions - Search on multiple criteria
 * Transactions - Evolution with categories
 * Transactions - Edition on card
@@ -36,10 +38,12 @@ Create a simple tool to summarize and analysis of a financial situation thanks t
 * Ability to switch between light/dark mode
 * Menu on left panel with some settings
 * Bug - Color navigation button with white theme
+* Add a custom font to the application
 * Migration of the user process to Firestore Cloud Database (extra info for user)
 * Asset view - Add flip on card to show extra info
 
 ## Changelog
+* 0.12 - Transactions - Improvement in the card layout and render
 * 0.11 - Transactions - Use data from Firestore to feed the list
 * Xtra - Ability to import a flat file JSON from UBS eBanking -> WalletImport
 * 0.10 - Addition of a search engine for transactions (+ Theme)
