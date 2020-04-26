@@ -15,9 +15,11 @@ class Constants{
   static Color darkAccent = Color(0xff23B5D3);
   static Color darkBarColor = Color(0xffE0FF4F);
   static Color darkUnusedColor = Color(0xffEA526F);
-  static Color darkCardColor = Color(0x4D23B5D3);
+  static Color darkCardColor = Color(0x1A23B5D3);
+  static Color darkCardColorLight = Color(0x6623B5D3);
 
   static ThemeData lightTheme = ThemeData(
+    fontFamily: 'Manrope',
     backgroundColor: lightBG,
     bottomAppBarColor: lightBG,
     primaryColor: lightPrimary,
@@ -32,6 +34,7 @@ class Constants{
 
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
+    fontFamily: 'Manrope',
     backgroundColor: darkBG,
     primaryColor: darkPrimary,
     accentColor: darkAccent,
@@ -39,7 +42,7 @@ class Constants{
     cursorColor: darkSecondary,
     buttonColor: darkAccent,
     canvasColor: darkPrimary,
-    dividerColor: darkBarColor,
+    dividerColor: darkCardColorLight,
     cardColor: darkCardColor,
     appBarTheme: AppBarTheme(
       elevation: 0,
