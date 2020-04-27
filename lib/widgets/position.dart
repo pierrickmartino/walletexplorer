@@ -148,14 +148,33 @@ class _WalletState extends State<Wallet> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(20, 0, 0, 20),
+            padding: EdgeInsets.fromLTRB(20, 0, 20, 5),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
+                Text(" "),
+                Text(
+                  r"(0.3%) $21.67",
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.green[400],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            height: 300,
+            padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+            child: ListView(
+     
+              scrollDirection: Axis.horizontal,
+              children: <Widget>[
+             
                 Container(
-                  width: 200, //MediaQuery.of(context).size.width,
-                  height: 45,
+                  width: 300, //MediaQuery.of(context).size.width,
+                  height: 200,
                   child: charts.LineChart(
                     <charts.Series<LinearToken, int>>[
                       charts.Series<LinearToken, int>(
@@ -181,31 +200,14 @@ class _WalletState extends State<Wallet> {
                   ),
                 ),
                 Container(
-                  width: 200, //MediaQuery.of(context).size.width,
+                  width: 300, //MediaQuery.of(context).size.width,
                   height: 200,
                   child: barchart,
                 ),
                 Container(
-                  width: 200, //MediaQuery.of(context).size.width,
+                  width: 300, //MediaQuery.of(context).size.width,
                   height: 200,
                   child: piechart,
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(20, 0, 20, 5),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(" "),
-                Text(
-                  r"(0.3%) $21.67",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.green[400],
-                  ),
                 ),
               ],
             ),
