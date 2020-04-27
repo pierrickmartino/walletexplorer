@@ -30,7 +30,7 @@ Create a simple tool to summarize and analysis of a financial situation thanks t
 * Transactions - Add currency before the amount
 * Transactions - Search engine with firestore data
 * Transactions - Search on multiple criteria
-* Transactions - Evolution with categories
+* Transactions - Long Press to update a transaction type
 * Transactions - Edition on card
 * Navigation - Overview / Analysis / Transactions by Account
 * Create widget/class for each view overview/analysis/transaction/account 
@@ -60,3 +60,5 @@ Create a simple tool to summarize and analysis of a financial situation thanks t
 ## Useful links
 * https://medium.com/@impaachu/how-to-upload-data-to-firebase-firestore-cloud-database-63543d7b34c5
 * https://csvjson.com/csv2json (Id_transaction doit être la première colonne + utilisé Hash)
+* https://google.github.io/charts/flutter/gallery
+

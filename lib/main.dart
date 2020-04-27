@@ -4,6 +4,7 @@ import 'package:walletexplorer/pages/root_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+
 void main() async {
   //Not working in web environment
   //SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {

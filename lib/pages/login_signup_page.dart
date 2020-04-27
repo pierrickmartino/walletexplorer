@@ -120,7 +120,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
               showEmailInput(),
               showPasswordInput(),
               showPrimaryButton(),
-              showSecondaryButton(),
+              //showSecondaryButton(),
               showErrorMessage(),
             ],
           ),

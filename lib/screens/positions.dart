@@ -12,7 +12,6 @@ class _PositionsState extends State<Positions> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        physics: NeverScrollableScrollPhysics(),
         primary: false,
         itemCount: assets.length,
         itemBuilder: (BuildContext context, int index) {

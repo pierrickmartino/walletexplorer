@@ -16,6 +16,16 @@ class Wallet extends StatefulWidget {
   _WalletState createState() => _WalletState();
 }
 
+class ClicksPerYear {
+  final String year;
+  final int clicks;
+  final charts.Color color;
+
+  ClicksPerYear(this.year, this.clicks, Color color)
+      : this.color = new charts.Color(
+            r: color.red, g: color.green, b: color.blue, a: color.alpha);
+}
+
 class _WalletState extends State<Wallet> {
   static Random random = Random();
   final data = [
@@ -55,6 +65,36 @@ class _WalletState extends State<Wallet> {
 
   @override
   Widget build(BuildContext context) {
+
+    var dataBar = [
+      new ClicksPerYear('2016', 12, Colors.red),
+      new ClicksPerYear('2017', 42, Colors.yellow),
+      new ClicksPerYear('2018', 33, Colors.green),
+    ];
+
+    var series = [
+      new charts.Series(
+        id: 'Clicks',
+        domainFn: (ClicksPerYear clickData, _) => clickData.year,
+        measureFn: (ClicksPerYear clickData, _) => clickData.clicks,
+        //colorFn: (ClicksPerYear clickData, _) => clickData.color,
+        data: dataBar,
+      ),
+    ];
+
+    var barchart = charts.BarChart(
+      series,
+      animate: true,
+    );
+
+    var piechart = charts.PieChart(
+      series,
+      animate: true,
+      defaultRenderer: new charts.ArcRendererConfig(
+            arcWidth: 60,
+            arcRendererDecorators: [new charts.ArcLabelDecorator()])
+    );
+
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(
@@ -107,14 +147,12 @@ class _WalletState extends State<Wallet> {
               ],
             ),
           ),
-
           Padding(
             padding: EdgeInsets.fromLTRB(20, 0, 0, 20),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(" "),
                 Container(
                   width: 200, //MediaQuery.of(context).size.width,
                   height: 45,
@@ -142,10 +180,19 @@ class _WalletState extends State<Wallet> {
                     ),
                   ),
                 ),
+                Container(
+                  width: 200, //MediaQuery.of(context).size.width,
+                  height: 200,
+                  child: barchart,
+                ),
+                Container(
+                  width: 200, //MediaQuery.of(context).size.width,
+                  height: 200,
+                  child: piechart,
+                ),
               ],
             ),
           ),
-          
           Padding(
             padding: EdgeInsets.fromLTRB(20, 0, 20, 5),
             child: Row(

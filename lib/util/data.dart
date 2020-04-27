@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:walletexplorer/widgets/transaction.dart';
+import 'package:walletexplorer/models/transactionType.dart';
 
 Random random = Random();
 List names = [
@@ -20,7 +21,7 @@ List names = [
 List types = ["recieved", "sent"];
 
 List assets = [
-{
+  {
     "icon": "asset_icon.png",
     "name": "Nestle",
     "alt": "NNN",
@@ -103,12 +104,33 @@ List coins = [
 var transactions = new List<Transaction>.generate(100, (index) {
   return Transaction(
     name: names[random.nextInt(10)],
-    date: "${random.nextInt(31).toString().padLeft(2,"0")}"
-      "/${random.nextInt(12).toString().padLeft(2,"0")}/2019",
+    date: "${random.nextInt(31).toString().padLeft(2, "0")}"
+        "/${random.nextInt(12).toString().padLeft(2, "0")}/2019",
     amount: "\$${random.nextInt(1000).toString()}",
     type: types[random.nextInt(2)],
     dp: "assets/cm${random.nextInt(10)}.jpeg",
   );
 });
 
-
+List transactionTypes = [
+  {
+    "label": "unknown",
+    "code": "unknown",
+    "icon": "?",
+  },
+  {
+    "label": "salary",
+    "code": "salary",
+    "icon": "s",
+  },
+  {
+    "label": "tax",
+    "code": "tax",
+    "icon": "t",
+  },
+  {
+    "label": "car",
+    "code": "car",
+    "icon": "c",
+  },
+];
