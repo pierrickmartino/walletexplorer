@@ -65,7 +65,6 @@ class _WalletState extends State<Wallet> {
 
   @override
   Widget build(BuildContext context) {
-
     var dataBar = [
       new ClicksPerYear('2016', 12, Colors.red),
       new ClicksPerYear('2017', 42, Colors.yellow),
@@ -85,14 +84,39 @@ class _WalletState extends State<Wallet> {
     var barchart = charts.BarChart(
       series,
       animate: true,
+      primaryMeasureAxis: charts.NumericAxisSpec(
+        renderSpec: charts.NoneRenderSpec(),
+      ),
     );
 
-    var piechart = charts.PieChart(
-      series,
-      animate: true,
-      defaultRenderer: new charts.ArcRendererConfig(
+    var piechart = charts.PieChart(series,
+        animate: true,
+        defaultRenderer: new charts.ArcRendererConfig(
             arcWidth: 60,
-            arcRendererDecorators: [new charts.ArcLabelDecorator()])
+            arcRendererDecorators: [new charts.ArcLabelDecorator()]));
+
+    var linechart = charts.LineChart(
+      <charts.Series<LinearToken, int>>[
+        charts.Series<LinearToken, int>(
+          id: '${widget.name}',
+          colorFn: (_, __) => widget.color,
+          domainFn: (LinearToken sales, _) => sales.day,
+          measureFn: (LinearToken sales, _) => sales.value,
+          data: data,
+        )
+      ],
+      defaultRenderer: charts.LineRendererConfig(
+        includeArea: true,
+        stacked: true,
+      ),
+      animate: true,
+      primaryMeasureAxis: charts.NumericAxisSpec(
+        renderSpec: charts.NoneRenderSpec(),
+      ),
+      domainAxis: charts.NumericAxisSpec(
+//                showAxisLine: true,
+        renderSpec: charts.NoneRenderSpec(),
+      ),
     );
 
     return Card(
@@ -166,49 +190,45 @@ class _WalletState extends State<Wallet> {
           ),
           Container(
             height: 300,
-            padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
             child: ListView(
-     
+              //padding: const EdgeInsets.all(20.0),
               scrollDirection: Axis.horizontal,
+              //shrinkWrap: true,
               children: <Widget>[
-             
-                Container(
-                  width: 300, //MediaQuery.of(context).size.width,
-                  height: 200,
-                  child: charts.LineChart(
-                    <charts.Series<LinearToken, int>>[
-                      charts.Series<LinearToken, int>(
-                        id: '${widget.name}',
-                        colorFn: (_, __) => widget.color,
-                        domainFn: (LinearToken sales, _) => sales.day,
-                        measureFn: (LinearToken sales, _) => sales.value,
-                        data: data,
-                      )
-                    ],
-                    defaultRenderer: charts.LineRendererConfig(
-                      includeArea: true,
-                      stacked: true,
+                Card(
+                    child: Column(
+                  children: <Widget>[
+                    Text('Graph 1'),
+                    Container(
+                      width: 300,
+                      height: 220,
+                      child: linechart,
                     ),
-                    animate: true,
-                    primaryMeasureAxis: charts.NumericAxisSpec(
-                      renderSpec: charts.NoneRenderSpec(),
+                  ],
+                )),
+                Card(
+                    child: Column(
+                  children: <Widget>[
+                    Text('Graph 2'),
+                    Container(
+                      width: 300,
+                      height: 220,
+                      child: barchart,
                     ),
-                    domainAxis: charts.NumericAxisSpec(
-//                showAxisLine: true,
-                      renderSpec: charts.NoneRenderSpec(),
+                  ],
+                )),
+                Card(
+                    child: Column(
+                  children: <Widget>[
+                    Text('Graph 3'),
+                    Container(
+                      width: 300,
+                      height: 220,
+                      child: piechart,
                     ),
-                  ),
-                ),
-                Container(
-                  width: 300, //MediaQuery.of(context).size.width,
-                  height: 200,
-                  child: barchart,
-                ),
-                Container(
-                  width: 300, //MediaQuery.of(context).size.width,
-                  height: 200,
-                  child: piechart,
-                ),
+                  ],
+                )),
               ],
             ),
           ),

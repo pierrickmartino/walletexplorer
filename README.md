@@ -42,7 +42,8 @@ Create a simple tool to summarize and analysis of a financial situation thanks t
 * Asset view - Add flip on card to show extra info
 
 ## Changelog
-* 0.14 - Overview - add a listView horizontal for chart display
+* 0.15 - Overview - Improvement in the display of the chart in the listView
+* 0.14 - Overview - Add a listView horizontal for chart display
 * 0.13 - Add a custom font to the application - Manrope (+ Theme)
 * 0.12 - Transactions - Improvement in the card layout and render
 * 0.11 - Transactions - Use data from Firestore to feed the list
