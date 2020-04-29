@@ -24,10 +24,10 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
   // Check if form is valid before perform login or signup
   bool validateAndSave() {
     final form = _formKey.currentState;
-    
+
     if (form.validate()) {
       form.save();
-      
+
       return true;
     }
     return false;
@@ -91,11 +91,11 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
         body: Stack(
-          children: <Widget>[
-            _showForm(),
-            _showCircularProgress(),
-          ],
-        ));
+      children: <Widget>[
+        _showForm(),
+        _showCircularProgress(),
+      ],
+    ));
   }
 
   Widget _showCircularProgress() {
@@ -174,7 +174,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             )),
         validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
         onSaved: (value) => _email = value.trim(),
-        onFieldSubmitted: (_){
+        onFieldSubmitted: (_) {
           fieldFocusChange(context, _emailFocusNode, _passwordFocusNode);
         },
       ),
@@ -226,7 +226,8 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         ));
   }
 
-  void fieldFocusChange(BuildContext context, FocusNode currentFocus,FocusNode nextFocus) {
+  void fieldFocusChange(
+      BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
   }

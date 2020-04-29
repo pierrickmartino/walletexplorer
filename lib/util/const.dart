@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-class Constants{
 
+class Constants {
   static String appName = "Wallet Explorer";
 
   //Colors for theme
@@ -8,7 +8,7 @@ class Constants{
   static Color lightSecondary = Color(0xfffcb1a6);
   static Color lightAccent = Color(0xffB39C4D);
   static Color lightBG = Color(0xfff9f9fc);
-  
+
   static Color darkPrimary = Color(0xff001513);
   static Color darkBG = Color(0xff001513);
   static Color darkSecondary = Color(0xffF7F7FF);
@@ -23,7 +23,7 @@ class Constants{
     backgroundColor: lightBG,
     bottomAppBarColor: lightBG,
     primaryColor: lightPrimary,
-    accentColor:  lightAccent,
+    accentColor: lightAccent,
     cursorColor: lightAccent,
     buttonColor: lightAccent,
     scaffoldBackgroundColor: lightBG,
@@ -48,5 +48,4 @@ class Constants{
       elevation: 0,
     ),
   );
-
 }

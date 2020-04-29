@@ -21,11 +21,11 @@ class RootPage extends StatefulWidget {
 class _RootPageState extends State<RootPage> {
   AuthStatus authStatus = AuthStatus.NOT_LOGGED_IN;
   String _userId = "";
-  
+
   @override
   void initState() {
     super.initState();
-    
+
     widget.auth.getCurrentUser().then((user) {
       setState(() {
         if (user != null) {

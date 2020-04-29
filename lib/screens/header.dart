@@ -14,7 +14,7 @@ class _Header extends State<Header> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body : ListTile(
+      body: ListTile(
         leading: CircleAvatar(
           backgroundImage: AssetImage(
             "assets/cm${random.nextInt(10)}.jpeg",

@@ -3,13 +3,12 @@ import 'package:walletexplorer/screens/analysis.dart';
 
 import 'package:walletexplorer/services/authentication.dart';
 import 'package:walletexplorer/screens/transactions.dart';
-import 'package:walletexplorer/screens/positions.dart';
+import 'package:walletexplorer/screens/overview.dart';
 import 'package:walletexplorer/screens/settings.dart';
 import 'package:walletexplorer/screens/accounts.dart';
 import 'package:walletexplorer/util/data.dart';
 import 'package:walletexplorer/util/navigation_rail.dart';
 
-import 'dart:async';
 import 'dart:math';
 
 class HomePage extends StatefulWidget {
@@ -28,7 +27,9 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   static Random random = Random();
   String name = names[random.nextInt(10)];
-  AssetImage userAccountPicture = AssetImage("assets/cm${random.nextInt(10)}.jpeg",);
+  AssetImage userAccountPicture = AssetImage(
+    "assets/cm${random.nextInt(10)}.jpeg",
+  );
 
   signOut() async {
     try {
@@ -42,17 +43,17 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return NavRail(
-      hideTitleBar : true,
+      hideTitleBar: true,
       //bottomNavigationBarColor: Theme.of(context).dividerColor,
       drawerHeaderBuilder: (context) {
         return Column(
           children: <Widget>[
             UserAccountsDrawerHeader(
               accountName: Text(name),
-              accountEmail: Text(name.toLowerCase().replaceAll(" ", ".") + "@gmail.com"),
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: userAccountPicture
-              ),
+              accountEmail:
+                  Text(name.toLowerCase().replaceAll(" ", ".") + "@gmail.com"),
+              currentAccountPicture:
+                  CircleAvatar(backgroundImage: userAccountPicture),
             ),
           ],
         );
@@ -62,7 +63,7 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             ListTile(
               leading: Icon(Icons.settings),
-              title: Text("Settings"), 
+              title: Text("Settings"),
             ),
             ListTile(
               leading: Icon(Icons.info_outline),
@@ -86,7 +87,7 @@ class _HomePageState extends State<HomePage> {
       body: IndexedStack(
         index: _currentIndex,
         children: <Widget>[
-          Positions(),
+          Overview(),
           Accounts(),
           Transactions(),
           Analysis(),

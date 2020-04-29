@@ -3,9 +3,7 @@ class TransactionType {
   final String label;
   final String icon;
 
-  TransactionType({
-    this.code, this.label, this.icon
-  });
+  TransactionType({this.code, this.label, this.icon});
 
   @override
   String toString() {

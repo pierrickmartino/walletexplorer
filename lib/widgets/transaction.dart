@@ -25,14 +25,13 @@ class Transaction {
   final String debitAmount;
   final String creditAmount;
   final String balance;
-  
+
   Transaction({
-    this.name, 
-    this.date, 
-    this.amount, 
-    this.type, 
+    this.name,
+    this.date,
+    this.amount,
+    this.type,
     this.dp,
-    
     this.transactionId,
     this.evaluationDate,
     this.relation,
@@ -52,6 +51,6 @@ class Transaction {
     this.subAmount,
     this.debitAmount,
     this.creditAmount,
-    this.balance, });
+    this.balance,
+  });
 }
-
