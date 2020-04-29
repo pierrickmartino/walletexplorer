@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:walletexplorer/models/transactionType.dart';
-import 'package:walletexplorer/util/data.dart';
 
 class Transactions extends StatefulWidget {
   @override
