@@ -9,8 +9,16 @@ class Account extends StatefulWidget {
   final String icon;
   final String rate;
   final String currency;
+  final String depositary;
   final charts.Color color;
-  Account({Key key, this.name, this.icon, this.rate, this.color, this.currency})
+  Account(
+      {Key key,
+      this.name,
+      this.icon,
+      this.rate,
+      this.color,
+      this.currency,
+      this.depositary})
       : super(key: key);
 
   @override
@@ -144,25 +152,13 @@ class _AccountState extends State<Account> {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    Image.asset(
-                      "${widget.icon}",
-                      height: 25,
-                      width: 25,
+                    Icon(
+                      Icons.account_balance_wallet,
+                      size: 25,
                     ),
                     SizedBox(width: 10),
                     Text(
                       "${widget.name}",
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-                //todo : align with other assets
-                Row(
-                  children: <Widget>[
-                    Text(
-                      "ISIN",
                       style: TextStyle(
                         fontSize: 16,
                       ),
@@ -185,7 +181,17 @@ class _AccountState extends State<Account> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(" "),
+                Row(
+                  children: <Widget>[
+                    SizedBox(width: 35),
+                    Text(
+                      "${widget.depositary}",
+                      style: TextStyle(
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
                 Text(
                   r"(0.3%) $21.67",
                   style: TextStyle(
@@ -230,7 +236,7 @@ class _AccountState extends State<Account> {
                               width: 4,
                             ),
                             const Text(
-                              'state',
+                              'by day',
                               style: TextStyle(
                                   color: Color(0xff77839a), fontSize: 14),
                             ),

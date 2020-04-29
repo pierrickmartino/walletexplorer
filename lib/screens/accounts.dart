@@ -22,6 +22,7 @@ class _AccountsState extends State<Accounts> {
             icon: asset['icon'],
             rate: asset['rate'],
             currency: asset['currency'],
+            depositary: asset['depositary'],
             color: asset['color'],
           );
         },

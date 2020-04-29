@@ -12,7 +12,7 @@ class Constants {
   static Color darkPrimary = Color(0xff001513);
   static Color darkBG = Color(0xff001513);
   static Color darkSecondary = Color(0xffF7F7FF);
-  static Color darkAccent = Color(0xff23B5D3);
+  static Color darkAccent = Color(0xff53fdd7); // 0xff23B5D3
   static Color darkBarColor = Color(0xffE0FF4F);
   static Color darkUnusedColor = Color(0xffEA526F);
   static Color darkCardColor = Color(0x1A23B5D3);
