@@ -1,6 +1,7 @@
-import 'package:walletexplorer/util/data.dart';
 import 'package:walletexplorer/widgets/account.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 class Accounts extends StatefulWidget {
   @override
@@ -8,25 +9,41 @@ class Accounts extends StatefulWidget {
 }
 
 class _AccountsState extends State<Accounts> {
+  final accountsReference = Firestore.instance
+      .collection("accounts")
+      .orderBy("relation", descending: true);
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.builder(
-        primary: false,
-        itemCount: assets.length,
-        itemBuilder: (BuildContext context, int index) {
-          Map asset = assets[index];
+    return StreamBuilder(
+      stream: accountsReference.snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData)
+          return LinearProgressIndicator();
+        else {
+          List accountsItems = [];
+          snapshot.data.documents.forEach((document) {
+            accountsItems.add({"key": document.documentID, ...document.data});
+          });
 
-          return Account(
-            name: asset['name'],
-            icon: asset['icon'],
-            rate: asset['rate'],
-            currency: asset['currency'],
-            depositary: asset['depositary'],
-            color: asset['color'],
+          return Scaffold(
+            body: ListView.builder(
+              primary: false,
+              itemCount: accountsItems.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Account(
+                  name: accountsItems[index]['relation'],
+                  icon: "asset_icon.png",
+                  rate: accountsItems[index]['balance'],
+                  currency: accountsItems[index]['currency'],
+                  depositary: accountsItems[index]['bank'],
+                  color: charts.MaterialPalette.blue.shadeDefault,
+                );
+              },
+            ),
           );
-        },
-      ),
+        }
+      },
     );
   }
 }
