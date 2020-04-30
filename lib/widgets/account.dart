@@ -149,49 +149,11 @@ class _AccountState extends State<Account> {
       BarChartData(
         maxY: 20,
         barTouchData: BarTouchData(
-            touchTooltipData: BarTouchTooltipData(
-              tooltipBgColor: Colors.grey,
-              getTooltipItem: (_a, _b, _c, _d) => null,
-            ),
-            touchCallback: (response) {
-              if (response.spot == null) {
-                setState(() {
-                  touchedGroupIndex = -1;
-                  showingBarGroups = List.of(rawBarGroups);
-                });
-                return;
-              }
-
-              touchedGroupIndex = response.spot.touchedBarGroupIndex;
-
-              setState(() {
-                if (response.touchInput is FlLongPressEnd ||
-                    response.touchInput is FlPanEnd) {
-                  touchedGroupIndex = -1;
-                  showingBarGroups = List.of(rawBarGroups);
-                } else {
-                  showingBarGroups = List.of(rawBarGroups);
-                  if (touchedGroupIndex != -1) {
-                    double sum = 0;
-                    for (BarChartRodData rod
-                        in showingBarGroups[touchedGroupIndex].barRods) {
-                      sum += rod.y;
-                    }
-                    final avg = sum /
-                        showingBarGroups[touchedGroupIndex].barRods.length;
-
-                    showingBarGroups[touchedGroupIndex] =
-                        showingBarGroups[touchedGroupIndex].copyWith(
-                      barRods: showingBarGroups[touchedGroupIndex]
-                          .barRods
-                          .map((rod) {
-                        return rod.copyWith(y: avg);
-                      }).toList(),
-                    );
-                  }
-                }
-              });
-            }),
+          touchTooltipData: BarTouchTooltipData(
+            tooltipBgColor: Colors.grey,
+            getTooltipItem: (_a, _b, _c, _d) => null,
+          ),
+        ),
         titlesData: FlTitlesData(
           show: true,
           bottomTitles: SideTitles(
@@ -204,29 +166,29 @@ class _AccountState extends State<Account> {
             getTitles: (double value) {
               switch (value.toInt()) {
                 case 0:
-                  return '01';
+                  return 'ja';
                 case 1:
-                  return '02';
+                  return 'fe';
                 case 2:
-                  return '03';
+                  return 'ma';
                 case 3:
-                  return '04';
+                  return 'ap';
                 case 4:
-                  return '05';
+                  return 'ma';
                 case 5:
-                  return '06';
+                  return 'ju';
                 case 6:
-                  return '07';
+                  return 'ju';
                 case 7:
-                  return '08';
+                  return 'au';
                 case 8:
-                  return '09';
+                  return 'se';
                 case 9:
-                  return '10';
+                  return 'oc';
                 case 10:
-                  return '11';
+                  return 'no';
                 case 11:
-                  return '12';
+                  return 'de';
                 default:
                   return '';
               }
@@ -321,7 +283,7 @@ class _AccountState extends State<Account> {
                   r"(0.3%) $21.67",
                   style: TextStyle(
                     fontSize: 12,
-                    color: Colors.green[400],
+                    color: Theme.of(context).accentColor,
                   ),
                 ),
               ],
@@ -352,7 +314,7 @@ class _AccountState extends State<Account> {
                                   TextStyle(color: Colors.white, fontSize: 18),
                             ),
                             const SizedBox(
-                              width: 4,
+                              width: 6,
                             ),
                             const Text(
                               'per month',

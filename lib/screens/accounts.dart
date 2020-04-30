@@ -11,7 +11,7 @@ class Accounts extends StatefulWidget {
 class _AccountsState extends State<Accounts> {
   final accountsReference = Firestore.instance
       .collection("accounts")
-      .orderBy("relation", descending: true);
+      .orderBy("relation", descending: false);
 
   @override
   Widget build(BuildContext context) {

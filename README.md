@@ -42,6 +42,7 @@ Create a simple tool to summarize and analysis of a financial situation thanks t
 * Asset view - Add flip on card to show extra info
 
 ## Changelog
+* 0.19 - Transactions - POC for open a SimpleDialor on longPress
 * 0.18 - Accounts - Use data from Firestore to feed the list
 * 0.17 - Accounts - Page layout re-organization
 * 0.16 - Integration of the fl_chart library for chart display
