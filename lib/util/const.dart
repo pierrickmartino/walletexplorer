@@ -44,6 +44,7 @@ class Constants {
     canvasColor: darkPrimary,
     dividerColor: darkCardColorLight,
     cardColor: darkCardColor,
+    bottomAppBarColor: darkUnusedColor,
     appBarTheme: AppBarTheme(
       elevation: 0,
     ),

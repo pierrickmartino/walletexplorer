@@ -42,6 +42,7 @@ Create a simple tool to summarize and analysis of a financial situation thanks t
 * Asset view - Add flip on card to show extra info
 
 ## Changelog
+* 0.20 - Integration of the circular_profile_avatar for transaction display
 * 0.19 - Transactions - POC for open a SimpleDialor on longPress
 * 0.18 - Accounts - Use data from Firestore to feed the list
 * 0.17 - Accounts - Page layout re-organization
@@ -68,4 +69,5 @@ Create a simple tool to summarize and analysis of a financial situation thanks t
 * https://csvjson.com/csv2json (Id_transaction doit être la première colonne + utilisé Hash)
 * https://google.github.io/charts/flutter/gallery
 * https://github.com/imaNNeoFighT/fl_chart
+* https://pub.dev/packages/circular_profile_avatar#
 

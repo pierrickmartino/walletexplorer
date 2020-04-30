@@ -1,3 +1,4 @@
+import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -14,6 +15,10 @@ class _TransactionsState extends State<Transactions> {
       .collection("transactions")
       .orderBy("accountingDate", descending: true);
 
+  final transactionTypesReference = Firestore.instance
+      .collection("transactionTypes")
+      .orderBy("label", descending: true);
+
   String _value = '';
 
   void _setValue(String value) => setState(() => _value = value);
@@ -24,23 +29,23 @@ class _TransactionsState extends State<Transactions> {
         /*it shows a popup with few options which you can select, for option we
         created enums which we can use with switch statement, in this first switch
         will wait for the user to select the option which it can use with switch cases*/
-        child: new SimpleDialog(
-          title: new Text('Do you like Flutter?'),
+        child: SimpleDialog(
+          title: Text('New transaction type :'),
           children: <Widget>[
-            new SimpleDialogOption(
-              child: new Text('Yes!!!'),
+            SimpleDialogOption(
+              child: Text('Yes!!!'),
               onPressed: () {
                 Navigator.pop(context, Answers.YES);
               },
             ),
-            new SimpleDialogOption(
-              child: new Text('NO :('),
+            SimpleDialogOption(
+              child: Text('NO :('),
               onPressed: () {
                 Navigator.pop(context, Answers.NO);
               },
             ),
-            new SimpleDialogOption(
-              child: new Text('Maybe :|'),
+            SimpleDialogOption(
+              child: Text('Maybe :|'),
               onPressed: () {
                 Navigator.pop(context, Answers.MAYBE);
               },
@@ -103,11 +108,22 @@ class _TransactionsState extends State<Transactions> {
                   child: ExpansionTile(
                     leading: GestureDetector(
                       onLongPress: _askUser,
-                      child: CircleAvatar(
-                        child: Text('?',
-                            style: TextStyle(
-                                color: Theme.of(context).accentColor)),
-                        backgroundColor: Theme.of(context).cardColor,
+                      child: CircularProfileAvatar(
+                        '',
+                        radius: 30,
+                        backgroundColor: Colors.transparent,
+                        borderWidth: 10,
+                        initialsText: Text(
+                          "?",
+                          style: TextStyle(
+                              fontSize: 24,
+                              color: Theme.of(context).accentColor),
+                        ),
+                        borderColor: Theme.of(context).cardColor,
+                        elevation: 5.0,
+                        foregroundColor:
+                            Theme.of(context).cardColor.withOpacity(0.5),
+                        showInitialTextAbovePicture: true,
                       ),
                     ),
                     trailing: Column(
@@ -121,8 +137,8 @@ class _TransactionsState extends State<Transactions> {
                             style: TextStyle(
                               color:
                                   transactionsItems[index]['creditAmount'] == ""
-                                      ? Colors.red
-                                      : Colors.green,
+                                      ? Theme.of(context).bottomAppBarColor
+                                      : Theme.of(context).cardColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
                             ),
