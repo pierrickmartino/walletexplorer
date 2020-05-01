@@ -1,5 +1,5 @@
 import 'package:walletexplorer/util/data.dart';
-import 'package:walletexplorer/widgets/account.dart';
+import 'package:walletexplorer/ui/widgets/account.dart';
 import 'package:flutter/material.dart';
 
 class Settings extends StatefulWidget {

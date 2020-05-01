@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:walletexplorer/widgets/transaction.dart';
+import 'package:walletexplorer/ui/widgets/transaction.dart';
 
 Random random = Random();
 List names = [

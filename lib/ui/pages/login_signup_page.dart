@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:walletexplorer/services/authentication.dart';
+import 'package:walletexplorer/core/services/authentication.dart';
 
 class LoginSignupPage extends StatefulWidget {
   LoginSignupPage({this.auth, this.loginCallback});

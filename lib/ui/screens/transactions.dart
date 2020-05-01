@@ -1,6 +1,10 @@
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as _firestore;
+import 'package:provider/provider.dart';
+import 'package:walletexplorer/core/models/transaction_type.dart';
+import 'package:walletexplorer/core/viewmodels/transaction_view.dart';
+import 'package:walletexplorer/core/models/transaction.dart';
 
 class Transactions extends StatefulWidget {
   @override
@@ -11,17 +15,25 @@ enum Answers { YES, NO, MAYBE }
 
 class _TransactionsState extends State<Transactions> {
   TextEditingController editingController = TextEditingController();
-  final transactionsReference = Firestore.instance
-      .collection("transactions")
-      .orderBy("accountingDate", descending: true);
-
-  final transactionTypesReference = Firestore.instance
-      .collection("transactionTypes")
-      .orderBy("label", descending: true);
+  List<Transaction> transactions;
+  List<TransactionType> transactionTypes;
 
   String _value = '';
 
   void _setValue(String value) => setState(() => _value = value);
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  // Get all the available transaction types from firestore
+  Future<_firestore.QuerySnapshot> getAllTransactionTypes() {
+    final transactionTypesReference = _firestore.Firestore.instance
+        .collection("transactionTypes")
+        .orderBy("label", descending: true);
+    return transactionTypesReference.getDocuments();
+  }
 
   Future _askUser() async {
     switch (await showDialog(
@@ -33,19 +45,19 @@ class _TransactionsState extends State<Transactions> {
           title: Text('New transaction type :'),
           children: <Widget>[
             SimpleDialogOption(
-              child: Text('Yes!!!'),
+              child: Text('Unknown'),
               onPressed: () {
                 Navigator.pop(context, Answers.YES);
               },
             ),
             SimpleDialogOption(
-              child: Text('NO :('),
+              child: Text('Tax'),
               onPressed: () {
                 Navigator.pop(context, Answers.NO);
               },
             ),
             SimpleDialogOption(
-              child: Text('Maybe :|'),
+              child: Text('Consumer goods'),
               onPressed: () {
                 Navigator.pop(context, Answers.MAYBE);
               },
@@ -66,17 +78,17 @@ class _TransactionsState extends State<Transactions> {
 
   @override
   Widget build(BuildContext context) {
+    final transactionProvider = Provider.of<TransactionView>(context);
+
     return StreamBuilder(
-      stream: transactionsReference.snapshots(),
+      stream: transactionProvider.fetchTransactionsAsStream(),
       builder: (context, snapshot) {
         if (!snapshot.hasData)
           return LinearProgressIndicator();
         else {
-          List transactionsItems = [];
-          snapshot.data.documents.forEach((document) {
-            transactionsItems
-                .add({"key": document.documentID, ...document.data});
-          });
+          transactions = snapshot.data.documents
+              .map((doc) => Transaction.fromMap(doc.data, doc.documentID))
+              .toList();
 
           return Container(
               child: Column(children: <Widget>[
@@ -96,7 +108,7 @@ class _TransactionsState extends State<Transactions> {
             Expanded(
                 child: ListView.builder(
               shrinkWrap: true,
-              itemCount: transactionsItems.length,
+              itemCount: transactions.length,
               itemBuilder: (BuildContext context, int index) {
                 return Card(
                   elevation: 4,
@@ -131,50 +143,27 @@ class _TransactionsState extends State<Transactions> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
                           Text(
-                            transactionsItems[index]['creditAmount'] == ""
-                                ? "- ${transactionsItems[index]['debitAmount']}"
-                                : "+ ${transactionsItems[index]['creditAmount']}",
+                            transactions[index].creditAmount == ""
+                                ? "- ${transactions[index].debitAmount}"
+                                : "+ ${transactions[index].creditAmount}",
                             style: TextStyle(
-                              color:
-                                  transactionsItems[index]['creditAmount'] == ""
-                                      ? Theme.of(context).bottomAppBarColor
-                                      : Theme.of(context).cardColor,
+                              color: transactions[index].creditAmount == ""
+                                  ? Theme.of(context).bottomAppBarColor
+                                  : Theme.of(context).cardColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
                             ),
                           ),
-                          // PopupMenuButton(
-                          //   itemBuilder: (context) {
-                          //     var list = List<PopupMenuEntry<Object>>();
-                          //     list.add(PopupMenuItem(
-                          //       value: transactionTypes[0],
-                          //       child: Text(transactionTypes[0]['label']),
-                          //     ));
-                          //     list.add(PopupMenuItem(
-                          //       value: transactionTypes[1],
-                          //       child: Text(transactionTypes[1]['label']),
-                          //     ));
-                          //     list.add(PopupMenuItem(
-                          //       value: transactionTypes[2],
-                          //       child: Text(transactionTypes[2]['label']),
-                          //     ));
-                          //     list.add(PopupMenuItem(
-                          //       value: transactionTypes[3],
-                          //       child: Text(transactionTypes[3]['label']),
-                          //     ));
-                          //     return list;
-                          //   },
-                          // ),
-                          Text(transactionsItems[index]['accountingDate'],
+                          Text(transactions[index].accountingDate,
                               style: TextStyle(
                                 fontSize: 12,
                               )),
                         ]),
-                    title: Text(transactionsItems[index]['description2'],
+                    title: Text(transactions[index].description2,
                         style: TextStyle(
                           fontSize: 14,
                         )),
-                    subtitle: Text(transactionsItems[index]['description1'],
+                    subtitle: Text(transactions[index].description1,
                         style: TextStyle(
                           fontSize: 12,
                         )),
@@ -194,35 +183,32 @@ class _TransactionsState extends State<Transactions> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text(transactionsItems[index]['description1'],
+                                Text(transactions[index].description1,
                                     style: TextStyle(
                                       fontSize: 12,
                                     )),
-                                Text(transactionsItems[index]['description2'],
+                                Text(transactions[index].description2,
                                     style: TextStyle(
                                       fontSize: 12,
                                     )),
-                                Text(transactionsItems[index]['description3'],
+                                Text(transactions[index].description3,
                                     style: TextStyle(
                                       fontSize: 12,
                                     )),
                                 Text(""),
-                                Text(
-                                    "IBAN: " +
-                                        transactionsItems[index]['refIBAN'],
+                                Text("IBAN: " + transactions[index].refIBAN,
                                     style: TextStyle(
                                       fontSize: 12,
                                     )),
                                 Text(
                                     "Accounting date: " +
-                                        transactionsItems[index]
-                                            ['accountingDate'],
+                                        transactions[index].accountingDate,
                                     style: TextStyle(
                                       fontSize: 12,
                                     )),
                                 Text(
                                     "Value date: " +
-                                        transactionsItems[index]['valueDate'],
+                                        transactions[index].valueDate,
                                     style: TextStyle(
                                       fontSize: 12,
                                     )),

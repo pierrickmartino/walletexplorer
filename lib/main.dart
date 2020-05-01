@@ -1,9 +1,8 @@
 import 'package:walletexplorer/util/const.dart';
-import 'package:walletexplorer/services/authentication.dart';
-import 'package:walletexplorer/pages/root_page.dart';
+import 'package:walletexplorer/core/services/authentication.dart';
+import 'package:walletexplorer/ui/pages/root_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 
 void main() async {
   //Not working in web environment
@@ -33,12 +32,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: Constants.appName,
-        theme: isDark ? Constants.darkTheme : Constants.lightTheme,
-
-        home: new RootPage(auth: new Auth()),
-
-        );
+      debugShowCheckedModeBanner: false,
+      title: Constants.appName,
+      theme: isDark ? Constants.darkTheme : Constants.lightTheme,
+      home: new RootPage(auth: new Auth()),
+    );
   }
 }

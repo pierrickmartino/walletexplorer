@@ -1,7 +1,9 @@
-import 'package:walletexplorer/widgets/account.dart';
+import 'package:walletexplorer/ui/widgets/account.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+// import 'package:walletexplorer/core/viewmodels/account_view.dart';
+// import 'package:walletexplorer/core/models/account.dart';
 
 class Accounts extends StatefulWidget {
   @override

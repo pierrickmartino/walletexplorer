@@ -21,6 +21,8 @@ Create a simple tool to summarize and analysis of a financial situation thanks t
     * Evolution of expenses dedicated to a specific usage (car for example)
 
 ## Backlog
+* Account - Use the model view class to access data
+* Account - Size on full screen of the graph is a bit too large
 * Login screen - Press Enter key to validate
 * Import - Auto-creation for new account from an importation if needed
 * Header view - Add a persistent header for overview
@@ -42,6 +44,7 @@ Create a simple tool to summarize and analysis of a financial situation thanks t
 * Asset view - Add flip on card to show extra info
 
 ## Changelog
+* 0.21 - Improvement in the project organization + integration of 2 dependencies (provider & get_it) + use of view class to access firestore data (transaction)
 * 0.20 - Integration of the circular_profile_avatar for transaction display
 * 0.19 - Transactions - POC for open a SimpleDialor on longPress
 * 0.18 - Accounts - Use data from Firestore to feed the list
@@ -69,5 +72,7 @@ Create a simple tool to summarize and analysis of a financial situation thanks t
 * https://csvjson.com/csv2json (Id_transaction doit être la première colonne + utilisé Hash)
 * https://google.github.io/charts/flutter/gallery
 * https://github.com/imaNNeoFighT/fl_chart
-* https://pub.dev/packages/circular_profile_avatar#
+* https://pub.dev/packages/circular_profile_avatar
+* https://pub.dev/packages/provider
+* https://pub.dev/packages/get_it
 

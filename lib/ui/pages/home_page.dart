@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:walletexplorer/screens/analysis.dart';
+import 'package:walletexplorer/ui/screens/analysis.dart';
 
-import 'package:walletexplorer/services/authentication.dart';
-import 'package:walletexplorer/screens/transactions.dart';
-import 'package:walletexplorer/screens/overview.dart';
-import 'package:walletexplorer/screens/settings.dart';
-import 'package:walletexplorer/screens/accounts.dart';
+import 'package:walletexplorer/core/services/authentication.dart';
+import 'package:walletexplorer/ui/screens/transactions.dart';
+import 'package:walletexplorer/ui/screens/overview.dart';
+import 'package:walletexplorer/ui/screens/settings.dart';
+import 'package:walletexplorer/ui/screens/accounts.dart';
 import 'package:walletexplorer/util/data.dart';
 import 'package:walletexplorer/util/navigation_rail.dart';
 

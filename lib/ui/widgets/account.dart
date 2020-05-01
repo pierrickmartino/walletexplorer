@@ -166,29 +166,29 @@ class _AccountState extends State<Account> {
             getTitles: (double value) {
               switch (value.toInt()) {
                 case 0:
-                  return 'ja';
+                  return 'j';
                 case 1:
-                  return 'fe';
+                  return 'f';
                 case 2:
-                  return 'ma';
+                  return 'm';
                 case 3:
-                  return 'ap';
+                  return 'a';
                 case 4:
-                  return 'ma';
+                  return 'm';
                 case 5:
-                  return 'ju';
+                  return 'j';
                 case 6:
-                  return 'ju';
+                  return 'j';
                 case 7:
-                  return 'au';
+                  return 'a';
                 case 8:
-                  return 'se';
+                  return 's';
                 case 9:
-                  return 'oc';
+                  return 'o';
                 case 10:
-                  return 'no';
+                  return 'n';
                 case 11:
-                  return 'de';
+                  return 'd';
                 default:
                   return '';
               }
@@ -334,7 +334,7 @@ class _AccountState extends State<Account> {
                           ),
                         ),
                         const SizedBox(
-                          height: 12,
+                          height: 8,
                         ),
                       ],
                     ),
@@ -384,12 +384,12 @@ class _AccountState extends State<Account> {
     return BarChartGroupData(barsSpace: 4, x: x, barRods: [
       BarChartRodData(
         y: y1,
-        color: leftBarColor,
+        color: Theme.of(context).accentColor,
         width: width,
       ),
       BarChartRodData(
         y: y2,
-        color: rightBarColor,
+        color: Theme.of(context).bottomAppBarColor,
         width: width,
       ),
     ]);
