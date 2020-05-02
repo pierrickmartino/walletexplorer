@@ -27,6 +27,7 @@ class Account {
     return '{ ${this.balance}, ${this.bank}, ${this.currency}, ${this.description}, ${this.evaluationDate}, ${this.product}, ${this.refIBAN}, ${this.relation}}';
   }
 
+  @override
   Account.fromMap(Map snapshot, String id)
       : id = id ?? '',
         balance = snapshot['balance'] ?? '',

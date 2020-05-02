@@ -1,3 +1,7 @@
+import 'package:provider/provider.dart';
+import 'package:walletexplorer/core/viewmodels/CRUDModel.dart';
+import 'package:walletexplorer/locator.dart';
+import 'package:walletexplorer/ui/router.dart';
 import 'package:walletexplorer/util/const.dart';
 import 'package:walletexplorer/core/services/authentication.dart';
 import 'package:walletexplorer/ui/pages/root_page.dart';
@@ -7,6 +11,7 @@ import 'package:flutter/services.dart';
 void main() async {
   //Not working in web environment
   //SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
+  setupLocator();
   runApp(MyApp());
   //});
 }
@@ -31,11 +36,24 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: Constants.appName,
-      theme: isDark ? Constants.darkTheme : Constants.lightTheme,
-      home: new RootPage(auth: new Auth()),
+    // return MaterialApp(
+    //   debugShowCheckedModeBanner: false,
+    //   title: Constants.appName,
+    //   theme: isDark ? Constants.darkTheme : Constants.lightTheme,
+    //   home: new RootPage(auth: new Auth()),
+    // );
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => locator<CRUDModel>()),
+        //ChangeNotifierProvider(create: (_) => locator<AccountView>()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/login',
+        title: Constants.appName,
+        theme: isDark ? Constants.darkTheme : Constants.lightTheme,
+        onGenerateRoute: Router.generateRoute,
+      ),
     );
   }
 }

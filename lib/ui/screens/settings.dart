@@ -18,7 +18,7 @@ class _SettingsState extends State<Settings> {
         itemBuilder: (BuildContext context, int index) {
           Map asset = assets[index];
 
-          return Account(
+          return AccountUI(
             name: asset['name'],
             icon: asset['icon'],
             rate: asset['rate'],

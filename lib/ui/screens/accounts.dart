@@ -1,9 +1,9 @@
-import 'package:walletexplorer/ui/widgets/account.dart';
+import 'package:provider/provider.dart';
+import 'package:walletexplorer/core/viewmodels/CRUDModel.dart';
+import 'package:walletexplorer/core/models/account.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-// import 'package:walletexplorer/core/viewmodels/account_view.dart';
-// import 'package:walletexplorer/core/models/account.dart';
+import 'package:walletexplorer/ui/widgets/account.dart';
 
 class Accounts extends StatefulWidget {
   @override
@@ -11,34 +11,33 @@ class Accounts extends StatefulWidget {
 }
 
 class _AccountsState extends State<Accounts> {
-  final accountsReference = Firestore.instance
-      .collection("accounts")
-      .orderBy("relation", descending: false);
+  List<Account> accounts;
 
   @override
   Widget build(BuildContext context) {
+    final accountProvider = Provider.of<CRUDModel>(context);
+
     return StreamBuilder(
-      stream: accountsReference.snapshots(),
+      stream: accountProvider.fetchAccountsAsStream(),
       builder: (context, snapshot) {
         if (!snapshot.hasData)
           return LinearProgressIndicator();
         else {
-          List accountsItems = [];
-          snapshot.data.documents.forEach((document) {
-            accountsItems.add({"key": document.documentID, ...document.data});
-          });
+          accounts = snapshot.data.documents
+              .map<Account>((doc) => Account.fromMap(doc.data, doc.documentID))
+              .toList();
 
           return Scaffold(
             body: ListView.builder(
               primary: false,
-              itemCount: accountsItems.length,
+              itemCount: accounts.length,
               itemBuilder: (BuildContext context, int index) {
-                return Account(
-                  name: accountsItems[index]['relation'],
+                return AccountUI(
+                  name: accounts[index].relation,
                   icon: "asset_icon.png",
-                  rate: accountsItems[index]['balance'],
-                  currency: accountsItems[index]['currency'],
-                  depositary: accountsItems[index]['bank'],
+                  rate: accounts[index].balance,
+                  currency: accounts[index].currency,
+                  depositary: accounts[index].bank,
                   color: charts.MaterialPalette.blue.shadeDefault,
                 );
               },

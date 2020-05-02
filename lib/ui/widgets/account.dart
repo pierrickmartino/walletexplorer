@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:fl_chart/fl_chart.dart';
 
-class Account extends StatefulWidget {
+class AccountUI extends StatefulWidget {
   final String name;
   final String icon;
   final String rate;
   final String currency;
   final String depositary;
   final charts.Color color;
-  Account(
+  AccountUI(
       {Key key,
       this.name,
       this.icon,
@@ -35,7 +35,7 @@ class ClicksPerYear {
             r: color.red, g: color.green, b: color.blue, a: color.alpha);
 }
 
-class _AccountState extends State<Account> {
+class _AccountState extends State<AccountUI> {
   static Random random = Random();
   final data = [
     LinearToken(0, random.nextInt(300)),

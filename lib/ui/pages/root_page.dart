@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:walletexplorer/ui/pages/login_signup_page.dart';
 import 'package:walletexplorer/core/services/authentication.dart';
-import 'package:walletexplorer/ui/pages/home_page.dart';
+import 'package:walletexplorer/ui/views/homeView.dart';
 
 enum AuthStatus {
   NOT_DETERMINED,
@@ -78,7 +78,7 @@ class _RootPageState extends State<RootPage> {
         break;
       case AuthStatus.LOGGED_IN:
         if (_userId.length > 0 && _userId != null) {
-          return new HomePage(
+          return new HomeView(
             userId: _userId,
             auth: widget.auth,
             logoutCallback: logoutCallback,

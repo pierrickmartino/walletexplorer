@@ -1,10 +1,13 @@
 import 'package:get_it/get_it.dart';
 import 'package:walletexplorer/core/services/api_firestore.dart';
-import 'package:walletexplorer/core/viewModels/transaction_type_view.dart';
+import 'package:walletexplorer/core/viewmodels/CRUDModel.dart';
 
-GetIt locator = GetIt.instance;
+final locator = GetIt.instance;
 
 void setupLocator() {
-  locator.registerLazySingleton(() => ApiFirestore('transactionTypes'));
-  locator.registerLazySingleton(() => TransactionTypeView());
+  locator.registerLazySingleton<CRUDModel>(() => CRUDModel());
+  locator.registerLazySingleton<ApiFirestoreTransactions>(
+      () => ApiFirestoreTransactions());
+  locator.registerLazySingleton<ApiFirestoreAccounts>(
+      () => ApiFirestoreAccounts());
 }

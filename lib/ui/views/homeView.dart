@@ -11,8 +11,8 @@ import 'package:walletexplorer/util/navigation_rail.dart';
 
 import 'dart:math';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key key, this.auth, this.userId, this.logoutCallback})
+class HomeView extends StatefulWidget {
+  HomeView({Key key, this.auth, this.userId, this.logoutCallback})
       : super(key: key);
 
   final BaseAuth auth;
@@ -20,10 +20,10 @@ class HomePage extends StatefulWidget {
   final String userId;
 
   @override
-  State<StatefulWidget> createState() => new _HomePageState();
+  State<StatefulWidget> createState() => _HomeViewState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeViewState extends State<HomeView> {
   int _currentIndex = 0;
   static Random random = Random();
   String name = names[random.nextInt(10)];

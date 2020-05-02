@@ -1,5 +1,5 @@
 class Transaction {
-  String id;
+  String key;
   String accountingDate;
   String balance;
   String creditAmount;
@@ -20,7 +20,7 @@ class Transaction {
   String valueDate;
 
   Transaction(
-      {this.id,
+      {this.key,
       this.accountingDate,
       this.balance,
       this.creditAmount,
@@ -45,8 +45,9 @@ class Transaction {
     return '{ ${this.accountingDate}, ${this.balance}, ${this.creditAmount}, ${this.dateFrom}, ${this.dateTo}, ${this.debitAmount}, ${this.description}, ${this.description1}, ${this.description2}, ${this.description3}, ${this.evaluationDate}, ${this.exchangeRate}, ${this.product}, ${this.refIBAN}, ${this.relation}, ${this.subAmount}, ${this.transactionDate}, ${this.valueDate}}';
   }
 
-  Transaction.fromMap(Map snapshot, String id)
-      : id = id ?? '',
+  @override
+  Transaction.fromMap(Map snapshot, String key)
+      : key = key ?? '',
         accountingDate = snapshot['accountingDate'] ?? '',
         balance = snapshot['balance'] ?? '',
         creditAmount = snapshot['creditAmount'] ?? '',

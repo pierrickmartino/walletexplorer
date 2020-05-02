@@ -1,9 +1,9 @@
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart' as _firestore;
+//import 'package:cloud_firestore/cloud_firestore.dart' as _firestore;
 import 'package:provider/provider.dart';
 import 'package:walletexplorer/core/models/transaction_type.dart';
-import 'package:walletexplorer/core/viewmodels/transaction_view.dart';
+import 'package:walletexplorer/core/viewmodels/CRUDModel.dart';
 import 'package:walletexplorer/core/models/transaction.dart';
 
 class Transactions extends StatefulWidget {
@@ -11,83 +11,84 @@ class Transactions extends StatefulWidget {
   _TransactionsState createState() => _TransactionsState();
 }
 
-enum Answers { YES, NO, MAYBE }
+//enum Answers { YES, NO, MAYBE }
 
 class _TransactionsState extends State<Transactions> {
   TextEditingController editingController = TextEditingController();
   List<Transaction> transactions;
   List<TransactionType> transactionTypes;
 
-  String _value = '';
+// String _value = '';
 
-  void _setValue(String value) => setState(() => _value = value);
+// void _setValue(String value) => setState(() => _value = value);
 
-  @override
-  void initState() {
-    super.initState();
-  }
+// @override
+// void initState() {
+//   super.initState();
+// }
 
-  // Get all the available transaction types from firestore
-  Future<_firestore.QuerySnapshot> getAllTransactionTypes() {
-    final transactionTypesReference = _firestore.Firestore.instance
-        .collection("transactionTypes")
-        .orderBy("label", descending: true);
-    return transactionTypesReference.getDocuments();
-  }
+// Get all the available transaction types from firestore
+// Future<_firestore.QuerySnapshot> getAllTransactionTypes() {
+//   final transactionTypesReference = _firestore.Firestore.instance
+//       .collection("transactionTypes")
+//       .orderBy("label", descending: true);
+//   return transactionTypesReference.getDocuments();
+// }
 
-  Future _askUser() async {
-    switch (await showDialog(
-        context: context,
-        /*it shows a popup with few options which you can select, for option we
-        created enums which we can use with switch statement, in this first switch
-        will wait for the user to select the option which it can use with switch cases*/
-        child: SimpleDialog(
-          title: Text('New transaction type :'),
-          children: <Widget>[
-            SimpleDialogOption(
-              child: Text('Unknown'),
-              onPressed: () {
-                Navigator.pop(context, Answers.YES);
-              },
-            ),
-            SimpleDialogOption(
-              child: Text('Tax'),
-              onPressed: () {
-                Navigator.pop(context, Answers.NO);
-              },
-            ),
-            SimpleDialogOption(
-              child: Text('Consumer goods'),
-              onPressed: () {
-                Navigator.pop(context, Answers.MAYBE);
-              },
-            ),
-          ],
-        ))) {
-      case Answers.YES:
-        _setValue('Yes');
-        break;
-      case Answers.NO:
-        _setValue('No');
-        break;
-      case Answers.MAYBE:
-        _setValue('Maybe');
-        break;
-    }
-  }
+// Future _askUser() async {
+//   switch (await showDialog(
+//       context: context,
+//       /*it shows a popup with few options which you can select, for option we
+//       created enums which we can use with switch statement, in this first switch
+//       will wait for the user to select the option which it can use with switch cases*/
+//       child: SimpleDialog(
+//         title: Text('New transaction type :'),
+//         children: <Widget>[
+//           SimpleDialogOption(
+//             child: Text('Unknown'),
+//             onPressed: () {
+//               Navigator.pop(context, Answers.YES);
+//             },
+//           ),
+//           SimpleDialogOption(
+//             child: Text('Tax'),
+//             onPressed: () {
+//               Navigator.pop(context, Answers.NO);
+//             },
+//           ),
+//           SimpleDialogOption(
+//             child: Text('Consumer goods'),
+//             onPressed: () {
+//               Navigator.pop(context, Answers.MAYBE);
+//             },
+//           ),
+//         ],
+//       ))) {
+//     case Answers.YES:
+//       _setValue('Yes');
+//       break;
+//     case Answers.NO:
+//       _setValue('No');
+//       break;
+//     case Answers.MAYBE:
+//       _setValue('Maybe');
+//       break;
+//   }
+// }
 
   @override
   Widget build(BuildContext context) {
-    final transactionProvider = Provider.of<TransactionView>(context);
+    final transactionProvider = Provider.of<CRUDModel>(context);
 
     return StreamBuilder(
       stream: transactionProvider.fetchTransactionsAsStream(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData)
+        if (!snapshot.hasData) {
           return LinearProgressIndicator();
-        else {
+        } else {
           transactions = snapshot.data.documents
-              .map((doc) => Transaction.fromMap(doc.data, doc.documentID))
+              .map<Transaction>(
+                  (doc) => Transaction.fromMap(doc.data, doc.documentID))
               .toList();
 
           return Container(
@@ -119,7 +120,7 @@ class _TransactionsState extends State<Transactions> {
                   ),
                   child: ExpansionTile(
                     leading: GestureDetector(
-                      onLongPress: _askUser,
+                      //onLongPress: _askUser,
                       child: CircularProfileAvatar(
                         '',
                         radius: 30,
