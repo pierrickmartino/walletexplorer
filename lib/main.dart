@@ -3,8 +3,6 @@ import 'package:walletexplorer/core/viewmodels/CRUDModel.dart';
 import 'package:walletexplorer/locator.dart';
 import 'package:walletexplorer/ui/router.dart';
 import 'package:walletexplorer/util/const.dart';
-import 'package:walletexplorer/core/services/authentication.dart';
-import 'package:walletexplorer/ui/pages/root_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -36,16 +34,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // return MaterialApp(
-    //   debugShowCheckedModeBanner: false,
-    //   title: Constants.appName,
-    //   theme: isDark ? Constants.darkTheme : Constants.lightTheme,
-    //   home: new RootPage(auth: new Auth()),
-    // );
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => locator<CRUDModel>()),
-        //ChangeNotifierProvider(create: (_) => locator<AccountView>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

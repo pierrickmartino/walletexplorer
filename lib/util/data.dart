@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:walletexplorer/ui/widgets/transaction.dart';
+import 'package:walletexplorer/ui/widgets/transactionTest.dart';
 
 Random random = Random();
 List names = [
@@ -105,8 +105,8 @@ List coins = [
   },
 ];
 
-var transactions = new List<Transaction>.generate(100, (index) {
-  return Transaction(
+var transactions = new List<ObjecTest>.generate(100, (index) {
+  return ObjecTest(
     name: names[random.nextInt(10)],
     date: "${random.nextInt(31).toString().padLeft(2, "0")}"
         "/${random.nextInt(12).toString().padLeft(2, "0")}/2019",

@@ -10,4 +10,6 @@ void setupLocator() {
       () => ApiFirestoreTransactions());
   locator.registerLazySingleton<ApiFirestoreAccounts>(
       () => ApiFirestoreAccounts());
+  locator.registerLazySingleton<ApiFirestoreTransactionTypes>(
+      () => ApiFirestoreTransactionTypes());
 }

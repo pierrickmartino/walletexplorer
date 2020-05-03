@@ -1,11 +1,11 @@
 class Transaction {
-  String key;
+  String id;
   String accountingDate;
   String balance;
-  String creditAmount;
+  double creditAmount;
   String dateFrom;
   String dateTo;
-  String debitAmount;
+  double debitAmount;
   String description;
   String description1;
   String description2;
@@ -18,9 +18,11 @@ class Transaction {
   String subAmount;
   String transactionDate;
   String valueDate;
+  String type;
+  String icon;
 
   Transaction(
-      {this.key,
+      {this.id,
       this.accountingDate,
       this.balance,
       this.creditAmount,
@@ -38,16 +40,18 @@ class Transaction {
       this.relation,
       this.subAmount,
       this.transactionDate,
-      this.valueDate});
+      this.valueDate,
+      this.type,
+      this.icon});
 
   @override
   String toString() {
-    return '{ ${this.accountingDate}, ${this.balance}, ${this.creditAmount}, ${this.dateFrom}, ${this.dateTo}, ${this.debitAmount}, ${this.description}, ${this.description1}, ${this.description2}, ${this.description3}, ${this.evaluationDate}, ${this.exchangeRate}, ${this.product}, ${this.refIBAN}, ${this.relation}, ${this.subAmount}, ${this.transactionDate}, ${this.valueDate}}';
+    return '{ ${this.accountingDate}, ${this.balance}, ${this.creditAmount}, ${this.dateFrom}, ${this.dateTo}, ${this.debitAmount}, ${this.description}, ${this.description1}, ${this.description2}, ${this.description3}, ${this.evaluationDate}, ${this.exchangeRate}, ${this.product}, ${this.refIBAN}, ${this.relation}, ${this.subAmount}, ${this.transactionDate}, ${this.valueDate}, ${this.type}, ${this.icon}}';
   }
 
   @override
-  Transaction.fromMap(Map snapshot, String key)
-      : key = key ?? '',
+  Transaction.fromMap(Map snapshot, String id)
+      : id = id ?? '',
         accountingDate = snapshot['accountingDate'] ?? '',
         balance = snapshot['balance'] ?? '',
         creditAmount = snapshot['creditAmount'] ?? '',
@@ -65,7 +69,9 @@ class Transaction {
         relation = snapshot['relation'] ?? '',
         subAmount = snapshot['subAmount'] ?? '',
         transactionDate = snapshot['transactionDate'] ?? '',
-        valueDate = snapshot['valueDate'] ?? '';
+        valueDate = snapshot['valueDate'] ?? '',
+        type = snapshot['type'] ?? '',
+        icon = snapshot['icon'] ?? '';
 
   toJson() {
     return {
@@ -87,6 +93,8 @@ class Transaction {
       "subAmount": subAmount,
       "transactionDate": transactionDate,
       "valueDate": valueDate,
+      "type": type,
+      "icon": icon,
     };
   }
 }

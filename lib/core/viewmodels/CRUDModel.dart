@@ -2,16 +2,20 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as _firestore;
 import 'package:walletexplorer/core/models/account.dart';
-import 'package:walletexplorer/locator.dart';
+import 'package:walletexplorer/core/models/transaction_type.dart';
 import 'package:walletexplorer/core/models/transaction.dart';
 import 'package:walletexplorer/core/services/api_firestore.dart';
+import 'package:walletexplorer/locator.dart';
 
 class CRUDModel extends ChangeNotifier {
   ApiFirestoreAccounts _apiAccounts = locator<ApiFirestoreAccounts>();
   ApiFirestoreTransactions _apiTransactions =
       locator<ApiFirestoreTransactions>();
+  ApiFirestoreTransactionTypes _apiTransactionTypes =
+      locator<ApiFirestoreTransactionTypes>();
 
   List<Transaction> transactions;
+  List<TransactionType> transactionTypes;
   List<Account> accounts;
 
   /* Transactions */
@@ -78,6 +82,40 @@ class CRUDModel extends ChangeNotifier {
 
   Future addAccount(Transaction data) async {
     var result = await _apiAccounts.addDocument(data.toJson());
+
+    return;
+  }
+
+/* Transaction Types */
+  Future<List<TransactionType>> fetchTransactionTypes() async {
+    var result = await _apiTransactionTypes.getDataCollection();
+    transactionTypes = result.documents
+        .map((doc) => TransactionType.fromMap(doc.data, doc.documentID))
+        .toList();
+    return transactionTypes;
+  }
+
+  Stream<_firestore.QuerySnapshot> fetchTransactionTypesAsStream() {
+    return _apiTransactionTypes.streamDataCollection();
+  }
+
+  Future<TransactionType> getTransactionTypeById(String id) async {
+    var doc = await _apiTransactionTypes.getDocumentById(id);
+    return TransactionType.fromMap(doc.data, doc.documentID);
+  }
+
+  Future removeTransactionType(String id) async {
+    await _apiTransactionTypes.removeDocument(id);
+    return;
+  }
+
+  Future updateTransactionType(TransactionType data, String id) async {
+    await _apiTransactionTypes.updateDocument(data.toJson(), id);
+    return;
+  }
+
+  Future addTransactionType(TransactionType data) async {
+    var result = await _apiTransactionTypes.addDocument(data.toJson());
 
     return;
   }

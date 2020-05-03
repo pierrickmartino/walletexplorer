@@ -1,6 +1,6 @@
 import 'package:walletexplorer/util/data.dart';
 import 'package:flutter/material.dart';
-import 'package:walletexplorer/ui/widgets/transaction.dart';
+import 'package:walletexplorer/ui/widgets/transactionTest.dart';
 
 class Analysis extends StatefulWidget {
   @override
@@ -11,7 +11,7 @@ class _AnalysisState extends State<Analysis> {
   TextEditingController editingController = TextEditingController();
 
   // Add a duplicate list for transactions to use the search engine
-  List<Transaction> transactionsItems = new List<Transaction>();
+  List<ObjecTest> transactionsItems = new List<ObjecTest>();
 
   @override
   void initState() {
@@ -21,10 +21,10 @@ class _AnalysisState extends State<Analysis> {
   }
 
   void filterSearchResults(String query) {
-    List<Transaction> transactionSearchList = List<Transaction>();
+    List<ObjecTest> transactionSearchList = List<ObjecTest>();
     transactionSearchList.addAll(transactionsItems);
     if (query.isNotEmpty) {
-      List<Transaction> transactionListData = List<Transaction>();
+      List<ObjecTest> transactionListData = List<ObjecTest>();
       transactionSearchList.forEach((item) {
         if (item.name.toLowerCase().contains(query)) {
           transactionListData.add(item);
@@ -68,7 +68,7 @@ class _AnalysisState extends State<Analysis> {
               shrinkWrap: true,
               itemCount: transactionsItems.length,
               itemBuilder: (BuildContext context, int index) {
-                Transaction transaction = transactionsItems[index];
+                ObjecTest transaction = transactionsItems[index];
                 return Card(
                   elevation: 4,
                   shape: RoundedRectangleBorder(

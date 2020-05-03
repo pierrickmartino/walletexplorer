@@ -5,80 +5,29 @@ import 'package:provider/provider.dart';
 import 'package:walletexplorer/core/models/transaction_type.dart';
 import 'package:walletexplorer/core/viewmodels/CRUDModel.dart';
 import 'package:walletexplorer/core/models/transaction.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class Transactions extends StatefulWidget {
   @override
   _TransactionsState createState() => _TransactionsState();
 }
 
-//enum Answers { YES, NO, MAYBE }
-
 class _TransactionsState extends State<Transactions> {
   TextEditingController editingController = TextEditingController();
   List<Transaction> transactions;
   List<TransactionType> transactionTypes;
 
-// String _value = '';
-
-// void _setValue(String value) => setState(() => _value = value);
-
-// @override
-// void initState() {
-//   super.initState();
-// }
-
-// Get all the available transaction types from firestore
-// Future<_firestore.QuerySnapshot> getAllTransactionTypes() {
-//   final transactionTypesReference = _firestore.Firestore.instance
-//       .collection("transactionTypes")
-//       .orderBy("label", descending: true);
-//   return transactionTypesReference.getDocuments();
-// }
-
-// Future _askUser() async {
-//   switch (await showDialog(
-//       context: context,
-//       /*it shows a popup with few options which you can select, for option we
-//       created enums which we can use with switch statement, in this first switch
-//       will wait for the user to select the option which it can use with switch cases*/
-//       child: SimpleDialog(
-//         title: Text('New transaction type :'),
-//         children: <Widget>[
-//           SimpleDialogOption(
-//             child: Text('Unknown'),
-//             onPressed: () {
-//               Navigator.pop(context, Answers.YES);
-//             },
-//           ),
-//           SimpleDialogOption(
-//             child: Text('Tax'),
-//             onPressed: () {
-//               Navigator.pop(context, Answers.NO);
-//             },
-//           ),
-//           SimpleDialogOption(
-//             child: Text('Consumer goods'),
-//             onPressed: () {
-//               Navigator.pop(context, Answers.MAYBE);
-//             },
-//           ),
-//         ],
-//       ))) {
-//     case Answers.YES:
-//       _setValue('Yes');
-//       break;
-//     case Answers.NO:
-//       _setValue('No');
-//       break;
-//     case Answers.MAYBE:
-//       _setValue('Maybe');
-//       break;
-//   }
-// }
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final transactionProvider = Provider.of<CRUDModel>(context);
+    final transactionTypeProvider = Provider.of<CRUDModel>(context);
+
+    Transaction currentTransaction;
 
     return StreamBuilder(
       stream: transactionProvider.fetchTransactionsAsStream(),
@@ -110,7 +59,7 @@ class _TransactionsState extends State<Transactions> {
                 child: ListView.builder(
               shrinkWrap: true,
               itemCount: transactions.length,
-              itemBuilder: (BuildContext context, int index) {
+              itemBuilder: (context, index) {
                 return Card(
                   elevation: 4,
                   shape: RoundedRectangleBorder(
@@ -120,14 +69,76 @@ class _TransactionsState extends State<Transactions> {
                   ),
                   child: ExpansionTile(
                     leading: GestureDetector(
-                      //onLongPress: _askUser,
+                      onLongPress: () {
+                        setState(() {
+                          currentTransaction = transactions[index];
+                        });
+                        showMaterialModalBottomSheet(
+                            elevation: 4,
+                            useRootNavigator: true,
+                            bounce: true,
+                            context: context,
+                            builder: (context, scrollController) =>
+                                StreamBuilder(
+                                    stream: transactionTypeProvider
+                                        .fetchTransactionTypesAsStream(),
+                                    builder: (context, snapshot) {
+                                      if (!snapshot.hasData) {
+                                        return LinearProgressIndicator();
+                                      } else {
+                                        transactionTypes = snapshot
+                                            .data.documents
+                                            .map<TransactionType>((doc) =>
+                                                TransactionType.fromMap(
+                                                    doc.data, doc.documentID))
+                                            .toList();
+                                      }
+                                      return Container(
+                                          child: ListView.builder(
+                                              shrinkWrap: true,
+                                              itemCount:
+                                                  transactionTypes.length,
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                return ListTile(
+                                                  enabled: true,
+                                                  onTap: () async {
+                                                    if (currentTransaction
+                                                            .type !=
+                                                        transactionTypes[index]
+                                                            .code) {
+                                                      currentTransaction.type =
+                                                          transactionTypes[
+                                                                  index]
+                                                              .code;
+                                                      currentTransaction.icon =
+                                                          transactionTypes[
+                                                                  index]
+                                                              .icon;
+                                                      await transactionProvider
+                                                          .updateTransaction(
+                                                              currentTransaction,
+                                                              currentTransaction
+                                                                  .id);
+                                                    }
+
+                                                    Navigator.pop(context);
+                                                  },
+                                                  title: Text(
+                                                      transactionTypes[index]
+                                                          .label),
+                                                );
+                                              }));
+                                    }));
+                      },
                       child: CircularProfileAvatar(
                         '',
                         radius: 30,
                         backgroundColor: Colors.transparent,
                         borderWidth: 10,
                         initialsText: Text(
-                          "?",
+                          transactions[index].icon,
                           style: TextStyle(
                               fontSize: 24,
                               color: Theme.of(context).accentColor),
@@ -144,11 +155,11 @@ class _TransactionsState extends State<Transactions> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
                           Text(
-                            transactions[index].creditAmount == ""
+                            transactions[index].debitAmount > 0
                                 ? "- ${transactions[index].debitAmount}"
                                 : "+ ${transactions[index].creditAmount}",
                             style: TextStyle(
-                              color: transactions[index].creditAmount == ""
+                              color: transactions[index].debitAmount > 0
                                   ? Theme.of(context).bottomAppBarColor
                                   : Theme.of(context).cardColor,
                               fontWeight: FontWeight.bold,

@@ -1,4 +1,4 @@
-class Transaction {
+class ObjecTest {
   final String name;
   final String date;
   final String amount;
@@ -26,7 +26,7 @@ class Transaction {
   final String creditAmount;
   final String balance;
 
-  Transaction({
+  ObjecTest({
     this.name,
     this.date,
     this.amount,
