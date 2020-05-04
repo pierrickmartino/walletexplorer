@@ -20,6 +20,7 @@ class Transaction {
   String valueDate;
   String type;
   String icon;
+  String currency;
 
   Transaction(
       {this.id,
@@ -42,11 +43,12 @@ class Transaction {
       this.transactionDate,
       this.valueDate,
       this.type,
-      this.icon});
+      this.icon,
+      this.currency});
 
   @override
   String toString() {
-    return '{ ${this.accountingDate}, ${this.balance}, ${this.creditAmount}, ${this.dateFrom}, ${this.dateTo}, ${this.debitAmount}, ${this.description}, ${this.description1}, ${this.description2}, ${this.description3}, ${this.evaluationDate}, ${this.exchangeRate}, ${this.product}, ${this.refIBAN}, ${this.relation}, ${this.subAmount}, ${this.transactionDate}, ${this.valueDate}, ${this.type}, ${this.icon}}';
+    return '{ ${this.accountingDate}, ${this.balance}, ${this.creditAmount}, ${this.dateFrom}, ${this.dateTo}, ${this.debitAmount}, ${this.description}, ${this.description1}, ${this.description2}, ${this.description3}, ${this.evaluationDate}, ${this.exchangeRate}, ${this.product}, ${this.refIBAN}, ${this.relation}, ${this.subAmount}, ${this.transactionDate}, ${this.valueDate}, ${this.type}, ${this.icon}, ${this.currency}}';
   }
 
   @override
@@ -71,7 +73,8 @@ class Transaction {
         transactionDate = snapshot['transactionDate'] ?? '',
         valueDate = snapshot['valueDate'] ?? '',
         type = snapshot['type'] ?? '',
-        icon = snapshot['icon'] ?? '';
+        icon = snapshot['icon'] ?? '',
+        currency = snapshot['currency'] ?? '';
 
   toJson() {
     return {
@@ -95,6 +98,7 @@ class Transaction {
       "valueDate": valueDate,
       "type": type,
       "icon": icon,
+      "currency": currency,
     };
   }
 }

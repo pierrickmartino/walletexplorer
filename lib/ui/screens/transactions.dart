@@ -152,35 +152,63 @@ class _TransactionsState extends State<Transactions> {
                         showInitialTextAbovePicture: true,
                       ),
                     ),
-                    trailing: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Text(
-                            transactions[index].debitAmount > 0
-                                ? "- ${transactions[index].debitAmount}"
-                                : "+ ${transactions[index].creditAmount}",
+                    // trailing: Column(
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     crossAxisAlignment: CrossAxisAlignment.end,
+                    //     children: <Widget>[
+                    //       Text(
+                    //         transactions[index].debitAmount > 0
+                    //             ? "- ${transactions[index].debitAmount}"
+                    //             : "+ ${transactions[index].creditAmount}",
+                    //         style: TextStyle(
+                    //           color: transactions[index].debitAmount > 0
+                    //               ? Theme.of(context).bottomAppBarColor
+                    //               : Theme.of(context).cardColor,
+                    //           fontWeight: FontWeight.bold,
+                    //           fontSize: 18,
+                    //         ),
+                    //       ),
+                    //       Text(transactions[index].accountingDate,
+                    //           style: TextStyle(
+                    //             fontSize: 12,
+                    //           )),
+                    //     ]),
+                    title: Row(
+                      children: <Widget>[
+                        Text(transactions[index].description2,
                             style: TextStyle(
-                              color: transactions[index].debitAmount > 0
-                                  ? Theme.of(context).bottomAppBarColor
-                                  : Theme.of(context).cardColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
+                              fontSize: 14,
+                            )),
+                        Spacer(),
+                        Text(
+                          transactions[index].debitAmount > 0
+                              ? "${transactions[index].currency}" +
+                                  " - ${transactions[index].debitAmount}"
+                              : "${transactions[index].currency}" +
+                                  " + ${transactions[index].creditAmount}",
+                          style: TextStyle(
+                            color: transactions[index].debitAmount > 0
+                                ? Theme.of(context).bottomAppBarColor
+                                : Theme.of(context).cardColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
                           ),
-                          Text(transactions[index].accountingDate,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
-                        ]),
-                    title: Text(transactions[index].description2,
-                        style: TextStyle(
-                          fontSize: 14,
-                        )),
-                    subtitle: Text(transactions[index].description1,
-                        style: TextStyle(
-                          fontSize: 12,
-                        )),
+                        )
+                      ],
+                    ),
+                    subtitle: Row(
+                      children: <Widget>[
+                        Text(transactions[index].description1,
+                            style: TextStyle(
+                              fontSize: 12,
+                            )),
+                        Spacer(),
+                        Text(transactions[index].accountingDate,
+                            style: TextStyle(
+                              fontSize: 12,
+                            ))
+                      ],
+                    ),
                     children: <Widget>[
                       Column(
                         children: [
