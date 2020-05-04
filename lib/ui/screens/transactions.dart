@@ -1,11 +1,12 @@
-import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
-//import 'package:cloud_firestore/cloud_firestore.dart' as _firestore;
+
+import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:provider/provider.dart';
-import 'package:walletexplorer/core/models/transaction_type.dart';
-import 'package:walletexplorer/core/viewmodels/CRUDModel.dart';
-import 'package:walletexplorer/core/models/transaction.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+
+import '../../core/models/transaction_type.dart';
+import '../../core/viewmodels/CRUDModel.dart';
+import '../../core/models/transaction.dart';
 
 class Transactions extends StatefulWidget {
   @override
@@ -61,7 +62,7 @@ class _TransactionsState extends State<Transactions> {
               itemCount: transactions.length,
               itemBuilder: (context, index) {
                 return Card(
-                  elevation: 4,
+                  elevation: 5.0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(10),
@@ -74,7 +75,7 @@ class _TransactionsState extends State<Transactions> {
                           currentTransaction = transactions[index];
                         });
                         showMaterialModalBottomSheet(
-                            elevation: 4,
+                            elevation: 5.0,
                             useRootNavigator: true,
                             bounce: true,
                             context: context,
@@ -137,12 +138,13 @@ class _TransactionsState extends State<Transactions> {
                         radius: 30,
                         backgroundColor: Colors.transparent,
                         borderWidth: 10,
-                        initialsText: Text(
-                          transactions[index].icon,
-                          style: TextStyle(
-                              fontSize: 24,
-                              color: Theme.of(context).accentColor),
-                        ),
+                        initialsText: Text(transactions[index].icon,
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: transactions[index].debitAmount > 0
+                                  ? Theme.of(context).bottomAppBarColor
+                                  : Theme.of(context).cardColor,
+                            )),
                         borderColor: Theme.of(context).cardColor,
                         elevation: 5.0,
                         foregroundColor:

@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:walletexplorer/core/services/api_firestore.dart';
-import 'package:walletexplorer/core/viewmodels/CRUDModel.dart';
+import './core/services/api_firestore.dart';
+import './core/viewmodels/CRUDModel.dart';
 
 final locator = GetIt.instance;
 

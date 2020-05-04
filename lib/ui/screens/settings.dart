@@ -1,6 +1,7 @@
-import 'package:walletexplorer/util/data.dart';
-import 'package:walletexplorer/ui/widgets/account.dart';
 import 'package:flutter/material.dart';
+
+import '../../util/data.dart';
+import '../widgets/account.dart';
 
 class Settings extends StatefulWidget {
   @override

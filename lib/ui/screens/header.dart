@@ -1,7 +1,7 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:walletexplorer/util/data.dart';
+
+import '../../util/data.dart';
 
 class Header extends StatefulWidget {
   @override

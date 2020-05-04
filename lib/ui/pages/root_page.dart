@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:walletexplorer/ui/pages/login_signup_page.dart';
-import 'package:walletexplorer/core/services/authentication.dart';
-import 'package:walletexplorer/ui/views/homeView.dart';
+import '../pages/login_signup_page.dart';
+import '../../core/services/authentication.dart';
+import '../views/homeView.dart';
 
 enum AuthStatus {
   NOT_DETERMINED,

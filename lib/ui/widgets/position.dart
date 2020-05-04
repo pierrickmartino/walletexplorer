@@ -1,6 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'dart:math';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class Wallet extends StatefulWidget {

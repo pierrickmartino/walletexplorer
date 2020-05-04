@@ -1,6 +1,7 @@
-import 'package:walletexplorer/util/data.dart';
 import 'package:flutter/material.dart';
-import 'package:walletexplorer/ui/widgets/transactionTest.dart';
+
+import '../../util/data.dart';
+import '../widgets/transactionTest.dart';
 
 class Analysis extends StatefulWidget {
   @override

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:walletexplorer/core/services/authentication.dart';
-import 'package:walletexplorer/ui/pages/root_page.dart';
-import 'package:walletexplorer/ui/screens/accounts.dart';
-import 'package:walletexplorer/ui/screens/analysis.dart';
-import 'package:walletexplorer/ui/screens/settings.dart';
-import 'package:walletexplorer/ui/screens/transactions.dart';
-import 'package:walletexplorer/ui/views/homeView.dart';
+
+import '../core/services/authentication.dart';
+import './pages/root_page.dart';
+import './screens/accounts.dart';
+import './screens/analysis.dart';
+import './screens/settings.dart';
+import './screens/transactions.dart';
+import './views/homeView.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {

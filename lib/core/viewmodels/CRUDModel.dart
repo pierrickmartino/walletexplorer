@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as _firestore;
-import 'package:walletexplorer/core/models/account.dart';
-import 'package:walletexplorer/core/models/transaction_type.dart';
-import 'package:walletexplorer/core/models/transaction.dart';
-import 'package:walletexplorer/core/services/api_firestore.dart';
-import 'package:walletexplorer/locator.dart';
+import '../models/account.dart';
+import '../models/transaction_type.dart';
+import '../models/transaction.dart';
+import '../services/api_firestore.dart';
+import '../../locator.dart';
 
 class CRUDModel extends ChangeNotifier {
   ApiFirestoreAccounts _apiAccounts = locator<ApiFirestoreAccounts>();

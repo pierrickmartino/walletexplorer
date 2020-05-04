@@ -20,29 +20,6 @@ Create a simple tool to summarize and analysis of a financial situation thanks t
     * Evolution of annual taxes during time
     * Evolution of expenses dedicated to a specific usage (car for example)
 
-## Backlog
-* Account - Use the model view class to access data
-* Account - Size on full screen of the graph is a bit too large
-* Login screen - Press Enter key to validate
-* Import - Auto-creation for new account from an importation if needed
-* Header view - Add a persistent header for overview
-* Header view - Add a total amount
-* Header view - Add a date analysis (from 01.01.2017 to now)
-* Header view - Add a currency
-* Transactions - Add currency before the amount
-* Transactions - Search engine with firestore data
-* Transactions - Search on multiple criteria
-* Transactions - Long Press to update a transaction type
-* Transactions - Edition on card
-* Navigation - Overview / Analysis / Transactions by Account
-* Create widget/class for each view overview/analysis/transaction/account 
-* Color scheme modification
-* Ability to switch between light/dark mode
-* Menu on left panel with some settings
-* Bug - Color navigation button with white theme
-* Migration of the user process to Firestore Cloud Database (extra info for user)
-* Asset view - Add flip on card to show extra info
-
 ## Changelog
 * 0.23 - TransactionType is now editable with long press on a card icon
 * 0.22 - BugFix for version 0.21

@@ -1,10 +1,11 @@
-import 'package:provider/provider.dart';
-import 'package:walletexplorer/core/viewmodels/CRUDModel.dart';
-import 'package:walletexplorer/locator.dart';
-import 'package:walletexplorer/ui/router.dart';
-import 'package:walletexplorer/util/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+
+import './core/viewmodels/CRUDModel.dart';
+import './locator.dart';
+import './ui/router.dart';
+import './util/const.dart';
 
 void main() async {
   //Not working in web environment

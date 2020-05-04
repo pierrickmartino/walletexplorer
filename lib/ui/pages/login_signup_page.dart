@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:walletexplorer/core/services/authentication.dart';
+import '../../core/services/authentication.dart';
 
 class LoginSignupPage extends StatefulWidget {
   LoginSignupPage({this.auth, this.loginCallback});
@@ -12,7 +12,7 @@ class LoginSignupPage extends StatefulWidget {
 }
 
 class _LoginSignupPageState extends State<LoginSignupPage> {
-  final _formKey = new GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
   String _email;
   String _password;
@@ -23,7 +23,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
 
   // Check if form is valid before perform login or signup
   bool validateAndSave() {
-    final form = _formKey.currentState;
+    final FormState form = _formKey.currentState;
 
     if (form.validate()) {
       form.save();

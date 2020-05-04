@@ -1,6 +1,7 @@
-import 'package:walletexplorer/util/data.dart';
-import 'package:walletexplorer/ui/widgets/position.dart';
 import 'package:flutter/material.dart';
+
+import '../../util/data.dart';
+import '../widgets/position.dart';
 
 class Overview extends StatefulWidget {
   @override

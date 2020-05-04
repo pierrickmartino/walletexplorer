@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:walletexplorer/ui/screens/analysis.dart';
-
-import 'package:walletexplorer/core/services/authentication.dart';
-import 'package:walletexplorer/ui/screens/transactions.dart';
-import 'package:walletexplorer/ui/screens/overview.dart';
-import 'package:walletexplorer/ui/screens/settings.dart';
-import 'package:walletexplorer/ui/screens/accounts.dart';
-import 'package:walletexplorer/util/data.dart';
-import 'package:walletexplorer/util/navigation_rail.dart';
-
 import 'dart:math';
+
+import '../screens/analysis.dart';
+import '../screens/transactions.dart';
+import '../screens/overview.dart';
+import '../screens/settings.dart';
+import '../screens/accounts.dart';
+import '../../util/data.dart';
+import '../../util/navigation_rail.dart';
+import '../../core/services/authentication.dart';
 
 class HomeView extends StatefulWidget {
   HomeView({Key key, this.auth, this.userId, this.logoutCallback})
