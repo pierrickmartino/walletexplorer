@@ -1,6 +1,6 @@
 class Account {
   String id;
-  String balance;
+  double balance;
   String bank;
   String currency;
   String description;

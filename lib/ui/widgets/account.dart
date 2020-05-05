@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:fl_chart/fl_chart.dart';
+import 'package:intl/intl.dart';
 
 class AccountUI extends StatefulWidget {
   final String name;
   final String icon;
-  final String rate;
+  final double rate;
   final String currency;
   final String depositary;
   final charts.Color color;
@@ -221,6 +222,9 @@ class _AccountState extends State<AccountUI> {
       ),
     );
 
+    NumberFormat numberFormat =
+        NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 2);
+
     return Card(
       elevation: 5.0,
       shape: RoundedRectangleBorder(
@@ -252,7 +256,9 @@ class _AccountState extends State<AccountUI> {
                   ],
                 ),
                 Text(
-                  "${widget.currency}" " " "${widget.rate}",
+                  "${widget.currency}"
+                  " "
+                  "${numberFormat.format(widget.rate)}",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,

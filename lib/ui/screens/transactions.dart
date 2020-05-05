@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:provider/provider.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:intl/intl.dart';
 
 import '../../core/models/transaction_type.dart';
 import '../../core/viewmodels/CRUDModel.dart';
@@ -17,6 +18,9 @@ class _TransactionsState extends State<Transactions> {
   TextEditingController editingController = TextEditingController();
   List<Transaction> transactions;
   List<TransactionType> transactionTypes;
+
+  NumberFormat numberFormat =
+      NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 2);
 
   @override
   void initState() {
@@ -161,14 +165,11 @@ class _TransactionsState extends State<Transactions> {
                             style: TextStyle(
                               fontSize: 14,
                             )),
-                        SizedBox(
-                          width: 3,
-                        ),
                         Spacer(),
                         Text(
                           transactions[index].debitAmount > 0
-                              ? "- ${transactions[index].debitAmount}"
-                              : "+ ${transactions[index].creditAmount}",
+                              ? "- ${numberFormat.format(transactions[index].debitAmount)}"
+                              : "+ ${numberFormat.format(transactions[index].creditAmount)}",
                           style: TextStyle(
                             color: transactions[index].debitAmount > 0
                                 ? Theme.of(context).bottomAppBarColor

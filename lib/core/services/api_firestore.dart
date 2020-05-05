@@ -7,6 +7,7 @@ class ApiFirestoreTransactions {
 
   ApiFirestoreTransactions() {
     ref = _db.collection('transactions');
+    //ref.orderBy('accountingDate', descending: false);
   }
 
   Future<QuerySnapshot> getDataCollection() {

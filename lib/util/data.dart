@@ -25,7 +25,7 @@ List assets = [
     "icon": "asset_icon.png",
     "name": "Account 1",
     "alt": "NNN",
-    "rate": r"10,297.66",
+    "rate": 10297.66,
     "currency": "CHF",
     "depositary": "Bank 1",
     "color": charts.MaterialPalette.blue.shadeDefault,
@@ -34,7 +34,7 @@ List assets = [
     "icon": "asset_icon.png",
     "name": "Account 2",
     "alt": "NOV",
-    "rate": r"215.56",
+    "rate": 215.56,
     "currency": "CHF",
     "depositary": "Bank 1",
     "color": charts.MaterialPalette.blue.shadeDefault,
@@ -43,7 +43,7 @@ List assets = [
     "icon": "asset_icon.png",
     "name": "Account 3",
     "alt": "ROC",
-    "rate": r"0.32",
+    "rate": 0.32,
     "currency": "CHF",
     "depositary": "Bank 2",
     "color": charts.MaterialPalette.blue.shadeDefault,
@@ -52,7 +52,7 @@ List assets = [
     "icon": "asset_icon.png",
     "name": "Account 4",
     "alt": "LTC",
-    "rate": r"94.29",
+    "rate": 94.29,
     "currency": "CHF",
     "depositary": "Bank 4",
     "color": charts.MaterialPalette.blue.shadeDefault,
@@ -61,7 +61,7 @@ List assets = [
     "icon": "asset_icon.png",
     "name": "Account 5",
     "alt": "UBS",
-    "rate": r"82.57",
+    "rate": 82.57,
     "currency": "CHF",
     "depositary": "Bank 5",
     "color": charts.MaterialPalette.blue.shadeDefault,
@@ -116,26 +116,3 @@ var transactions = new List<ObjecTest>.generate(100, (index) {
     dp: "assets/cm${random.nextInt(10)}.jpeg",
   );
 });
-
-List transactionTypes = [
-  {
-    "label": "unknown",
-    "code": "unknown",
-    "icon": "?",
-  },
-  {
-    "label": "salary",
-    "code": "salary",
-    "icon": "s",
-  },
-  {
-    "label": "tax",
-    "code": "tax",
-    "icon": "t",
-  },
-  {
-    "label": "car",
-    "code": "car",
-    "icon": "c",
-  },
-];
