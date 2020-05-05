@@ -15,7 +15,7 @@ class Transaction {
   String product;
   String refIBAN;
   String relation;
-  String subAmount;
+  double subAmount;
   String transactionDate;
   String valueDate;
   String type;

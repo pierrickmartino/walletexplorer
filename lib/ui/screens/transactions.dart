@@ -140,10 +140,10 @@ class _TransactionsState extends State<Transactions> {
                         borderWidth: 10,
                         initialsText: Text(transactions[index].icon,
                             style: TextStyle(
-                              fontSize: 30,
+                              fontSize: 18,
                               color: transactions[index].debitAmount > 0
                                   ? Theme.of(context).bottomAppBarColor
-                                  : Theme.of(context).cardColor,
+                                  : Theme.of(context).accentColor,
                             )),
                         borderColor: Theme.of(context).cardColor,
                         elevation: 5.0,
@@ -152,46 +152,29 @@ class _TransactionsState extends State<Transactions> {
                         showInitialTextAbovePicture: true,
                       ),
                     ),
-                    // trailing: Column(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     crossAxisAlignment: CrossAxisAlignment.end,
-                    //     children: <Widget>[
-                    //       Text(
-                    //         transactions[index].debitAmount > 0
-                    //             ? "- ${transactions[index].debitAmount}"
-                    //             : "+ ${transactions[index].creditAmount}",
-                    //         style: TextStyle(
-                    //           color: transactions[index].debitAmount > 0
-                    //               ? Theme.of(context).bottomAppBarColor
-                    //               : Theme.of(context).cardColor,
-                    //           fontWeight: FontWeight.bold,
-                    //           fontSize: 18,
-                    //         ),
-                    //       ),
-                    //       Text(transactions[index].accountingDate,
-                    //           style: TextStyle(
-                    //             fontSize: 12,
-                    //           )),
-                    //     ]),
                     title: Row(
                       children: <Widget>[
-                        Text(transactions[index].description2,
+                        Text(
+                            transactions[index].description2 == ""
+                                ? transactions[index].description1
+                                : transactions[index].description2,
                             style: TextStyle(
                               fontSize: 14,
                             )),
+                        SizedBox(
+                          width: 3,
+                        ),
                         Spacer(),
                         Text(
                           transactions[index].debitAmount > 0
-                              ? "${transactions[index].currency}" +
-                                  " - ${transactions[index].debitAmount}"
-                              : "${transactions[index].currency}" +
-                                  " + ${transactions[index].creditAmount}",
+                              ? "- ${transactions[index].debitAmount}"
+                              : "+ ${transactions[index].creditAmount}",
                           style: TextStyle(
                             color: transactions[index].debitAmount > 0
                                 ? Theme.of(context).bottomAppBarColor
-                                : Theme.of(context).cardColor,
+                                : Theme.of(context).accentColor,
                             fontWeight: FontWeight.bold,
-                            fontSize: 18,
+                            fontSize: 16,
                           ),
                         )
                       ],
@@ -203,7 +186,10 @@ class _TransactionsState extends State<Transactions> {
                               fontSize: 12,
                             )),
                         Spacer(),
-                        Text(transactions[index].accountingDate,
+                        Text(
+                            transactions[index].accountingDate +
+                                ' - ' +
+                                transactions[index].currency,
                             style: TextStyle(
                               fontSize: 12,
                             ))
