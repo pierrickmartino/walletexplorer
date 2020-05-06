@@ -7,7 +7,7 @@ class ApiFirestoreTransactions {
 
   ApiFirestoreTransactions() {
     ref = _db.collection('transactions');
-    //ref.orderBy('accountingDate', descending: false);
+    // .orderBy('accountingDate', descending: false);
   }
 
   Future<QuerySnapshot> getDataCollection() {
@@ -15,7 +15,7 @@ class ApiFirestoreTransactions {
   }
 
   Stream<QuerySnapshot> streamDataCollection() {
-    return ref.snapshots();
+    return ref.orderBy('accountingDate', descending: false).snapshots();
   }
 
   Future<DocumentSnapshot> getDocumentById(String id) {
