@@ -8,16 +8,8 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  final TextStyle whiteText = TextStyle(
-    color: Colors.white,
-  );
   final TextStyle greyTExt = TextStyle(
     color: Colors.grey.shade400,
-  );
-
-  TextStyle whiteBoldText = TextStyle(
-    fontWeight: FontWeight.bold,
-    color: Colors.white,
   );
 
   List<String> avatars = [
@@ -43,23 +35,23 @@ class _SettingsState extends State<Settings> {
       //backgroundColor: Colors.black,
       body: Theme(
         data: Theme.of(context).copyWith(
-          brightness: Brightness.dark,
-          primaryColor: Colors.purple,
-        ),
+            // brightness: Brightness.dark,
+            // primaryColor: Colors.purple,
+            ),
         child: DefaultTextStyle(
           style: TextStyle(
-            color: Colors.white,
+            color: Theme.of(context).textTheme.headline1.color,
           ),
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(32.0),
+            padding: const EdgeInsets.all(4.0),
             child: Column(
               children: <Widget>[
                 const SizedBox(height: 30.0),
                 Row(
                   children: <Widget>[
                     Container(
-                      width: 60,
-                      height: 60,
+                      width: 120,
+                      height: 120,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
@@ -83,7 +75,9 @@ class _SettingsState extends State<Settings> {
                           Text(
                             "Nepal",
                             style: TextStyle(
-                              color: Colors.grey.shade400,
+                              color:
+                                  Theme.of(context).textTheme.headline2.color,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],
@@ -95,7 +89,10 @@ class _SettingsState extends State<Settings> {
                 ListTile(
                   title: Text(
                     "Languages",
-                    style: whiteBoldText,
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.headline2.color,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   subtitle: Text(
                     "English US",
@@ -110,7 +107,10 @@ class _SettingsState extends State<Settings> {
                 ListTile(
                   title: Text(
                     "Profile Settings",
-                    style: whiteBoldText,
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.headline2.color,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   subtitle: Text(
                     "Jane Doe",
@@ -125,7 +125,10 @@ class _SettingsState extends State<Settings> {
                 SwitchListTile(
                   title: Text(
                     "Enable Dark Mode",
-                    style: whiteBoldText,
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.headline2.color,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   subtitle: Text(
                     "On",
@@ -141,7 +144,10 @@ class _SettingsState extends State<Settings> {
                 SwitchListTile(
                   title: Text(
                     "Email Notifications",
-                    style: whiteBoldText,
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.headline2.color,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   subtitle: Text(
                     "On",
@@ -153,7 +159,10 @@ class _SettingsState extends State<Settings> {
                 SwitchListTile(
                   title: Text(
                     "Push Notifications",
-                    style: whiteBoldText,
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.headline2.color,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   subtitle: Text(
                     "Off",
@@ -165,7 +174,10 @@ class _SettingsState extends State<Settings> {
                 ListTile(
                   title: Text(
                     "Logout",
-                    style: whiteBoldText,
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.headline2.color,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   onTap: () {},
                 ),
