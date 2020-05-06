@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Transaction {
   String id;
   String accountingDate;
@@ -21,6 +23,7 @@ class Transaction {
   String type;
   String icon;
   String currency;
+  DateTime sortAccountingDate;
 
   Transaction(
       {this.id,
@@ -44,11 +47,12 @@ class Transaction {
       this.valueDate,
       this.type,
       this.icon,
-      this.currency});
+      this.currency,
+      this.sortAccountingDate});
 
   @override
   String toString() {
-    return '{ ${this.accountingDate}, ${this.balance}, ${this.creditAmount}, ${this.dateFrom}, ${this.dateTo}, ${this.debitAmount}, ${this.description}, ${this.description1}, ${this.description2}, ${this.description3}, ${this.evaluationDate}, ${this.exchangeRate}, ${this.product}, ${this.refIBAN}, ${this.relation}, ${this.subAmount}, ${this.transactionDate}, ${this.valueDate}, ${this.type}, ${this.icon}, ${this.currency}}';
+    return '{ ${this.accountingDate}, ${this.balance}, ${this.creditAmount}, ${this.dateFrom}, ${this.dateTo}, ${this.debitAmount}, ${this.description}, ${this.description1}, ${this.description2}, ${this.description3}, ${this.evaluationDate}, ${this.exchangeRate}, ${this.product}, ${this.refIBAN}, ${this.relation}, ${this.subAmount}, ${this.transactionDate}, ${this.valueDate}, ${this.type}, ${this.icon}, ${this.currency}, ${this.sortAccountingDate}}';
   }
 
   @override
@@ -74,7 +78,8 @@ class Transaction {
         valueDate = snapshot['valueDate'] ?? '',
         type = snapshot['type'] ?? '',
         icon = snapshot['icon'] ?? '',
-        currency = snapshot['currency'] ?? '';
+        currency = snapshot['currency'] ?? '',
+        sortAccountingDate = (snapshot['sortAccountingDate']).toDate();
 
   toJson() {
     return {
@@ -99,6 +104,7 @@ class Transaction {
       "type": type,
       "icon": icon,
       "currency": currency,
+      "sortAccountingDate": sortAccountingDate,
     };
   }
 }

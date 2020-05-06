@@ -1,6 +1,11 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:provider/provider.dart';
+import 'package:date_format/date_format.dart';
+
+import '../../core/models/transaction.dart';
+import '../../core/viewmodels/CRUDModel.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -8,10 +13,6 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  final TextStyle greyTExt = TextStyle(
-    color: Colors.grey.shade400,
-  );
-
   List<String> avatars = [
     'https://firebasestorage.googleapis.com/v0/b/dl-flutter-ui-challenges.appspot.com/o/img%2F1.jpg?alt=media',
     'https://firebasestorage.googleapis.com/v0/b/dl-flutter-ui-challenges.appspot.com/o/img%2F4.jpg?alt=media',
@@ -29,15 +30,28 @@ class _SettingsState extends State<Settings> {
             : Brightness.dark);
   }
 
+  void cleanDateFormatinDatabase() {
+    Future<List<Transaction>> transactions;
+
+    final transactionProvider = Provider.of<CRUDModel>(context, listen: false);
+    transactions = transactionProvider.fetchTransactions();
+
+    transactions.then((value) => value.forEach((element) async {
+          element.sortAccountingDate = DateTime.parse(
+              element.accountingDate.substring(6, 10) +
+                  '-' +
+                  element.accountingDate.substring(3, 5) +
+                  '-' +
+                  element.accountingDate.substring(0, 2));
+          await transactionProvider.updateTransaction(element, element.id);
+        }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.black,
       body: Theme(
-        data: Theme.of(context).copyWith(
-            // brightness: Brightness.dark,
-            // primaryColor: Colors.purple,
-            ),
+        data: Theme.of(context).copyWith(),
         child: DefaultTextStyle(
           style: TextStyle(
             color: Theme.of(context).textTheme.headline1.color,
@@ -96,11 +110,9 @@ class _SettingsState extends State<Settings> {
                   ),
                   subtitle: Text(
                     "English US",
-                    style: greyTExt,
                   ),
                   trailing: Icon(
                     Icons.keyboard_arrow_right,
-                    color: Colors.grey.shade400,
                   ),
                   onTap: () {},
                 ),
@@ -114,11 +126,9 @@ class _SettingsState extends State<Settings> {
                   ),
                   subtitle: Text(
                     "Jane Doe",
-                    style: greyTExt,
                   ),
                   trailing: Icon(
                     Icons.keyboard_arrow_right,
-                    color: Colors.grey.shade400,
                   ),
                   onTap: () {},
                 ),
@@ -132,7 +142,6 @@ class _SettingsState extends State<Settings> {
                   ),
                   subtitle: Text(
                     "On",
-                    style: greyTExt,
                   ),
                   value: Theme.of(context).brightness == Brightness.dark
                       ? true
@@ -151,25 +160,21 @@ class _SettingsState extends State<Settings> {
                   ),
                   subtitle: Text(
                     "On",
-                    style: greyTExt,
                   ),
                   value: true,
                   onChanged: (val) {},
                 ),
-                SwitchListTile(
+                ListTile(
                   title: Text(
-                    "Push Notifications",
+                    "Clean up data",
                     style: TextStyle(
                       color: Theme.of(context).textTheme.headline2.color,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  subtitle: Text(
-                    "Off",
-                    style: greyTExt,
-                  ),
-                  value: false,
-                  onChanged: (val) {},
+                  onTap: () {
+                    cleanDateFormatinDatabase();
+                  },
                 ),
                 ListTile(
                   title: Text(

@@ -57,25 +57,6 @@ class _HomeViewState extends State<HomeView> {
           ],
         );
       },
-      drawerFooterBuilder: (context) {
-        return Column(
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text("Settings"),
-            ),
-            ListTile(
-              leading: Icon(Icons.info_outline),
-              title: Text("About"),
-            ),
-            ListTile(
-              leading: Icon(Icons.exit_to_app),
-              title: Text("Logout"),
-              onTap: signOut,
-            ),
-          ],
-        );
-      },
       currentIndex: _currentIndex,
       onTap: (val) {
         if (mounted)
