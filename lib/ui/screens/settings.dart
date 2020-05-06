@@ -1,3 +1,4 @@
+import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -28,6 +29,13 @@ class _SettingsState extends State<Settings> {
     'https://firebasestorage.googleapis.com/v0/b/dl-flutter-ui-challenges.appspot.com/o/img%2Fdev_sudip.jpg?alt=media',
     'https://firebasestorage.googleapis.com/v0/b/dl-flutter-ui-challenges.appspot.com/o/img%2Fdev_sid.png?alt=media',
   ];
+
+  void changeBrightness() {
+    DynamicTheme.of(context).setBrightness(
+        Theme.of(context).brightness == Brightness.dark
+            ? Brightness.light
+            : Brightness.dark);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,6 +121,22 @@ class _SettingsState extends State<Settings> {
                     color: Colors.grey.shade400,
                   ),
                   onTap: () {},
+                ),
+                SwitchListTile(
+                  title: Text(
+                    "Enable Dark Mode",
+                    style: whiteBoldText,
+                  ),
+                  subtitle: Text(
+                    "On",
+                    style: greyTExt,
+                  ),
+                  value: Theme.of(context).brightness == Brightness.dark
+                      ? true
+                      : false,
+                  onChanged: (val) {
+                    changeBrightness();
+                  },
                 ),
                 SwitchListTile(
                   title: Text(

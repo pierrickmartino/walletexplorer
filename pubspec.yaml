@@ -30,6 +30,7 @@ dependencies:
   provider: ^4.0.5+1
   modal_bottom_sheet: ^0.1.5
   intl: ^0.16.1
+  dynamic_theme: ^1.0.1
 
 dev_dependencies:
   flutter_test:
