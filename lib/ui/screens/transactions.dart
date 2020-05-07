@@ -160,8 +160,16 @@ class _TransactionsState extends State<Transactions> {
                       children: <Widget>[
                         Text(
                             transactions[index].description2 == ""
-                                ? transactions[index].description1
-                                : transactions[index].description2,
+                                ? (transactions[index].description1.length < 25
+                                    ? transactions[index].description1
+                                    : transactions[index]
+                                        .description1
+                                        .substring(0, 25))
+                                : (transactions[index].description2.length < 25
+                                    ? transactions[index].description2
+                                    : transactions[index]
+                                        .description2
+                                        .substring(0, 25)),
                             style: TextStyle(
                               fontSize: 14,
                             )),

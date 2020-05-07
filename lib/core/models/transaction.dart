@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class Transaction {
   String id;
   String accountingDate;
