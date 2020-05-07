@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
 import 'package:date_format/date_format.dart';
+import 'package:snack/snack.dart';
 
 import '../../core/models/transaction.dart';
 import '../../core/viewmodels/CRUDModel.dart';
@@ -22,6 +23,9 @@ class _SettingsState extends State<Settings> {
     'https://firebasestorage.googleapis.com/v0/b/dl-flutter-ui-challenges.appspot.com/o/img%2Fdev_sudip.jpg?alt=media',
     'https://firebasestorage.googleapis.com/v0/b/dl-flutter-ui-challenges.appspot.com/o/img%2Fdev_sid.png?alt=media',
   ];
+
+  final bar = SnackBar(
+      content: Text('Firestore Database is now perfectly clean. Well done !'));
 
   void changeBrightness() {
     DynamicTheme.of(context).setBrightness(
@@ -45,6 +49,8 @@ class _SettingsState extends State<Settings> {
                   element.accountingDate.substring(0, 2));
           await transactionProvider.updateTransaction(element, element.id);
         }));
+
+    bar.show(context);
   }
 
   @override

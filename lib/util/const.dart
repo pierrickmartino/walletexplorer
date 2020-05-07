@@ -6,7 +6,7 @@ class Constants {
   //Colors for theme
   static Color lightPrimary = Color(0xFFF9F9F9);
   static Color lightBG = Color(0xFFF9F9F9);
-  static Color lightFirstColor = Color(0xff53fdd7);
+  static Color lightFirstColor = Colors.green[400];
   static Color lightSecondColor = Color(0xffff5182);
   static Color lightSecondary = Color(0xff3D3B8E);
   static Color lightBarColor = Color(0xffE0FF4F);
