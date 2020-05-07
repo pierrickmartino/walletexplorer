@@ -29,8 +29,8 @@ class _TransactionsState extends State<Transactions> {
 
   @override
   Widget build(BuildContext context) {
-    final transactionProvider = Provider.of<CRUDModel>(context);
-    final transactionTypeProvider = Provider.of<CRUDModel>(context);
+    final CRUDModel transactionProvider = Provider.of<CRUDModel>(context);
+    final CRUDModel transactionTypeProvider = Provider.of<CRUDModel>(context);
 
     Transaction currentTransaction;
 
@@ -66,7 +66,7 @@ class _TransactionsState extends State<Transactions> {
               itemCount: transactions.length,
               itemBuilder: (context, index) {
                 return Card(
-                  elevation: 5.0,
+                  elevation: 4.0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(10),
@@ -79,7 +79,7 @@ class _TransactionsState extends State<Transactions> {
                           currentTransaction = transactions[index];
                         });
                         showMaterialModalBottomSheet(
-                            elevation: 5.0,
+                            elevation: 4.0,
                             useRootNavigator: true,
                             bounce: true,
                             context: context,
@@ -150,7 +150,7 @@ class _TransactionsState extends State<Transactions> {
                                   : Theme.of(context).accentColor,
                             )),
                         borderColor: Theme.of(context).cardColor,
-                        elevation: 5.0,
+                        elevation: 4.0,
                         foregroundColor:
                             Theme.of(context).cardColor.withOpacity(0.5),
                         showInitialTextAbovePicture: true,
@@ -160,18 +160,18 @@ class _TransactionsState extends State<Transactions> {
                       children: <Widget>[
                         Text(
                             transactions[index].description2 == ""
-                                ? (transactions[index].description1.length < 25
+                                ? (transactions[index].description1.length < 23
                                     ? transactions[index].description1
                                     : transactions[index]
                                         .description1
-                                        .substring(0, 25))
-                                : (transactions[index].description2.length < 25
+                                        .substring(0, 23))
+                                : (transactions[index].description2.length < 23
                                     ? transactions[index].description2
                                     : transactions[index]
                                         .description2
-                                        .substring(0, 25)),
+                                        .substring(0, 23)),
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 12,
                             )),
                         Spacer(),
                         Text(
@@ -183,7 +183,7 @@ class _TransactionsState extends State<Transactions> {
                                 ? Theme.of(context).bottomAppBarColor
                                 : Theme.of(context).accentColor,
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                            fontSize: 14,
                           ),
                         )
                       ],

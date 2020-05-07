@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-const _tabletBreakpoint = 720.0;
-const _desktopBreakpoint = 1440.0;
-const _minHeight = 400.0;
-const _drawerWidth = 270.0;
-const _railSize = 72.0;
-const _denseRailSize = 56.0;
+const double _tabletBreakpoint = 720.0;
+const double _desktopBreakpoint = 1440.0;
+const double _minHeight = 400.0;
+const double _drawerWidth = 270.0;
+const double _railSize = 72.0;
+const double _denseRailSize = 56.0;
 
 class NavRail extends StatelessWidget {
   final FloatingActionButton floatingActionButton;

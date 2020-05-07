@@ -24,7 +24,7 @@ class _SettingsState extends State<Settings> {
     'https://firebasestorage.googleapis.com/v0/b/dl-flutter-ui-challenges.appspot.com/o/img%2Fdev_sid.png?alt=media',
   ];
 
-  final bar = SnackBar(
+  final SnackBar bar = SnackBar(
       content: Text('Firestore Database is now perfectly clean. Well done !'));
 
   void changeBrightness() {
@@ -37,7 +37,8 @@ class _SettingsState extends State<Settings> {
   void cleanDateFormatinDatabase() {
     Future<List<Transaction>> transactions;
 
-    final transactionProvider = Provider.of<CRUDModel>(context, listen: false);
+    final CRUDModel transactionProvider =
+        Provider.of<CRUDModel>(context, listen: false);
     transactions = transactionProvider.fetchTransactions();
 
     transactions.then((value) => value.forEach((element) async {

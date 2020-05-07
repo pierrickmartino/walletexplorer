@@ -9,29 +9,14 @@ class ApiFirestoreTransactions {
     ref = _db.collection('transactions');
   }
 
-  Future<QuerySnapshot> getDataCollection() {
-    return ref.getDocuments();
-  }
-
-  Stream<QuerySnapshot> streamDataCollection() {
-    return ref.orderBy('sortAccountingDate', descending: true).snapshots();
-  }
-
-  Future<DocumentSnapshot> getDocumentById(String id) {
-    return ref.document(id).get();
-  }
-
-  Future<void> removeDocument(String id) {
-    return ref.document(id).delete();
-  }
-
-  Future<DocumentReference> addDocument(Map data) {
-    return ref.add(data);
-  }
-
-  Future<void> updateDocument(Map data, String id) {
-    return ref.document(id).updateData(data);
-  }
+  Future<QuerySnapshot> getDataCollection() => ref.getDocuments();
+  Stream<QuerySnapshot> streamDataCollection() =>
+      ref.orderBy('sortAccountingDate', descending: true).snapshots();
+  Future<DocumentSnapshot> getDocumentById(String id) => ref.document(id).get();
+  Future<void> removeDocument(String id) => ref.document(id).delete();
+  Future<DocumentReference> addDocument(Map data) => ref.add(data);
+  Future<void> updateDocument(Map data, String id) =>
+      ref.document(id).updateData(data);
 }
 
 class ApiFirestoreAccounts {
@@ -42,29 +27,13 @@ class ApiFirestoreAccounts {
     ref = _db.collection('accounts');
   }
 
-  Future<QuerySnapshot> getDataCollection() {
-    return ref.getDocuments();
-  }
-
-  Stream<QuerySnapshot> streamDataCollection() {
-    return ref.snapshots();
-  }
-
-  Future<DocumentSnapshot> getDocumentById(String id) {
-    return ref.document(id).get();
-  }
-
-  Future<void> removeDocument(String id) {
-    return ref.document(id).delete();
-  }
-
-  Future<DocumentReference> addDocument(Map data) {
-    return ref.add(data);
-  }
-
-  Future<void> updateDocument(Map data, String id) {
-    return ref.document(id).updateData(data);
-  }
+  Future<QuerySnapshot> getDataCollection() => ref.getDocuments();
+  Stream<QuerySnapshot> streamDataCollection() => ref.snapshots();
+  Future<DocumentSnapshot> getDocumentById(String id) => ref.document(id).get();
+  Future<void> removeDocument(String id) => ref.document(id).delete();
+  Future<DocumentReference> addDocument(Map data) => ref.add(data);
+  Future<void> updateDocument(Map data, String id) =>
+      ref.document(id).updateData(data);
 }
 
 class ApiFirestoreTransactionTypes {
@@ -75,27 +44,11 @@ class ApiFirestoreTransactionTypes {
     ref = _db.collection('transactionTypes');
   }
 
-  Future<QuerySnapshot> getDataCollection() {
-    return ref.getDocuments();
-  }
-
-  Stream<QuerySnapshot> streamDataCollection() {
-    return ref.snapshots();
-  }
-
-  Future<DocumentSnapshot> getDocumentById(String id) {
-    return ref.document(id).get();
-  }
-
-  Future<void> removeDocument(String id) {
-    return ref.document(id).delete();
-  }
-
-  Future<DocumentReference> addDocument(Map data) {
-    return ref.add(data);
-  }
-
-  Future<void> updateDocument(Map data, String id) {
-    return ref.document(id).updateData(data);
-  }
+  Future<QuerySnapshot> getDataCollection() => ref.getDocuments();
+  Stream<QuerySnapshot> streamDataCollection() => ref.snapshots();
+  Future<DocumentSnapshot> getDocumentById(String id) => ref.document(id).get();
+  Future<void> removeDocument(String id) => ref.document(id).delete();
+  Future<DocumentReference> addDocument(Map data) => ref.add(data);
+  Future<void> updateDocument(Map data, String id) =>
+      ref.document(id).updateData(data);
 }

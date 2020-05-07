@@ -16,7 +16,7 @@ class Wallet extends StatefulWidget {
 
 class _WalletState extends State<Wallet> {
   static Random random = Random();
-  final data = [
+  final List<LinearToken> data = [
     LinearToken(0, random.nextInt(300)),
     LinearToken(1, random.nextInt(300)),
     LinearToken(2, random.nextInt(300)),
@@ -63,7 +63,7 @@ class _WalletState extends State<Wallet> {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,7 +95,7 @@ class _WalletState extends State<Wallet> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(20, 0, 20, 5),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

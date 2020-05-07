@@ -37,7 +37,7 @@ class ClicksPerYear {
 
 class _AccountState extends State<AccountUI> {
   static Random random = Random();
-  final data = [
+  final List<LinearToken> data = [
     LinearToken(0, random.nextInt(300)),
     LinearToken(1, random.nextInt(300)),
     LinearToken(2, random.nextInt(300)),
@@ -83,20 +83,20 @@ class _AccountState extends State<AccountUI> {
 
   @override
   Widget build(BuildContext context) {
-    final barGroup1 = makeGroupData(0, 5, 12);
-    final barGroup2 = makeGroupData(1, 16, 12);
-    final barGroup3 = makeGroupData(2, 18, 5);
-    final barGroup4 = makeGroupData(3, 20, 16);
-    final barGroup5 = makeGroupData(4, 17, 6);
-    final barGroup6 = makeGroupData(5, 19, 1.5);
-    final barGroup7 = makeGroupData(6, 10, 1.5);
-    final barGroup8 = makeGroupData(7, 5, 4);
-    final barGroup9 = makeGroupData(8, 12, 4);
-    final barGroup10 = makeGroupData(9, 20, 10);
-    final barGroup11 = makeGroupData(10, 18, 12);
-    final barGroup12 = makeGroupData(11, 4, 9);
+    final BarChartGroupData barGroup1 = makeGroupData(0, 5, 12);
+    final BarChartGroupData barGroup2 = makeGroupData(1, 16, 12);
+    final BarChartGroupData barGroup3 = makeGroupData(2, 18, 5);
+    final BarChartGroupData barGroup4 = makeGroupData(3, 20, 16);
+    final BarChartGroupData barGroup5 = makeGroupData(4, 17, 6);
+    final BarChartGroupData barGroup6 = makeGroupData(5, 19, 1.5);
+    final BarChartGroupData barGroup7 = makeGroupData(6, 10, 1.5);
+    final BarChartGroupData barGroup8 = makeGroupData(7, 5, 4);
+    final BarChartGroupData barGroup9 = makeGroupData(8, 12, 4);
+    final BarChartGroupData barGroup10 = makeGroupData(9, 20, 10);
+    final BarChartGroupData barGroup11 = makeGroupData(10, 18, 12);
+    final BarChartGroupData barGroup12 = makeGroupData(11, 4, 9);
 
-    final items = [
+    final List<BarChartGroupData> items = [
       barGroup1,
       barGroup2,
       barGroup3,
@@ -115,13 +115,13 @@ class _AccountState extends State<AccountUI> {
 
     showingBarGroups = rawBarGroups;
 
-    var dataBar = [
+    List<ClicksPerYear> dataBar = [
       new ClicksPerYear('2016', 12, Colors.red),
       new ClicksPerYear('2017', 42, Colors.yellow),
       new ClicksPerYear('2018', 33, Colors.green),
     ];
 
-    var series = [
+    List<charts.Series<ClicksPerYear, String>> series = [
       new charts.Series(
         id: 'Clicks',
         domainFn: (ClicksPerYear clickData, _) => clickData.year,
@@ -131,7 +131,7 @@ class _AccountState extends State<AccountUI> {
       ),
     ];
 
-    var barchart = charts.BarChart(
+    charts.BarChart barchart = charts.BarChart(
       series,
       animate: true,
       primaryMeasureAxis: charts.NumericAxisSpec(
@@ -139,13 +139,13 @@ class _AccountState extends State<AccountUI> {
       ),
     );
 
-    var piechart = charts.PieChart(series,
+    charts.PieChart piechart = charts.PieChart(series,
         animate: true,
         defaultRenderer: new charts.ArcRendererConfig(
             arcWidth: 60,
             arcRendererDecorators: [new charts.ArcLabelDecorator()]));
 
-    var barchartpermonth = BarChart(
+    BarChart barchartpermonth = BarChart(
       BarChartData(
         maxY: 20,
         barTouchData: BarTouchData(
@@ -226,7 +226,7 @@ class _AccountState extends State<AccountUI> {
         NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 2);
 
     return Card(
-      elevation: 5.0,
+      elevation: 4.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(10),
@@ -235,7 +235,7 @@ class _AccountState extends State<AccountUI> {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -268,7 +268,7 @@ class _AccountState extends State<AccountUI> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(20, 0, 20, 5),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -296,7 +296,7 @@ class _AccountState extends State<AccountUI> {
           ),
           Container(
             height: 300,
-            padding: EdgeInsets.fromLTRB(5, 10, 10, 10),
+            padding: const EdgeInsets.fromLTRB(5, 10, 10, 10),
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: <Widget>[

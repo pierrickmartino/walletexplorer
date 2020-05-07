@@ -20,19 +20,20 @@ class CRUDModel extends ChangeNotifier {
 
   /* Transactions */
   Future<List<Transaction>> fetchTransactions() async {
-    var result = await _apiTransactions.getDataCollection();
+    _firestore.QuerySnapshot result =
+        await _apiTransactions.getDataCollection();
     transactions = result.documents
         .map((doc) => Transaction.fromMap(doc.data, doc.documentID))
         .toList();
     return transactions;
   }
 
-  Stream<_firestore.QuerySnapshot> fetchTransactionsAsStream() {
-    return _apiTransactions.streamDataCollection();
-  }
+  Stream<_firestore.QuerySnapshot> fetchTransactionsAsStream() =>
+      _apiTransactions.streamDataCollection();
 
   Future<Transaction> getTransactionById(String id) async {
-    var doc = await _apiTransactions.getDocumentById(id);
+    _firestore.DocumentSnapshot doc =
+        await _apiTransactions.getDocumentById(id);
     return Transaction.fromMap(doc.data, doc.documentID);
   }
 
@@ -47,26 +48,25 @@ class CRUDModel extends ChangeNotifier {
   }
 
   Future addTransaction(Transaction data) async {
-    var result = await _apiTransactions.addDocument(data.toJson());
-
+    _firestore.DocumentReference result =
+        await _apiTransactions.addDocument(data.toJson());
     return;
   }
 
 /* Accounts */
   Future<List<Account>> fetchAccounts() async {
-    var result = await _apiAccounts.getDataCollection();
+    _firestore.QuerySnapshot result = await _apiAccounts.getDataCollection();
     transactions = result.documents
         .map((doc) => Transaction.fromMap(doc.data, doc.documentID))
         .toList();
     return accounts;
   }
 
-  Stream<_firestore.QuerySnapshot> fetchAccountsAsStream() {
-    return _apiAccounts.streamDataCollection();
-  }
+  Stream<_firestore.QuerySnapshot> fetchAccountsAsStream() =>
+      _apiAccounts.streamDataCollection();
 
   Future<Account> getAccountById(String id) async {
-    var doc = await _apiAccounts.getDocumentById(id);
+    _firestore.DocumentSnapshot doc = await _apiAccounts.getDocumentById(id);
     return Account.fromMap(doc.data, doc.documentID);
   }
 
@@ -81,26 +81,28 @@ class CRUDModel extends ChangeNotifier {
   }
 
   Future addAccount(Transaction data) async {
-    var result = await _apiAccounts.addDocument(data.toJson());
+    _firestore.DocumentReference result =
+        await _apiAccounts.addDocument(data.toJson());
 
     return;
   }
 
 /* Transaction Types */
   Future<List<TransactionType>> fetchTransactionTypes() async {
-    var result = await _apiTransactionTypes.getDataCollection();
+    _firestore.QuerySnapshot result =
+        await _apiTransactionTypes.getDataCollection();
     transactionTypes = result.documents
         .map((doc) => TransactionType.fromMap(doc.data, doc.documentID))
         .toList();
     return transactionTypes;
   }
 
-  Stream<_firestore.QuerySnapshot> fetchTransactionTypesAsStream() {
-    return _apiTransactionTypes.streamDataCollection();
-  }
+  Stream<_firestore.QuerySnapshot> fetchTransactionTypesAsStream() =>
+      _apiTransactionTypes.streamDataCollection();
 
   Future<TransactionType> getTransactionTypeById(String id) async {
-    var doc = await _apiTransactionTypes.getDocumentById(id);
+    _firestore.DocumentSnapshot doc =
+        await _apiTransactionTypes.getDocumentById(id);
     return TransactionType.fromMap(doc.data, doc.documentID);
   }
 
@@ -115,7 +117,8 @@ class CRUDModel extends ChangeNotifier {
   }
 
   Future addTransactionType(TransactionType data) async {
-    var result = await _apiTransactionTypes.addDocument(data.toJson());
+    _firestore.DocumentReference result =
+        await _apiTransactionTypes.addDocument(data.toJson());
 
     return;
   }

@@ -16,7 +16,7 @@ class _AccountsState extends State<Accounts> {
 
   @override
   Widget build(BuildContext context) {
-    final accountProvider = Provider.of<CRUDModel>(context);
+    final CRUDModel accountProvider = Provider.of<CRUDModel>(context);
 
     return StreamBuilder(
       stream: accountProvider.fetchAccountsAsStream(),

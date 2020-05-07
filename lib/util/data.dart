@@ -106,7 +106,7 @@ List coins = [
   },
 ];
 
-var transactions = new List<ObjecTest>.generate(100, (index) {
+List<ObjecTest> transactions = new List<ObjecTest>.generate(100, (index) {
   return ObjecTest(
     name: names[random.nextInt(10)],
     date: "${random.nextInt(31).toString().padLeft(2, "0")}"

@@ -19,15 +19,15 @@ class BarChartSample2State extends State<BarChartSample2> {
   @override
   void initState() {
     super.initState();
-    final barGroup1 = makeGroupData(0, 5, 12);
-    final barGroup2 = makeGroupData(1, 16, 12);
-    final barGroup3 = makeGroupData(2, 18, 5);
-    final barGroup4 = makeGroupData(3, 20, 16);
-    final barGroup5 = makeGroupData(4, 17, 6);
-    final barGroup6 = makeGroupData(5, 19, 1.5);
-    final barGroup7 = makeGroupData(6, 10, 1.5);
+    final BarChartGroupData barGroup1 = makeGroupData(0, 5, 12);
+    final BarChartGroupData barGroup2 = makeGroupData(1, 16, 12);
+    final BarChartGroupData barGroup3 = makeGroupData(2, 18, 5);
+    final BarChartGroupData barGroup4 = makeGroupData(3, 20, 16);
+    final BarChartGroupData barGroup5 = makeGroupData(4, 17, 6);
+    final BarChartGroupData barGroup6 = makeGroupData(5, 19, 1.5);
+    final BarChartGroupData barGroup7 = makeGroupData(6, 10, 1.5);
 
-    final items = [
+    final List<BarChartGroupData> items = [
       barGroup1,
       barGroup2,
       barGroup3,
