@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:fl_chart/fl_chart.dart';
-import 'package:intl/intl.dart';
+import 'package:walletexplorer/ui/widgets/account_header.dart';
 
 class AccountUI extends StatefulWidget {
   final String name;
@@ -222,9 +222,6 @@ class _AccountState extends State<AccountUI> {
       ),
     );
 
-    NumberFormat numberFormat =
-        NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 2);
-
     return Card(
       elevation: 4.0,
       shape: RoundedRectangleBorder(
@@ -234,66 +231,13 @@ class _AccountState extends State<AccountUI> {
       ),
       child: Column(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.account_balance_wallet,
-                      size: 25,
-                    ),
-                    SizedBox(width: 10),
-                    Text(
-                      "${widget.name}",
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-                Text(
-                  "${widget.currency}"
-                  " "
-                  "${numberFormat.format(widget.balance)}",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    SizedBox(width: 35),
-                    Text(
-                      "${widget.depositary}",
-                      style: TextStyle(
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
-                Text(
-                  r"(0.3%) $21.67",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Theme.of(context).accentColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          AccountHeader(
+              name: widget.name,
+              icon: widget.icon,
+              balance: widget.balance,
+              currency: widget.currency,
+              depositary: widget.depositary,
+              color: widget.color),
           Container(
             height: 300,
             padding: const EdgeInsets.fromLTRB(5, 10, 10, 10),

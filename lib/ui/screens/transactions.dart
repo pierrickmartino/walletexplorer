@@ -4,11 +4,13 @@ import 'package:provider/provider.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as _firestore;
-import 'package:walletexplorer/ui/widgets/search_transaction.dart';
 
 import '../../core/models/transaction_type.dart';
 import '../../core/viewmodels/CRUDModel.dart';
 import '../../core/models/transaction.dart';
+import '../../core/models/account.dart';
+import '../../ui/widgets/transaction_search.dart';
+import '../../ui/widgets/account_header.dart';
 
 class Transactions extends StatefulWidget {
   @override
@@ -160,8 +162,16 @@ class _TransactionsState extends State<Transactions> {
   Widget build(BuildContext context) {
     final CRUDModel transactionProvider = Provider.of<CRUDModel>(context);
     final CRUDModel transactionTypeProvider = Provider.of<CRUDModel>(context);
+    final CRUDModel accountProvider = Provider.of<CRUDModel>(context);
 
     Transaction currentTransaction;
+    Account currentAccount;
+    accountProvider
+        .getAccountById('24 000 920 442')
+        .then((value) => currentAccount = value)
+        .catchError((error) {
+      print(error);
+    }); //24 000 920 442
 
     Stream<_firestore.QuerySnapshot> getSnapshotDependingOnCreditAmount(
         double creditAmount) {
@@ -185,6 +195,16 @@ class _TransactionsState extends State<Transactions> {
 
           return Container(
               child: Column(children: <Widget>[
+            AccountHeader(
+              name: currentAccount.relation,
+              icon: "asset_icon.png",
+              balance: currentAccount.balance,
+              currency: currentAccount.currency,
+              depositary: currentAccount.bank,
+            ),
+            SizedBox(
+              height: 15,
+            ),
             SearchTransaction(editingController: editingController),
             Expanded(
                 child: ListView.builder(
