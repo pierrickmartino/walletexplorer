@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 class AccountUI extends StatefulWidget {
   final String name;
   final String icon;
-  final double rate;
+  final double balance;
   final String currency;
   final String depositary;
   final charts.Color color;
@@ -15,7 +15,7 @@ class AccountUI extends StatefulWidget {
       {Key key,
       this.name,
       this.icon,
-      this.rate,
+      this.balance,
       this.color,
       this.currency,
       this.depositary})
@@ -258,7 +258,7 @@ class _AccountState extends State<AccountUI> {
                 Text(
                   "${widget.currency}"
                   " "
-                  "${numberFormat.format(widget.rate)}",
+                  "${numberFormat.format(widget.balance)}",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,

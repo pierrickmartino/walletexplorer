@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:provider/provider.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:intl/intl.dart';
@@ -21,6 +20,134 @@ class _TransactionsState extends State<Transactions> {
 
   NumberFormat numberFormat =
       NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 2);
+
+  IconData getIconDataForName(String iconName) {
+    switch (iconName) {
+      case 'business_center':
+        {
+          return Icons.business_center;
+        }
+        break;
+      case 'shopping_cart':
+        {
+          return Icons.shopping_cart;
+        }
+        break;
+      case 'remove_from_queue':
+        {
+          return Icons.remove_from_queue;
+        }
+        break;
+      case 'add_to_queue':
+        {
+          return Icons.add_to_queue;
+        }
+        break;
+      case 'local_airport':
+        {
+          return Icons.local_airport;
+        }
+        break;
+      case 'local_hospital':
+        {
+          return Icons.local_hospital;
+        }
+        break;
+      case 'home':
+        {
+          return Icons.home;
+        }
+        break;
+      case 'fastfood':
+        {
+          return Icons.fastfood;
+        }
+        break;
+      case 'directions_car':
+        {
+          return Icons.directions_car;
+        }
+        break;
+      case 'monetization_on':
+        {
+          return Icons.monetization_on;
+        }
+        break;
+      case 'phonelink':
+        {
+          return Icons.phonelink;
+        }
+        break;
+      default:
+        {
+          return Icons.zoom_in;
+        }
+    }
+  }
+
+  Color getIconColorForName(String iconName) {
+    switch (iconName) {
+      case 'business_center':
+        {
+          return Color(0xff90D7FF);
+        }
+        break;
+      case 'shopping_cart':
+        {
+          return Color(0xffC9F9FF);
+        }
+        break;
+      case 'remove_from_queue':
+        {
+          return Color(0xffBFD0E0);
+        }
+        break;
+      case 'add_to_queue':
+        {
+          return Color(0xffB8B3BE);
+        }
+        break;
+      case 'local_airport':
+        {
+          return Color(0xffC1AE7C);
+        }
+        break;
+      case 'local_hospital':
+        {
+          return Color(0xffCC4BC2);
+        }
+        break;
+      case 'home':
+        {
+          return Color(0xff6C3A5C);
+        }
+        break;
+      case 'fastfood':
+        {
+          return Color(0xff794C6B);
+        }
+        break;
+      case 'directions_car':
+        {
+          return Color(0xffFFDAB9);
+        }
+        break;
+      case 'monetization_on':
+        {
+          return Color(0xff7FB285);
+        }
+        break;
+      case 'phonelink':
+        {
+          return Color(0xffA480CF);
+        }
+        break;
+      default:
+        {
+          return Color(0xffE0FF4F);
+        }
+    }
+  }
 
   @override
   void initState() {
@@ -107,6 +234,7 @@ class _TransactionsState extends State<Transactions> {
                                                   (BuildContext context,
                                                       int index) {
                                                 return ListTile(
+                                                  dense: true,
                                                   enabled: true,
                                                   onTap: () async {
                                                     if (currentTransaction
@@ -133,27 +261,23 @@ class _TransactionsState extends State<Transactions> {
                                                   title: Text(
                                                       transactionTypes[index]
                                                           .label),
+                                                  leading: IconButton(
+                                                      iconSize: 20,
+                                                      icon: Icon(
+                                                          getIconDataForName(
+                                                              transactionTypes[
+                                                                      index]
+                                                                  .icon))),
                                                 );
                                               }));
                                     }));
                       },
-                      child: CircularProfileAvatar(
-                        '',
-                        radius: 30,
-                        backgroundColor: Colors.transparent,
-                        borderWidth: 10,
-                        initialsText: Text(transactions[index].icon,
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: transactions[index].debitAmount > 0
-                                  ? Theme.of(context).bottomAppBarColor
-                                  : Theme.of(context).accentColor,
-                            )),
-                        borderColor: Theme.of(context).cardColor,
-                        elevation: 4.0,
-                        foregroundColor:
-                            Theme.of(context).cardColor.withOpacity(0.5),
-                        showInitialTextAbovePicture: true,
+                      child: IconButton(
+                        iconSize: 30,
+                        color: getIconColorForName(transactions[index].icon),
+                        icon:
+                            Icon(getIconDataForName(transactions[index].icon)),
+                        onPressed: () {},
                       ),
                     ),
                     title: Row(

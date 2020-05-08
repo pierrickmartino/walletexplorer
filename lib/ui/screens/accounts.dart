@@ -36,7 +36,7 @@ class _AccountsState extends State<Accounts> {
                 return AccountUI(
                   name: accounts[index].relation,
                   icon: "asset_icon.png",
-                  rate: accounts[index].balance,
+                  balance: accounts[index].balance,
                   currency: accounts[index].currency,
                   depositary: accounts[index].bank,
                   color: charts.MaterialPalette.blue.shadeDefault,
