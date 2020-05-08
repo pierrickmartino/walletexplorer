@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as _firestore;
+import 'package:walletexplorer/ui/widgets/search_transaction.dart';
 
 import '../../core/models/transaction_type.dart';
 import '../../core/viewmodels/CRUDModel.dart';
@@ -184,19 +185,7 @@ class _TransactionsState extends State<Transactions> {
 
           return Container(
               child: Column(children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: TextField(
-                onChanged: (value) {},
-                controller: editingController,
-                decoration: InputDecoration(
-                    labelText: "Search",
-                    hintText: "Search",
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)))),
-              ),
-            ),
+            SearchTransaction(editingController: editingController),
             Expanded(
                 child: ListView.builder(
               shrinkWrap: true,

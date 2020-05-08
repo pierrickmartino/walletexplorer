@@ -80,11 +80,11 @@ class _HomeViewState extends State<HomeView> {
           icon: Icon(Icons.pie_chart),
         ),
         BottomNavigationBarItem(
-          title: Text("Accounts"),
+          title: Text("Account"),
           icon: Icon(Icons.account_balance_wallet),
         ),
         BottomNavigationBarItem(
-          title: Text("Transactions"),
+          title: Text("Transaction"),
           icon: Icon(Icons.history),
         ),
         BottomNavigationBarItem(
