@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:intl/intl.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as _firestore;
 
 import '../../core/models/transaction_type.dart';
 import '../../core/viewmodels/CRUDModel.dart';
@@ -161,6 +162,15 @@ class _TransactionsState extends State<Transactions> {
 
     Transaction currentTransaction;
 
+    Stream<_firestore.QuerySnapshot> getSnapshotDependingOnCreditAmount(
+        double creditAmount) {
+      if (creditAmount > 0) {
+        return transactionTypeProvider.fetchTransactionTypesAsStreamCredit();
+      } else {
+        return transactionTypeProvider.fetchTransactionTypesAsStreamDebit();
+      }
+    }
+
     return StreamBuilder(
       stream: transactionProvider.fetchTransactionsAsStream(),
       builder: (context, snapshot) {
@@ -212,8 +222,8 @@ class _TransactionsState extends State<Transactions> {
                             context: context,
                             builder: (context, scrollController) =>
                                 StreamBuilder(
-                                    stream: transactionTypeProvider
-                                        .fetchTransactionTypesAsStream(),
+                                    stream: getSnapshotDependingOnCreditAmount(
+                                        currentTransaction.creditAmount),
                                     builder: (context, snapshot) {
                                       if (!snapshot.hasData) {
                                         return LinearProgressIndicator();
@@ -262,12 +272,14 @@ class _TransactionsState extends State<Transactions> {
                                                       transactionTypes[index]
                                                           .label),
                                                   leading: IconButton(
-                                                      iconSize: 20,
-                                                      icon: Icon(
-                                                          getIconDataForName(
-                                                              transactionTypes[
-                                                                      index]
-                                                                  .icon))),
+                                                    iconSize: 20,
+                                                    icon: Icon(
+                                                        getIconDataForName(
+                                                            transactionTypes[
+                                                                    index]
+                                                                .icon)),
+                                                    onPressed: () {},
+                                                  ),
                                                 );
                                               }));
                                     }));

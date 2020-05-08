@@ -46,6 +46,10 @@ class ApiFirestoreTransactionTypes {
 
   Future<QuerySnapshot> getDataCollection() => ref.getDocuments();
   Stream<QuerySnapshot> streamDataCollection() => ref.snapshots();
+  Stream<QuerySnapshot> streamDataCollectionCredit() =>
+      ref.where('direction', whereIn: ['in', 'both']).snapshots();
+  Stream<QuerySnapshot> streamDataCollectionDebit() =>
+      ref.where('direction', whereIn: ['out', 'both']).snapshots();
   Future<DocumentSnapshot> getDocumentById(String id) => ref.document(id).get();
   Future<void> removeDocument(String id) => ref.document(id).delete();
   Future<DocumentReference> addDocument(Map data) => ref.add(data);

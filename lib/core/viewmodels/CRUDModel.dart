@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as _firestore;
+
 import '../models/account.dart';
 import '../models/transaction_type.dart';
 import '../models/transaction.dart';
@@ -99,6 +100,10 @@ class CRUDModel extends ChangeNotifier {
 
   Stream<_firestore.QuerySnapshot> fetchTransactionTypesAsStream() =>
       _apiTransactionTypes.streamDataCollection();
+  Stream<_firestore.QuerySnapshot> fetchTransactionTypesAsStreamDebit() =>
+      _apiTransactionTypes.streamDataCollectionDebit();
+  Stream<_firestore.QuerySnapshot> fetchTransactionTypesAsStreamCredit() =>
+      _apiTransactionTypes.streamDataCollectionCredit();
 
   Future<TransactionType> getTransactionTypeById(String id) async {
     _firestore.DocumentSnapshot doc =
