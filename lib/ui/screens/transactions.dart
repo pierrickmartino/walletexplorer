@@ -165,13 +165,23 @@ class _TransactionsState extends State<Transactions> {
     final CRUDModel accountProvider = Provider.of<CRUDModel>(context);
 
     Transaction currentTransaction;
-    Account currentAccount;
+    Account currentAccount = Account(
+        active: true,
+        balance: 0,
+        bank: '-',
+        currency: '-',
+        description: '-',
+        evaluationDate: '-',
+        product: '-',
+        refIBAN: '-',
+        relation: '-');
+
     accountProvider
         .getAccountById('24 000 920 442')
         .then((value) => currentAccount = value)
         .catchError((error) {
       print(error);
-    }); //24 000 920 442
+    });
 
     Stream<_firestore.QuerySnapshot> getSnapshotDependingOnCreditAmount(
         double creditAmount) {
