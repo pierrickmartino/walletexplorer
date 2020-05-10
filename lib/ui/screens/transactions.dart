@@ -153,6 +153,17 @@ class _TransactionsState extends State<Transactions> {
     }
   }
 
+  Account currentAccount = Account(
+      active: true,
+      balance: 0,
+      bank: '-',
+      currency: '-',
+      description: '-',
+      evaluationDate: '-',
+      product: '-',
+      refIBAN: '-',
+      relation: '-');
+
   @override
   void initState() {
     super.initState();
@@ -165,19 +176,9 @@ class _TransactionsState extends State<Transactions> {
     final CRUDModel accountProvider = Provider.of<CRUDModel>(context);
 
     Transaction currentTransaction;
-    Account currentAccount = Account(
-        active: true,
-        balance: 0,
-        bank: '-',
-        currency: '-',
-        description: '-',
-        evaluationDate: '-',
-        product: '-',
-        refIBAN: '-',
-        relation: '-');
 
     accountProvider
-        .getAccountById('24 000 920 442')
+        .getAccountById('24000920442')
         .then((value) => currentAccount = value)
         .catchError((error) {
       print(error);
@@ -255,28 +256,43 @@ class _TransactionsState extends State<Transactions> {
                                             .toList();
                                       }
                                       return Container(
-                                          child: ListView.builder(
-                                              shrinkWrap: true,
-                                              itemCount:
-                                                  transactionTypes.length,
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                      int index) {
-                                                return ListTile(
-                                                  dense: true,
-                                                  enabled: true,
-                                                  onTap: () async {
+                                        child: Wrap(
+                                          spacing: 4.0,
+                                          children: <Widget>[
+                                            for (var i = 0;
+                                                i < transactionTypes.length;
+                                                i++)
+                                              ActionChip(
+                                                  elevation: 4.0,
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  avatar: CircleAvatar(
+                                                      backgroundColor:
+                                                          Colors.black,
+                                                      foregroundColor:
+                                                          Colors.white,
+                                                      // getIconColorForName(
+                                                      //     transactionTypes[i]
+                                                      //         .icon),
+                                                      child: Icon(
+                                                          getIconDataForName(
+                                                              transactionTypes[
+                                                                      i]
+                                                                  .icon),
+                                                          size: 15)),
+                                                  label: Text(
+                                                      transactionTypes[i]
+                                                          .label),
+                                                  onPressed: () async {
                                                     if (currentTransaction
                                                             .type !=
-                                                        transactionTypes[index]
+                                                        transactionTypes[i]
                                                             .code) {
                                                       currentTransaction.type =
-                                                          transactionTypes[
-                                                                  index]
+                                                          transactionTypes[i]
                                                               .code;
                                                       currentTransaction.icon =
-                                                          transactionTypes[
-                                                                  index]
+                                                          transactionTypes[i]
                                                               .icon;
                                                       await transactionProvider
                                                           .updateTransaction(
@@ -286,21 +302,57 @@ class _TransactionsState extends State<Transactions> {
                                                     }
 
                                                     Navigator.pop(context);
-                                                  },
-                                                  title: Text(
-                                                      transactionTypes[index]
-                                                          .label),
-                                                  leading: IconButton(
-                                                    iconSize: 20,
-                                                    icon: Icon(
-                                                        getIconDataForName(
-                                                            transactionTypes[
-                                                                    index]
-                                                                .icon)),
-                                                    onPressed: () {},
-                                                  ),
-                                                );
-                                              }));
+                                                  })
+                                          ],
+                                        ),
+                                        // child: ListView.builder(
+                                        //     shrinkWrap: true,
+                                        //     itemCount:
+                                        //         transactionTypes.length,
+                                        //     itemBuilder:
+                                        //         (BuildContext context,
+                                        //             int index) {
+                                        //       return ListTile(
+                                        //         dense: true,
+                                        //         enabled: true,
+                                        //         onTap: () async {
+                                        //           if (currentTransaction
+                                        //                   .type !=
+                                        //               transactionTypes[index]
+                                        //                   .code) {
+                                        //             currentTransaction.type =
+                                        //                 transactionTypes[
+                                        //                         index]
+                                        //                     .code;
+                                        //             currentTransaction.icon =
+                                        //                 transactionTypes[
+                                        //                         index]
+                                        //                     .icon;
+                                        //             await transactionProvider
+                                        //                 .updateTransaction(
+                                        //                     currentTransaction,
+                                        //                     currentTransaction
+                                        //                         .id);
+                                        //           }
+
+                                        //           Navigator.pop(context);
+                                        //         },
+                                        //         title: Text(
+                                        //             transactionTypes[index]
+                                        //                 .label),
+                                        //         leading: IconButton(
+                                        //           iconSize: 20,
+                                        //           icon: Icon(
+                                        //               getIconDataForName(
+                                        //                   transactionTypes[
+                                        //                           index]
+                                        //                       .icon)),
+                                        //           onPressed: () {},
+                                        //         ),
+                                        //       );
+                                        //     }
+                                        //   )
+                                      );
                                     }));
                       },
                       child: IconButton(
