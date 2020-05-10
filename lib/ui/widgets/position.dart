@@ -105,7 +105,7 @@ class _WalletState extends State<Wallet> {
                   r"(0.3%) $21.67",
                   style: TextStyle(
                     fontSize: 12,
-                    color: Colors.green[400],
+                    color: Theme.of(context).accentColor,
                   ),
                 ),
               ],
