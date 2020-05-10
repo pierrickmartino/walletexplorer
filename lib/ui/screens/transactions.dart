@@ -25,7 +25,7 @@ class _TransactionsState extends State<Transactions> {
   NumberFormat numberFormat =
       NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 2);
 
-  IconData getIconDataForName(String iconName) {
+  IconData getIconDataByName(String iconName) {
     switch (iconName) {
       case 'business_center':
         {
@@ -64,7 +64,7 @@ class _TransactionsState extends State<Transactions> {
         break;
       case 'fastfood':
         {
-          return Icons.fastfood;
+          return Icons.restaurant;
         }
         break;
       case 'directions_car':
@@ -74,12 +74,37 @@ class _TransactionsState extends State<Transactions> {
         break;
       case 'monetization_on':
         {
-          return Icons.monetization_on;
+          return Icons.attach_money;
         }
         break;
       case 'phonelink':
         {
           return Icons.phonelink;
+        }
+        break;
+      case 'swap_horiz':
+        {
+          return Icons.swap_horiz;
+        }
+        break;
+      case 'money_off':
+        {
+          return Icons.money_off;
+        }
+        break;
+      case 'terrain':
+        {
+          return Icons.terrain;
+        }
+        break;
+      case 'fitness_center':
+        {
+          return Icons.fitness_center;
+        }
+        break;
+      case 'person':
+        {
+          return Icons.person;
         }
         break;
       default:
@@ -89,7 +114,7 @@ class _TransactionsState extends State<Transactions> {
     }
   }
 
-  Color getIconColorForName(String iconName) {
+  Color getIconColorByName(String iconName) {
     switch (iconName) {
       case 'business_center':
         {
@@ -144,6 +169,16 @@ class _TransactionsState extends State<Transactions> {
       case 'phonelink':
         {
           return Color(0xffA480CF);
+        }
+        break;
+      case 'swap_horiz':
+        {
+          return Color(0xffE0FF4F); /* TODO */
+        }
+        break;
+      case 'money_off':
+        {
+          return Color(0xffE0FF4F); /* TODO */
         }
         break;
       default:
@@ -270,12 +305,9 @@ class _TransactionsState extends State<Transactions> {
                                                       backgroundColor:
                                                           Colors.black,
                                                       foregroundColor:
-                                                          Colors.white,
-                                                      // getIconColorForName(
-                                                      //     transactionTypes[i]
-                                                      //         .icon),
+                                                          Color(0xffE0FF4F),
                                                       child: Icon(
-                                                          getIconDataForName(
+                                                          getIconDataByName(
                                                               transactionTypes[
                                                                       i]
                                                                   .icon),
@@ -305,61 +337,17 @@ class _TransactionsState extends State<Transactions> {
                                                   })
                                           ],
                                         ),
-                                        // child: ListView.builder(
-                                        //     shrinkWrap: true,
-                                        //     itemCount:
-                                        //         transactionTypes.length,
-                                        //     itemBuilder:
-                                        //         (BuildContext context,
-                                        //             int index) {
-                                        //       return ListTile(
-                                        //         dense: true,
-                                        //         enabled: true,
-                                        //         onTap: () async {
-                                        //           if (currentTransaction
-                                        //                   .type !=
-                                        //               transactionTypes[index]
-                                        //                   .code) {
-                                        //             currentTransaction.type =
-                                        //                 transactionTypes[
-                                        //                         index]
-                                        //                     .code;
-                                        //             currentTransaction.icon =
-                                        //                 transactionTypes[
-                                        //                         index]
-                                        //                     .icon;
-                                        //             await transactionProvider
-                                        //                 .updateTransaction(
-                                        //                     currentTransaction,
-                                        //                     currentTransaction
-                                        //                         .id);
-                                        //           }
-
-                                        //           Navigator.pop(context);
-                                        //         },
-                                        //         title: Text(
-                                        //             transactionTypes[index]
-                                        //                 .label),
-                                        //         leading: IconButton(
-                                        //           iconSize: 20,
-                                        //           icon: Icon(
-                                        //               getIconDataForName(
-                                        //                   transactionTypes[
-                                        //                           index]
-                                        //                       .icon)),
-                                        //           onPressed: () {},
-                                        //         ),
-                                        //       );
-                                        //     }
-                                        //   )
                                       );
                                     }));
                       },
                       child: IconButton(
                         iconSize: 30,
-                        color: getIconColorForName(transactions[index].icon),
-                        icon:
-                            Icon(getIconDataForName(transactions[index].icon)),
+                        color: transactions[index].icon == ""
+                            ? Color(0xffE0FF4F)
+                            : transactions[index].debitAmount > 0
+                                ? Theme.of(context).bottomAppBarColor
+                                : Theme.of(context).accentColor,
+                        icon: Icon(getIconDataByName(transactions[index].icon)),
                         onPressed: () {},
                       ),
                     ),
