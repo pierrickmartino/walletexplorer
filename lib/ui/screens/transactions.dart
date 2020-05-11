@@ -11,8 +11,13 @@ import '../../core/models/transaction.dart';
 import '../../core/models/account.dart';
 import '../../ui/widgets/transaction_search.dart';
 import '../../ui/widgets/account_header.dart';
+import '../../ui/widgets/customAppBar.dart';
 
 class Transactions extends StatefulWidget {
+  final String relation;
+
+  const Transactions({Key key, this.relation}) : super(key: key);
+
   @override
   _TransactionsState createState() => _TransactionsState();
 }
@@ -213,7 +218,7 @@ class _TransactionsState extends State<Transactions> {
     Transaction currentTransaction;
 
     accountProvider
-        .getAccountById('24000920442')
+        .getAccountById(widget.relation)
         .then((value) => currentAccount = value)
         .catchError((error) {
       print(error);
@@ -239,222 +244,234 @@ class _TransactionsState extends State<Transactions> {
                   (doc) => Transaction.fromMap(doc.data, doc.documentID))
               .toList();
 
-          return Container(
-              child: Column(children: <Widget>[
-            AccountHeader(
-              name: currentAccount.relation,
-              icon: "asset_icon.png",
-              balance: currentAccount.balance,
-              currency: currentAccount.currency,
-              depositary: currentAccount.bank,
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            SearchTransaction(editingController: editingController),
-            Expanded(
-                child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: transactions.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  elevation: 4.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
-                  child: ExpansionTile(
-                    leading: GestureDetector(
-                      onLongPress: () {
-                        setState(() {
-                          currentTransaction = transactions[index];
-                        });
-                        showMaterialModalBottomSheet(
-                            elevation: 4.0,
-                            useRootNavigator: true,
-                            bounce: true,
-                            context: context,
-                            builder: (context, scrollController) =>
-                                StreamBuilder(
-                                    stream: getSnapshotDependingOnCreditAmount(
-                                        currentTransaction.creditAmount),
-                                    builder: (context, snapshot) {
-                                      if (!snapshot.hasData) {
-                                        return LinearProgressIndicator();
-                                      } else {
-                                        transactionTypes = snapshot
-                                            .data.documents
-                                            .map<TransactionType>((doc) =>
-                                                TransactionType.fromMap(
-                                                    doc.data, doc.documentID))
-                                            .toList();
-                                      }
-                                      return Container(
-                                        child: Wrap(
-                                          spacing: 4.0,
-                                          children: <Widget>[
-                                            for (var i = 0;
-                                                i < transactionTypes.length;
-                                                i++)
-                                              ActionChip(
-                                                  elevation: 4.0,
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  avatar: CircleAvatar(
-                                                      backgroundColor:
-                                                          Colors.black,
-                                                      foregroundColor:
-                                                          Color(0xffE0FF4F),
-                                                      child: Icon(
-                                                          getIconDataByName(
+          return Scaffold(
+              appBar: CustomAppBar(height: 80, title: 'Transactions'),
+              body: Column(children: <Widget>[
+                AccountHeader(
+                  name: currentAccount.relation,
+                  icon: "asset_icon.png",
+                  balance: currentAccount.balance,
+                  currency: currentAccount.currency,
+                  depositary: currentAccount.bank,
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                SearchTransaction(editingController: editingController),
+                Expanded(
+                    child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: transactions.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      elevation: 4.0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      ),
+                      child: ExpansionTile(
+                        leading: GestureDetector(
+                          onLongPress: () {
+                            setState(() {
+                              currentTransaction = transactions[index];
+                            });
+                            showMaterialModalBottomSheet(
+                                elevation: 4.0,
+                                useRootNavigator: true,
+                                bounce: true,
+                                context: context,
+                                builder: (context, scrollController) =>
+                                    StreamBuilder(
+                                        stream:
+                                            getSnapshotDependingOnCreditAmount(
+                                                currentTransaction
+                                                    .creditAmount),
+                                        builder: (context, snapshot) {
+                                          if (!snapshot.hasData) {
+                                            return LinearProgressIndicator();
+                                          } else {
+                                            transactionTypes = snapshot
+                                                .data.documents
+                                                .map<TransactionType>((doc) =>
+                                                    TransactionType.fromMap(
+                                                        doc.data,
+                                                        doc.documentID))
+                                                .toList();
+                                          }
+                                          return Container(
+                                            child: Wrap(
+                                              spacing: 4.0,
+                                              children: <Widget>[
+                                                for (var i = 0;
+                                                    i < transactionTypes.length;
+                                                    i++)
+                                                  ActionChip(
+                                                      elevation: 4.0,
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      avatar: CircleAvatar(
+                                                          backgroundColor:
+                                                              Colors.black,
+                                                          foregroundColor:
+                                                              Color(0xffE0FF4F),
+                                                          child: Icon(
+                                                              getIconDataByName(
+                                                                  transactionTypes[
+                                                                          i]
+                                                                      .icon),
+                                                              size: 15)),
+                                                      label: Text(
+                                                          transactionTypes[i]
+                                                              .label),
+                                                      onPressed: () async {
+                                                        if (currentTransaction
+                                                                .type !=
+                                                            transactionTypes[i]
+                                                                .code) {
+                                                          currentTransaction
+                                                                  .type =
                                                               transactionTypes[
                                                                       i]
-                                                                  .icon),
-                                                          size: 15)),
-                                                  label: Text(
-                                                      transactionTypes[i]
-                                                          .label),
-                                                  onPressed: () async {
-                                                    if (currentTransaction
-                                                            .type !=
-                                                        transactionTypes[i]
-                                                            .code) {
-                                                      currentTransaction.type =
-                                                          transactionTypes[i]
-                                                              .code;
-                                                      currentTransaction.icon =
-                                                          transactionTypes[i]
-                                                              .icon;
-                                                      await transactionProvider
-                                                          .updateTransaction(
-                                                              currentTransaction,
-                                                              currentTransaction
-                                                                  .id);
-                                                    }
+                                                                  .code;
+                                                          currentTransaction
+                                                                  .icon =
+                                                              transactionTypes[
+                                                                      i]
+                                                                  .icon;
+                                                          await transactionProvider
+                                                              .updateTransaction(
+                                                                  currentTransaction,
+                                                                  currentTransaction
+                                                                      .id);
+                                                        }
 
-                                                    Navigator.pop(context);
-                                                  })
-                                          ],
-                                        ),
-                                      );
-                                    }));
-                      },
-                      child: IconButton(
-                        iconSize: 30,
-                        color: transactions[index].icon == ""
-                            ? Color(0xffE0FF4F)
-                            : transactions[index].debitAmount > 0
-                                ? Theme.of(context).bottomAppBarColor
-                                : Theme.of(context).accentColor,
-                        icon: Icon(getIconDataByName(transactions[index].icon)),
-                        onPressed: () {},
-                      ),
-                    ),
-                    title: Row(
-                      children: <Widget>[
-                        Text(
-                            transactions[index].description2 == ""
-                                ? (transactions[index].description1.length < 23
-                                    ? transactions[index].description1
-                                    : transactions[index]
-                                        .description1
-                                        .substring(0, 23))
-                                : (transactions[index].description2.length < 23
-                                    ? transactions[index].description2
-                                    : transactions[index]
-                                        .description2
-                                        .substring(0, 23)),
-                            style: TextStyle(
-                              fontSize: 12,
-                            )),
-                        Spacer(),
-                        Text(
-                          transactions[index].debitAmount > 0
-                              ? "- ${numberFormat.format(transactions[index].debitAmount)}"
-                              : "+ ${numberFormat.format(transactions[index].creditAmount)}",
-                          style: TextStyle(
-                            color: transactions[index].debitAmount > 0
-                                ? Theme.of(context).bottomAppBarColor
-                                : Theme.of(context).accentColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
+                                                        Navigator.pop(context);
+                                                      })
+                                              ],
+                                            ),
+                                          );
+                                        }));
+                          },
+                          child: IconButton(
+                            iconSize: 30,
+                            color: transactions[index].icon == ""
+                                ? Color(0xffE0FF4F)
+                                : transactions[index].debitAmount > 0
+                                    ? Theme.of(context).bottomAppBarColor
+                                    : Theme.of(context).accentColor,
+                            icon: Icon(
+                                getIconDataByName(transactions[index].icon)),
+                            onPressed: () {},
                           ),
-                        )
-                      ],
-                    ),
-                    subtitle: Row(
-                      children: <Widget>[
-                        Text(transactions[index].description1,
-                            style: TextStyle(
-                              fontSize: 12,
-                            )),
-                        Spacer(),
-                        Text(
-                            transactions[index].accountingDate +
-                                ' - ' +
-                                transactions[index].currency,
-                            style: TextStyle(
-                              fontSize: 12,
-                            ))
-                      ],
-                    ),
-                    children: <Widget>[
-                      Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            //height: 100.0,
-                            margin: const EdgeInsets.all(4.0),
-                            padding: const EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).cardColor,
-                              borderRadius:
-                                  new BorderRadius.all(Radius.circular(10.0)),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(transactions[index].description1,
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                    )),
-                                Text(transactions[index].description2,
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                    )),
-                                Text(transactions[index].description3,
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                    )),
-                                Text(""),
-                                Text("IBAN: " + transactions[index].refIBAN,
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                    )),
-                                Text(
-                                    "Accounting date: " +
-                                        transactions[index].accountingDate,
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                    )),
-                                Text(
-                                    "Value date: " +
-                                        transactions[index].valueDate,
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                    )),
-                              ],
-                            ),
-                          ),
+                        ),
+                        title: Row(
+                          children: <Widget>[
+                            Text(
+                                transactions[index].description2 == ""
+                                    ? (transactions[index].description1.length <
+                                            23
+                                        ? transactions[index].description1
+                                        : transactions[index]
+                                            .description1
+                                            .substring(0, 23))
+                                    : (transactions[index].description2.length <
+                                            23
+                                        ? transactions[index].description2
+                                        : transactions[index]
+                                            .description2
+                                            .substring(0, 23)),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                )),
+                            Spacer(),
+                            Text(
+                              transactions[index].debitAmount > 0
+                                  ? "- ${numberFormat.format(transactions[index].debitAmount)}"
+                                  : "+ ${numberFormat.format(transactions[index].creditAmount)}",
+                              style: TextStyle(
+                                color: transactions[index].debitAmount > 0
+                                    ? Theme.of(context).bottomAppBarColor
+                                    : Theme.of(context).accentColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
+                            )
+                          ],
+                        ),
+                        subtitle: Row(
+                          children: <Widget>[
+                            Text(transactions[index].description1,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                )),
+                            Spacer(),
+                            Text(
+                                transactions[index].accountingDate +
+                                    ' - ' +
+                                    transactions[index].currency,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                ))
+                          ],
+                        ),
+                        children: <Widget>[
+                          Column(
+                            children: [
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                //height: 100.0,
+                                margin: const EdgeInsets.all(4.0),
+                                padding: const EdgeInsets.all(10.0),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).cardColor,
+                                  borderRadius: new BorderRadius.all(
+                                      Radius.circular(10.0)),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(transactions[index].description1,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                        )),
+                                    Text(transactions[index].description2,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                        )),
+                                    Text(transactions[index].description3,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                        )),
+                                    Text(""),
+                                    Text("IBAN: " + transactions[index].refIBAN,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                        )),
+                                    Text(
+                                        "Accounting date: " +
+                                            transactions[index].accountingDate,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                        )),
+                                    Text(
+                                        "Value date: " +
+                                            transactions[index].valueDate,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                        )),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          )
                         ],
-                      )
-                    ],
-                  ),
-                );
-              },
-            ))
-          ]));
+                      ),
+                    );
+                  },
+                ))
+              ]));
         }
       },
     );

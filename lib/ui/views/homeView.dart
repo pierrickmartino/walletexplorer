@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 
-import '../screens/analysis.dart';
-import '../screens/transactions.dart';
 import '../screens/overview.dart';
-import '../screens/settings.dart';
-import '../screens/accounts.dart';
-import '../../util/data.dart';
-import '../../util/navigation_rail.dart';
 import '../../core/services/authentication.dart';
+import '../screens/header.dart';
+import '../widgets/customAppBar.dart';
 
 class HomeView extends StatefulWidget {
   HomeView({Key key, this.auth, this.userId, this.logoutCallback})
@@ -23,13 +18,6 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  int _currentIndex = 0;
-  static Random random = Random();
-  String name = names[random.nextInt(10)];
-  AssetImage userAccountPicture = AssetImage(
-    "assets/cm${random.nextInt(10)}.jpeg",
-  );
-
   signOut() async {
     try {
       await widget.auth.signOut();
@@ -41,61 +29,23 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return NavRail(
-      hideTitleBar: true,
-      //bottomNavigationBarColor: Theme.of(context).dividerColor,
-      drawerHeaderBuilder: (context) {
-        return Column(
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text(name),
-              accountEmail:
-                  Text(name.toLowerCase().replaceAll(" ", ".") + "@gmail.com"),
-              currentAccountPicture:
-                  CircleAvatar(backgroundImage: userAccountPicture),
-            ),
-          ],
-        );
-      },
-      currentIndex: _currentIndex,
-      onTap: (val) {
-        if (mounted)
-          setState(() {
-            _currentIndex = val;
-          });
-      },
-      body: IndexedStack(
-        index: _currentIndex,
+    return Scaffold(
+      appBar: CustomAppBar(height: 80, title: 'Overview'),
+      body: Column(
         children: <Widget>[
-          Overview(),
-          Accounts(),
-          Transactions(),
-          Analysis(),
-          Settings(),
+          Container(
+            height: 60,
+            child: Header(),
+          ),
+          Divider(
+            height: 20,
+            thickness: 1,
+          ),
+          Expanded(
+            child: Overview(),
+          )
         ],
       ),
-      tabs: <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          title: Text("Overview"),
-          icon: Icon(Icons.pie_chart),
-        ),
-        BottomNavigationBarItem(
-          title: Text("Account"),
-          icon: Icon(Icons.account_balance_wallet),
-        ),
-        BottomNavigationBarItem(
-          title: Text("Transaction"),
-          icon: Icon(Icons.history),
-        ),
-        BottomNavigationBarItem(
-          title: Text("Analysis"),
-          icon: Icon(Icons.multiline_chart),
-        ),
-        BottomNavigationBarItem(
-          title: Text("Settings"),
-          icon: Icon(Icons.settings),
-        ),
-      ],
     );
   }
 }

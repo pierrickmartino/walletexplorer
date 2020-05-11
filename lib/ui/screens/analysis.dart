@@ -46,8 +46,8 @@ class _AnalysisState extends State<Analysis> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
+    return Scaffold(
+      body: Column(
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(4.0),

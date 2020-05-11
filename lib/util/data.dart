@@ -76,34 +76,6 @@ List coins = [
     "rate": r"$10,297.66",
     "color": charts.MaterialPalette.deepOrange.shadeDefault,
   },
-  {
-    "icon": "assets/eth.png",
-    "name": "Etherium",
-    "alt": "ETH",
-    "rate": r"$215.56",
-    "color": charts.MaterialPalette.blue.shadeDefault,
-  },
-  {
-    "icon": "assets/xrp.png",
-    "name": "Ripple",
-    "alt": "XRP",
-    "rate": r"$0.32",
-    "color": charts.MaterialPalette.indigo.shadeDefault,
-  },
-  {
-    "icon": "assets/ltc.png",
-    "name": "Litecoin",
-    "alt": "LTC",
-    "rate": r"$94.29",
-    "color": charts.MaterialPalette.gray.shadeDefault,
-  },
-  {
-    "icon": "assets/xmr.png",
-    "name": "Monero",
-    "alt": "XMR",
-    "rate": r"$82.57",
-    "color": charts.MaterialPalette.red.shadeDefault,
-  },
 ];
 
 List<ObjecTest> transactions = new List<ObjecTest>.generate(100, (index) {

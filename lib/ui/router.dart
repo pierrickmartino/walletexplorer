@@ -8,21 +8,23 @@ import './screens/analysis.dart';
 import './screens/settings.dart';
 import './screens/transactions.dart';
 import './views/homeView.dart';
+import '../util/const.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case '/login':
+      case loginRoute:
         return MaterialPageRoute(builder: (_) => RootPage(auth: new Auth()));
-      case '/overview':
+      case homeRoute:
         return MaterialPageRoute(builder: (_) => HomeView());
-      case '/accounts':
+      case accountsRoute:
         return MaterialPageRoute(builder: (_) => Accounts());
-      case '/transactions':
-        return MaterialPageRoute(builder: (_) => Transactions());
-      case '/analysis':
+      case transactionsRoute:
+        var data = settings.arguments as String;
+        return MaterialPageRoute(builder: (_) => Transactions(relation: data));
+      case analysisRoute:
         return MaterialPageRoute(builder: (_) => Analysis());
-      case '/settings':
+      case settingsRoute:
         return MaterialPageRoute(builder: (_) => Settings());
       default:
         return MaterialPageRoute(

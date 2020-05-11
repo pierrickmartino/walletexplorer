@@ -7,6 +7,7 @@ import 'package:snack/snack.dart';
 
 import '../../core/models/transaction.dart';
 import '../../core/viewmodels/CRUDModel.dart';
+import '../../ui/widgets/customAppBar.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -57,6 +58,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(height: 80, title: 'Settings'),
       body: Theme(
         data: Theme.of(context).copyWith(),
         child: DefaultTextStyle(

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:fl_chart/fl_chart.dart';
-import 'package:walletexplorer/ui/widgets/account_header.dart';
+
+import '../../util/const.dart';
+import '../../ui/widgets/account_header.dart';
 
 class AccountUI extends StatefulWidget {
   final String name;
@@ -323,6 +325,21 @@ class _AccountState extends State<AccountUI> {
                     )),
               ],
             ),
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              FlatButton(
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      transactionsRoute,
+                      arguments: '24000920442',
+                    );
+                  },
+                  child: Text('see all transactions'))
+            ],
           ),
         ],
       ),

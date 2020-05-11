@@ -19,7 +19,7 @@ class _Header extends State<Header> {
           backgroundImage: AssetImage(
             "assets/cm${random.nextInt(10)}.jpeg",
           ),
-          radius: 25,
+          radius: 20,
         ),
         title: Text(name),
         subtitle: Text(name.toLowerCase().replaceAll(" ", ".") + "@gmail.com"),

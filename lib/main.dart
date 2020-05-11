@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> {
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
-              initialRoute: '/login',
+              initialRoute: loginRoute,
               title: Constants.appName,
               theme: theme,
               onGenerateRoute: Router.generateRoute,

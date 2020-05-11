@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:walletexplorer/util/const.dart';
 
 import '../../util/data.dart';
 import '../widgets/position.dart';
@@ -18,15 +19,28 @@ class _OverviewState extends State<Overview> {
       children: <Widget>[
         Row(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             OverviewTotalInflows(),
             OverviewTotalOutflows(),
           ],
         ),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            FlatButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    accountsRoute,
+                  );
+                },
+                child: Text('see all accounts'))
+          ],
+        ),
         Expanded(
           child: ListView.builder(
-            //physics: NeverScrollableScrollPhysics(),
             primary: false,
             itemCount: coins.length,
             itemBuilder: (BuildContext context, int index) {

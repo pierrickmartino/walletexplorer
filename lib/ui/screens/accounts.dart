@@ -5,6 +5,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import '../../core/viewmodels/CRUDModel.dart';
 import '../../core/models/account.dart';
 import '../widgets/account.dart';
+import '../../ui/widgets/customAppBar.dart';
 
 class Accounts extends StatefulWidget {
   @override
@@ -29,6 +30,7 @@ class _AccountsState extends State<Accounts> {
               .toList();
 
           return Scaffold(
+            appBar: CustomAppBar(height: 80, title: 'Accounts'),
             body: ListView.builder(
               primary: false,
               itemCount: accounts.length,
