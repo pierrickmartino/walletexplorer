@@ -335,7 +335,7 @@ class _AccountState extends State<AccountUI> {
                     Navigator.pushNamed(
                       context,
                       transactionsRoute,
-                      arguments: '24000920442',
+                      arguments: widget.name,
                     );
                   },
                   child: Text('see all transactions'))

@@ -28,18 +28,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   IconButton(
                     icon: Icon(Icons.settings),
-                    iconSize: 20,
+                    iconSize: 26,
                     color: Colors.white,
                     onPressed: () {
                       Navigator.pushNamed(context, settingsRoute);
                     },
                   ),
                   IconButton(
-                    iconSize: 20,
+                    iconSize: 26,
                     icon: Icon(Icons.arrow_back),
                     onPressed: () {
                       Navigator.of(context).pop();

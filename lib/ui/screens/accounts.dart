@@ -22,9 +22,12 @@ class _AccountsState extends State<Accounts> {
     return StreamBuilder(
       stream: accountProvider.fetchAccountsAsStream(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData)
-          return LinearProgressIndicator();
-        else {
+        if (!snapshot.hasData) {
+          return Scaffold(
+              body: Center(
+            child: CircularProgressIndicator(),
+          ));
+        } else {
           accounts = snapshot.data.documents
               .map<Account>((doc) => Account.fromMap(doc.data, doc.documentID))
               .toList();

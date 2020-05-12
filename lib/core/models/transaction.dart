@@ -1,7 +1,7 @@
 class Transaction {
   String id;
   String accountingDate;
-  String balance;
+  double balance;
   double creditAmount;
   String dateFrom;
   String dateTo;
@@ -14,7 +14,7 @@ class Transaction {
   String exchangeRate;
   String product;
   String refIBAN;
-  String relation;
+  int relation;
   double subAmount;
   String transactionDate;
   String valueDate;

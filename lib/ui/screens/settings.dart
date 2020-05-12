@@ -52,7 +52,7 @@ class _SettingsState extends State<Settings> {
           await transactionProvider.updateTransaction(element, element.id);
         }));
 
-    bar.show(context);
+    //bar.show(context);
   }
 
   @override

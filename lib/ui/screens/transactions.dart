@@ -237,7 +237,10 @@ class _TransactionsState extends State<Transactions> {
       stream: transactionProvider.fetchTransactionsAsStream(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return LinearProgressIndicator();
+          return Scaffold(
+              body: Center(
+            child: CircularProgressIndicator(),
+          ));
         } else {
           transactions = snapshot.data.documents
               .map<Transaction>(
@@ -289,7 +292,11 @@ class _TransactionsState extends State<Transactions> {
                                                     .creditAmount),
                                         builder: (context, snapshot) {
                                           if (!snapshot.hasData) {
-                                            return LinearProgressIndicator();
+                                            return Scaffold(
+                                                body: Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            ));
                                           } else {
                                             transactionTypes = snapshot
                                                 .data.documents
