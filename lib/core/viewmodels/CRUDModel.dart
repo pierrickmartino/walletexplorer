@@ -32,6 +32,10 @@ class CRUDModel extends ChangeNotifier {
   Stream<_firestore.QuerySnapshot> fetchTransactionsAsStream() =>
       _apiTransactions.streamDataCollection();
 
+  Stream<_firestore.QuerySnapshot> fetchTransactionsAsStreamByAccount(
+          String account) =>
+      _apiTransactions.streamDataCollectionByAccount(account);
+
   Future<Transaction> getTransactionById(String id) async {
     _firestore.DocumentSnapshot doc =
         await _apiTransactions.getDocumentById(id);

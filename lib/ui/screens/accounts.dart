@@ -39,7 +39,7 @@ class _AccountsState extends State<Accounts> {
               itemCount: accounts.length,
               itemBuilder: (BuildContext context, int index) {
                 return AccountUI(
-                  name: accounts[index].relation,
+                  name: accounts[index].relation.toString(),
                   icon: "asset_icon.png",
                   balance: accounts[index].balance,
                   currency: accounts[index].currency,

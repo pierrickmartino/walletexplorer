@@ -7,7 +7,7 @@ class Account {
   String evaluationDate;
   String product;
   String refIBAN;
-  String relation;
+  double relation;
   bool active;
 
   Account(
@@ -37,7 +37,7 @@ class Account {
         evaluationDate = snapshot['evaluationDate'] ?? '',
         product = snapshot['product'] ?? '',
         refIBAN = snapshot['refIBAN'] ?? '',
-        relation = snapshot['relation'] ?? '',
+        relation = snapshot['relation'] ?? 0,
         active = snapshot['active'] ?? '';
 
   toJson() {

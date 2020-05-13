@@ -202,7 +202,7 @@ class _TransactionsState extends State<Transactions> {
       evaluationDate: '-',
       product: '-',
       refIBAN: '-',
-      relation: '-');
+      relation: 0);
 
   @override
   void initState() {
@@ -234,7 +234,8 @@ class _TransactionsState extends State<Transactions> {
     }
 
     return StreamBuilder(
-      stream: transactionProvider.fetchTransactionsAsStream(),
+      stream: transactionProvider
+          .fetchTransactionsAsStreamByAccount(widget.relation.toString()),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Scaffold(
@@ -251,7 +252,7 @@ class _TransactionsState extends State<Transactions> {
               appBar: CustomAppBar(height: 80, title: 'Transactions'),
               body: Column(children: <Widget>[
                 AccountHeader(
-                  name: currentAccount.relation,
+                  name: currentAccount.relation.toString(),
                   icon: "asset_icon.png",
                   balance: currentAccount.balance,
                   currency: currentAccount.currency,
