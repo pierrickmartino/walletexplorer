@@ -74,7 +74,7 @@ class Transaction {
         type = snapshot['type'] ?? '',
         icon = snapshot['icon'] ?? '',
         currency = snapshot['currency'] ?? '',
-        sortAccountingDate = (snapshot['sortAccountingDate']) /*.toDate()*/;
+        sortAccountingDate = (snapshot['sortAccountingDate']).toDate();
 
   toJson() {
     return {
