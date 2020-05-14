@@ -31,6 +31,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   IconButton(
+                    icon: Icon(Icons.search),
+                    iconSize: 26,
+                    color: Colors.white,
+                    onPressed: () {},
+                  ),
+                  IconButton(
                     icon: Icon(Icons.settings),
                     iconSize: 26,
                     color: Colors.white,

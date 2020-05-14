@@ -12,8 +12,10 @@ class ApiFirestoreTransactions {
   Future<QuerySnapshot> getDataCollection() => ref.getDocuments();
   Stream<QuerySnapshot> streamDataCollection() =>
       ref.orderBy('sortAccountingDate', descending: true).snapshots();
-  Stream<QuerySnapshot> streamDataCollectionByAccount(String account) =>
-      ref.where('relation', isEqualTo: int.parse(account)).snapshots();
+  Stream<QuerySnapshot> streamDataCollectionByAccount(String account) => ref
+      .where('relation', isEqualTo: int.parse(account))
+      .limit(100)
+      .snapshots();
   Future<DocumentSnapshot> getDocumentById(String id) => ref.document(id).get();
   Future<void> removeDocument(String id) => ref.document(id).delete();
   Future<DocumentReference> addDocument(Map data) => ref.add(data);

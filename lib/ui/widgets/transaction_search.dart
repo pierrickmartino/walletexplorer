@@ -15,7 +15,8 @@ class _SearchTransactionState extends State<SearchTransaction> {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: TextField(
-        onChanged: (value) {},
+        //onChanged: (value) {},
+        onSubmitted: (value) {},
         controller: widget.editingController,
         decoration: InputDecoration(
             labelText: "Search",
