@@ -261,7 +261,7 @@ class _TransactionsState extends State<Transactions> {
                 SizedBox(
                   height: 15,
                 ),
-                SearchTransaction(editingController: editingController),
+                //SearchTransaction(editingController: editingController),
                 Expanded(
                     child: ListView.builder(
                   shrinkWrap: true,
