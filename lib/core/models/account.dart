@@ -7,7 +7,8 @@ class Account {
   String evaluationDate;
   String product;
   String refIBAN;
-  double relation;
+  String relation;
+  String short;
   bool active;
 
   Account(
@@ -24,7 +25,7 @@ class Account {
 
   @override
   String toString() {
-    return '{ ${this.balance}, ${this.bank}, ${this.currency}, ${this.description}, ${this.evaluationDate}, ${this.product}, ${this.refIBAN}, ${this.relation}}';
+    return '{ ${this.balance}, ${this.bank}, ${this.currency}, ${this.description}, ${this.evaluationDate}, ${this.product}, ${this.refIBAN}, ${this.short}, ${this.relation}}';
   }
 
   @override
@@ -37,7 +38,8 @@ class Account {
         evaluationDate = snapshot['evaluationDate'] ?? '',
         product = snapshot['product'] ?? '',
         refIBAN = snapshot['refIBAN'] ?? '',
-        relation = snapshot['relation'] ?? 0,
+        relation = snapshot['relation'] ?? '',
+        short = snapshot['short'] ?? '',
         active = snapshot['active'] ?? '';
 
   toJson() {
@@ -50,6 +52,7 @@ class Account {
       "product": product,
       "refIBAN": refIBAN,
       "relation": relation,
+      "short": short,
       "active": active,
     };
   }

@@ -21,7 +21,6 @@ class ObjecTest {
   final String description2;
   final String description3;
   final String exchangeRate;
-  final String subAmount;
   final String debitAmount;
   final String creditAmount;
   final String balance;
@@ -48,7 +47,6 @@ class ObjecTest {
     this.description2,
     this.description3,
     this.exchangeRate,
-    this.subAmount,
     this.debitAmount,
     this.creditAmount,
     this.balance,

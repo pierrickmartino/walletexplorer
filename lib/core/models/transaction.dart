@@ -14,8 +14,7 @@ class Transaction {
   String exchangeRate;
   String product;
   String refIBAN;
-  int relation;
-  double subAmount;
+  String relation;
   String transactionDate;
   String valueDate;
   String type;
@@ -40,7 +39,6 @@ class Transaction {
       this.product,
       this.refIBAN,
       this.relation,
-      this.subAmount,
       this.transactionDate,
       this.valueDate,
       this.type,
@@ -50,7 +48,7 @@ class Transaction {
 
   @override
   String toString() {
-    return '{ ${this.accountingDate}, ${this.balance}, ${this.creditAmount}, ${this.dateFrom}, ${this.dateTo}, ${this.debitAmount}, ${this.description}, ${this.description1}, ${this.description2}, ${this.description3}, ${this.evaluationDate}, ${this.exchangeRate}, ${this.product}, ${this.refIBAN}, ${this.relation}, ${this.subAmount}, ${this.transactionDate}, ${this.valueDate}, ${this.type}, ${this.icon}, ${this.currency}, ${this.sortAccountingDate}}';
+    return '{ ${this.accountingDate}, ${this.balance}, ${this.creditAmount}, ${this.dateFrom}, ${this.dateTo}, ${this.debitAmount}, ${this.description}, ${this.description1}, ${this.description2}, ${this.description3}, ${this.evaluationDate}, ${this.exchangeRate}, ${this.product}, ${this.refIBAN}, ${this.relation}, ${this.transactionDate}, ${this.valueDate}, ${this.type}, ${this.icon}, ${this.currency}, ${this.sortAccountingDate}}';
   }
 
   @override
@@ -71,13 +69,12 @@ class Transaction {
         product = snapshot['product'] ?? '',
         refIBAN = snapshot['refIBAN'] ?? '',
         relation = snapshot['relation'] ?? '',
-        subAmount = snapshot['subAmount'] ?? '',
         transactionDate = snapshot['transactionDate'] ?? '',
         valueDate = snapshot['valueDate'] ?? '',
         type = snapshot['type'] ?? '',
         icon = snapshot['icon'] ?? '',
         currency = snapshot['currency'] ?? '',
-        sortAccountingDate = (snapshot['sortAccountingDate']).toDate();
+        sortAccountingDate = (snapshot['sortAccountingDate']) /*.toDate()*/;
 
   toJson() {
     return {
@@ -96,7 +93,6 @@ class Transaction {
       "product": product,
       "refIBAN": refIBAN,
       "relation": relation,
-      "subAmount": subAmount,
       "transactionDate": transactionDate,
       "valueDate": valueDate,
       "type": type,
