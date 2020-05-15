@@ -33,6 +33,7 @@ dependencies:
   dynamic_theme: ^1.0.1
   date_format: ^1.0.8
   snack: ^1.0.4
+  flutter_icons: ^1.1.0
 
 dev_dependencies:
   flutter_test:

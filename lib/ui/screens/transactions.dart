@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as _firestore;
+import 'package:flutter_icons/flutter_icons.dart';
 
 import '../../core/models/transaction_type.dart';
 import '../../core/viewmodels/CRUDModel.dart';
@@ -30,165 +31,130 @@ class _TransactionsState extends State<Transactions> {
   NumberFormat numberFormat =
       NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 2);
 
-  IconData getIconDataByName(String iconName) {
-    switch (iconName) {
-      case 'business_center':
+  IconData getIconDataByCode(String transactionTypeCode) {
+    switch (transactionTypeCode) {
+      case 'bankFees':
         {
-          return Icons.business_center;
+          return MaterialCommunityIcons.bank_minus;
         }
         break;
-      case 'shopping_cart':
+      case 'carTransport':
         {
-          return Icons.shopping_cart;
+          return MaterialCommunityIcons.car_back;
         }
         break;
-      case 'remove_from_queue':
+      case 'communicationMedia':
         {
-          return Icons.remove_from_queue;
+          return MaterialCommunityIcons.cellphone_link;
         }
         break;
-      case 'add_to_queue':
+      case 'health':
         {
-          return Icons.add_to_queue;
+          return MaterialCommunityIcons.pharmacy;
         }
         break;
-      case 'local_airport':
+      case 'household':
         {
-          return Icons.local_airport;
+          return MaterialCommunityIcons.cart;
         }
         break;
-      case 'local_hospital':
+      case 'housingEnergy':
         {
-          return Icons.local_hospital;
+          return MaterialCommunityIcons.home_city;
         }
         break;
-      case 'home':
+      case 'leisureSport':
         {
-          return Icons.home;
+          return MaterialCommunityIcons.soccer;
         }
         break;
-      case 'fastfood':
+      case 'otherExpenses':
         {
-          return Icons.restaurant;
+          return MaterialCommunityIcons.credit_card_minus;
         }
         break;
-      case 'directions_car':
+      case 'personalExpenses':
         {
-          return Icons.directions_car;
+          return MaterialCommunityIcons.account;
         }
         break;
-      case 'monetization_on':
+      case 'savingsInvestments':
         {
-          return Icons.attach_money;
+          return MaterialCommunityIcons.piggy_bank;
         }
         break;
-      case 'phonelink':
+      case 'taxesCharges':
         {
-          return Icons.phonelink;
+          return MaterialCommunityIcons.book_minus_multiple;
         }
         break;
-      case 'swap_horiz':
+      case 'vacationTravel':
         {
-          return Icons.swap_horiz;
+          return MaterialCommunityIcons.beach;
         }
         break;
-      case 'money_off':
+      case 'withdrawal':
         {
-          return Icons.money_off;
+          return MaterialCommunityIcons.minus_circle;
         }
         break;
-      case 'terrain':
+      case 'capitalIncome':
         {
-          return Icons.terrain;
+          return MaterialCommunityIcons.note_plus;
         }
         break;
-      case 'fitness_center':
+      case 'deposit':
         {
-          return Icons.fitness_center;
+          return MaterialCommunityIcons.plus_circle;
         }
         break;
-      case 'person':
+      case 'donationInheritance':
         {
-          return Icons.person;
+          return MaterialCommunityIcons.wallet_giftcard;
+        }
+        break;
+      case 'familyAllowances':
+        {
+          return MaterialCommunityIcons.account_group;
+        }
+        break;
+      case 'loan':
+        {
+          return MaterialCommunityIcons.swap_vertical_variant;
+        }
+        break;
+      case 'otherIncome':
+        {
+          return MaterialCommunityIcons.filter_plus;
+        }
+        break;
+      case 'refund':
+        {
+          return MaterialCommunityIcons.cash_refund;
+        }
+        break;
+      case 'salesThings':
+        {
+          return MaterialCommunityIcons.sale;
+        }
+        break;
+      case 'wagesIncome':
+        {
+          return MaterialCommunityIcons.briefcase_plus;
+        }
+        break;
+      case 'internalTransfer':
+        {
+          return MaterialCommunityIcons.swap_horizontal;
+        }
+      case 'unknown':
+        {
+          return Icons.zoom_in;
         }
         break;
       default:
         {
           return Icons.zoom_in;
-        }
-    }
-  }
-
-  Color getIconColorByName(String iconName) {
-    switch (iconName) {
-      case 'business_center':
-        {
-          return Color(0xff90D7FF);
-        }
-        break;
-      case 'shopping_cart':
-        {
-          return Color(0xffC9F9FF);
-        }
-        break;
-      case 'remove_from_queue':
-        {
-          return Color(0xffBFD0E0);
-        }
-        break;
-      case 'add_to_queue':
-        {
-          return Color(0xffB8B3BE);
-        }
-        break;
-      case 'local_airport':
-        {
-          return Color(0xffC1AE7C);
-        }
-        break;
-      case 'local_hospital':
-        {
-          return Color(0xffCC4BC2);
-        }
-        break;
-      case 'home':
-        {
-          return Color(0xff6C3A5C);
-        }
-        break;
-      case 'fastfood':
-        {
-          return Color(0xff794C6B);
-        }
-        break;
-      case 'directions_car':
-        {
-          return Color(0xffFFDAB9);
-        }
-        break;
-      case 'monetization_on':
-        {
-          return Color(0xff7FB285);
-        }
-        break;
-      case 'phonelink':
-        {
-          return Color(0xffA480CF);
-        }
-        break;
-      case 'swap_horiz':
-        {
-          return Color(0xffE0FF4F); /* TODO */
-        }
-        break;
-      case 'money_off':
-        {
-          return Color(0xffE0FF4F); /* TODO */
-        }
-        break;
-      default:
-        {
-          return Color(0xffE0FF4F);
         }
     }
   }
@@ -325,10 +291,10 @@ class _TransactionsState extends State<Transactions> {
                                                           foregroundColor:
                                                               Color(0xffE0FF4F),
                                                           child: Icon(
-                                                              getIconDataByName(
+                                                              getIconDataByCode(
                                                                   transactionTypes[
                                                                           i]
-                                                                      .icon),
+                                                                      .code),
                                                               size: 15)),
                                                       label: Text(
                                                           transactionTypes[i]
@@ -343,11 +309,7 @@ class _TransactionsState extends State<Transactions> {
                                                               transactionTypes[
                                                                       i]
                                                                   .code;
-                                                          currentTransaction
-                                                                  .icon =
-                                                              transactionTypes[
-                                                                      i]
-                                                                  .icon;
+
                                                           await transactionProvider
                                                               .updateTransaction(
                                                                   currentTransaction,
@@ -364,13 +326,13 @@ class _TransactionsState extends State<Transactions> {
                           },
                           child: IconButton(
                             iconSize: 30,
-                            color: transactions[index].icon == ""
+                            color: transactions[index].type == ""
                                 ? Color(0xffE0FF4F)
                                 : transactions[index].debitAmount > 0
                                     ? Theme.of(context).bottomAppBarColor
                                     : Theme.of(context).accentColor,
                             icon: Icon(
-                                getIconDataByName(transactions[index].icon)),
+                                getIconDataByCode(transactions[index].type)),
                             onPressed: () {},
                           ),
                         ),
