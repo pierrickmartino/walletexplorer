@@ -330,6 +330,15 @@ class _AccountState extends State<AccountUI> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
+              // FlatButton(
+              //     onPressed: () {
+              //       Navigator.pushNamed(
+              //         context,
+              //         transactionsRoute,
+              //         arguments: widget.name,
+              //       );
+              //     },
+              //     child: Text('see untyped transactions')),
               FlatButton(
                   onPressed: () {
                     Navigator.pushNamed(

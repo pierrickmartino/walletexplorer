@@ -14,6 +14,15 @@ class ApiFirestoreTransactions {
       ref.orderBy('sortAccountingDate', descending: true).snapshots();
   Stream<QuerySnapshot> streamDataCollectionByAccount(String account) =>
       ref.where('relation', isEqualTo: account).limit(100).snapshots();
+  Stream<QuerySnapshot> streamDataCollectionByAccountByType(
+          String account, String type) =>
+      ref
+          .where('relation', isEqualTo: account)
+          .where('type', isEqualTo: type)
+          .limit(100)
+          .snapshots();
+  Stream<QuerySnapshot> streamDataCollectionByType(String type) =>
+      ref.where('type', isEqualTo: type).limit(100).snapshots();
   Future<DocumentSnapshot> getDocumentById(String id) => ref.document(id).get();
   Future<void> removeDocument(String id) => ref.document(id).delete();
   Future<DocumentReference> addDocument(Map data) => ref.add(data);

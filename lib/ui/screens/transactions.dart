@@ -200,8 +200,8 @@ class _TransactionsState extends State<Transactions> {
     }
 
     return StreamBuilder(
-      stream: transactionProvider
-          .fetchTransactionsAsStreamByAccount(widget.relation),
+      stream: transactionProvider.fetchTransactionsAsStreamByAccountByType(
+          widget.relation, ''),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Scaffold(
@@ -289,7 +289,7 @@ class _TransactionsState extends State<Transactions> {
                                                           backgroundColor:
                                                               Colors.black,
                                                           foregroundColor:
-                                                              Color(0xffE0FF4F),
+                                                              Colors.white,
                                                           child: Icon(
                                                               getIconDataByCode(
                                                                   transactionTypes[
@@ -415,6 +415,10 @@ class _TransactionsState extends State<Transactions> {
                                           fontSize: 12,
                                         )),
                                     Text(""),
+                                    Text("Type: " + transactions[index].type,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                        )),
                                     Text("IBAN: " + transactions[index].refIBAN,
                                         style: TextStyle(
                                           fontSize: 12,
