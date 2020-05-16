@@ -34,19 +34,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   IconButton(
                     icon: Icon(Icons.search),
                     iconSize: 26,
-                    color: Colors.white,
+                    color: Theme.of(context).cursorColor,
                     onPressed: () {},
                   ),
                   IconButton(
                     icon: Icon(Icons.settings),
                     iconSize: 26,
-                    color: Colors.white,
+                    color: Theme.of(context).cursorColor,
                     onPressed: () {
                       Navigator.pushNamed(context, settingsRoute);
                     },
                   ),
                   IconButton(
                     iconSize: 26,
+                    color: Theme.of(context).cursorColor,
                     icon: Icon(Icons.arrow_back),
                     onPressed: () {
                       Navigator.of(context).pop();

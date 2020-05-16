@@ -4,7 +4,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 
 import '../../core/viewmodels/CRUDModel.dart';
 import '../../core/models/account.dart';
-import '../widgets/account.dart';
+import '../widgets/account_ui.dart';
 import '../../ui/widgets/customAppBar.dart';
 
 class Accounts extends StatefulWidget {
