@@ -18,7 +18,8 @@ class _TransactionCounterState extends State<TransactionCounter> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Text(
-                widget.numberOfTransactions.toString() + " transactions",
+                widget.numberOfTransactions.toString() +
+                    " transactions (limit:50)",
                 style: TextStyle(color: Theme.of(context).cursorColor),
               ),
             ]));

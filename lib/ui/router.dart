@@ -21,7 +21,7 @@ class Router {
         return MaterialPageRoute(builder: (_) => Accounts());
       case transactionsRoute:
         var data = settings.arguments as String;
-        return MaterialPageRoute(builder: (_) => Transactions(relation: data));
+        return MaterialPageRoute(builder: (_) => Transactions(product: data));
       case analysisRoute:
         return MaterialPageRoute(builder: (_) => Analysis());
       case settingsRoute:

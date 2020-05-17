@@ -11,9 +11,9 @@ import '../../ui/widgets/account_header.dart';
 import '../../ui/widgets/customAppBar.dart';
 
 class Transactions extends StatefulWidget {
-  final String relation;
+  final String product;
 
-  const Transactions({Key key, this.relation}) : super(key: key);
+  const Transactions({Key key, this.product}) : super(key: key);
 
   @override
   _TransactionsState createState() => _TransactionsState();
@@ -45,7 +45,7 @@ class _TransactionsState extends State<Transactions> {
     final CRUDModel accountProvider = Provider.of<CRUDModel>(context);
 
     accountProvider
-        .getAccountById(widget.relation)
+        .getAccountById(widget.product)
         .then((value) => currentAccount = value)
         .catchError((error) {
       print(error);
@@ -53,7 +53,7 @@ class _TransactionsState extends State<Transactions> {
 
     return StreamBuilder(
       stream: transactionProvider.fetchTransactionsAsStreamByAccountByType(
-          widget.relation, ''),
+          widget.product, ''),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Scaffold(
@@ -70,7 +70,7 @@ class _TransactionsState extends State<Transactions> {
               appBar: CustomAppBar(height: 80, title: 'Transactions'),
               body: Column(children: <Widget>[
                 AccountHeader(
-                  name: currentAccount.relation,
+                  name: currentAccount.product,
                   icon: "asset_icon.png",
                   balance: currentAccount.balance,
                   currency: currentAccount.currency,

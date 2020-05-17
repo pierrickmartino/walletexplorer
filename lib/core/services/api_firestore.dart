@@ -13,11 +13,11 @@ class ApiFirestoreTransactions {
   Stream<QuerySnapshot> streamDataCollection() =>
       ref.orderBy('sortAccountingDate', descending: true).snapshots();
   Stream<QuerySnapshot> streamDataCollectionByAccount(String account) =>
-      ref.where('relation', isEqualTo: account).limit(50).snapshots();
+      ref.where('product', isEqualTo: account).limit(50).snapshots();
   Stream<QuerySnapshot> streamDataCollectionByAccountByType(
           String account, String type) =>
       ref
-          .where('relation', isEqualTo: account)
+          .where('product', isEqualTo: account)
           .where('type', isEqualTo: type)
           .limit(50)
           .snapshots();
