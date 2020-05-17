@@ -138,6 +138,10 @@ class _TransactionState extends State<TransactionUI> {
         {
           return MaterialCommunityIcons.swap_horizontal;
         }
+      case 'familyChildren':
+        {
+          return MaterialCommunityIcons.human_child;
+        }
       case 'unknown':
         {
           return Icons.zoom_in;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
+import 'package:walletexplorer/ui/widgets/transaction_counter.dart';
 import 'package:walletexplorer/ui/widgets/transaction_ui.dart';
 
 import '../../core/viewmodels/CRUDModel.dart';
@@ -75,10 +76,12 @@ class _TransactionsState extends State<Transactions> {
                   currency: currentAccount.currency,
                   depositary: currentAccount.bank,
                 ),
+                TransactionCounter(
+                    numberOfTransactions: transactions.length.toString()),
+                //SearchTransaction(editingController: editingController),
                 SizedBox(
                   height: 15,
                 ),
-                //SearchTransaction(editingController: editingController),
                 Expanded(
                     child: ListView.builder(
                   shrinkWrap: true,

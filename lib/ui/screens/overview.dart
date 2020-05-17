@@ -30,6 +30,8 @@ class _OverviewState extends State<Overview> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             FlatButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
                 onPressed: () {
                   Navigator.pushNamed(
                     context,

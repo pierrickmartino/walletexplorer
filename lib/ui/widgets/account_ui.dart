@@ -340,6 +340,8 @@ class _AccountState extends State<AccountUI> {
               //     },
               //     child: Text('see untyped transactions')),
               FlatButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
                   onPressed: () {
                     Navigator.pushNamed(
                       context,
