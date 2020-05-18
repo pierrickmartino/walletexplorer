@@ -9,6 +9,7 @@ import 'package:snack/snack.dart';
 import '../../core/models/transaction.dart';
 import '../../core/viewmodels/CRUDModel.dart';
 import '../../core/models/transaction_type.dart';
+import '../../ui/widgets/transaction_header_ui.dart';
 
 class TransactionUI extends StatefulWidget {
   final Transaction transaction;
@@ -193,7 +194,7 @@ class _TransactionState extends State<TransactionUI> {
                 useRootNavigator: true,
                 bounce: true,
                 context: context,
-                barrierColor: Theme.of(context).dividerColor,
+                barrierColor: Theme.of(context).backgroundColor,
                 builder: (context, scrollController) => StreamBuilder(
                     stream: getSnapshotDependingOnCreditAmount(
                         currentTransaction.creditAmount),
@@ -214,54 +215,8 @@ class _TransactionState extends State<TransactionUI> {
                           child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Row(
-                              children: <Widget>[
-                                Icon(
-                                  getIconDataByCode(widget.transaction.type),
-                                  size: 20,
-                                  color: widget.transaction.type == ""
-                                      ? Color(0xffE0FF4F)
-                                      : widget.transaction.debitAmount > 0
-                                          ? Theme.of(context).bottomAppBarColor
-                                          : Theme.of(context).accentColor,
-                                ),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                Text(
-                                    widget.transaction.description2 == ""
-                                        ? (widget.transaction.description1
-                                                    .length <
-                                                23
-                                            ? widget.transaction.description1
-                                            : widget.transaction.description1
-                                                .substring(0, 23))
-                                        : (widget.transaction.description2
-                                                    .length <
-                                                23
-                                            ? widget.transaction.description2
-                                            : widget.transaction.description2
-                                                .substring(0, 23)),
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                    )),
-                                Spacer(),
-                                Text(
-                                  widget.transaction.debitAmount > 0
-                                      ? "- ${numberFormat.format(widget.transaction.debitAmount)}"
-                                      : "+ ${numberFormat.format(widget.transaction.creditAmount)}",
-                                  style: TextStyle(
-                                    color: widget.transaction.debitAmount > 0
-                                        ? Theme.of(context).bottomAppBarColor
-                                        : Theme.of(context).accentColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ],
-                            ),
+                          TransactionHeaderUI(
+                            transaction: widget.transaction,
                           ),
                           Wrap(
                             spacing: 4.0,
