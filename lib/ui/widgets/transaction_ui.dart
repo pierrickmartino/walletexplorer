@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart' as _firestore;
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:snack/snack.dart';
 
 import '../../core/models/transaction.dart';
 import '../../core/viewmodels/CRUDModel.dart';
@@ -21,6 +22,8 @@ class TransactionUI extends StatefulWidget {
 
 class _TransactionState extends State<TransactionUI> {
   List<TransactionType> transactionTypes;
+
+  final SnackBar bar = SnackBar(content: Text('Transaction type updated !'));
 
   IconData getIconDataByCode(String transactionTypeCode) {
     switch (transactionTypeCode) {
@@ -190,6 +193,7 @@ class _TransactionState extends State<TransactionUI> {
                 useRootNavigator: true,
                 bounce: true,
                 context: context,
+                barrierColor: Theme.of(context).dividerColor,
                 builder: (context, scrollController) => StreamBuilder(
                     stream: getSnapshotDependingOnCreditAmount(
                         currentTransaction.creditAmount),
@@ -207,37 +211,90 @@ class _TransactionState extends State<TransactionUI> {
                             .toList();
                       }
                       return Container(
-                        child: Wrap(
-                          spacing: 4.0,
-                          children: <Widget>[
-                            for (var i = 0; i < transactionTypes.length; i++)
-                              ActionChip(
-                                  elevation: 4.0,
-                                  padding: const EdgeInsets.all(8.0),
-                                  avatar: CircleAvatar(
-                                      backgroundColor: Colors.black,
-                                      foregroundColor: Colors.white,
-                                      child: Icon(
-                                          getIconDataByCode(
-                                              transactionTypes[i].code),
-                                          size: 15)),
-                                  label: Text(transactionTypes[i].label),
-                                  onPressed: () async {
-                                    if (currentTransaction.type !=
-                                        transactionTypes[i].code) {
-                                      currentTransaction.type =
-                                          transactionTypes[i].code;
+                          child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Row(
+                              children: <Widget>[
+                                Icon(
+                                  getIconDataByCode(widget.transaction.type),
+                                  size: 20,
+                                  color: widget.transaction.type == ""
+                                      ? Color(0xffE0FF4F)
+                                      : widget.transaction.debitAmount > 0
+                                          ? Theme.of(context).bottomAppBarColor
+                                          : Theme.of(context).accentColor,
+                                ),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                Text(
+                                    widget.transaction.description2 == ""
+                                        ? (widget.transaction.description1
+                                                    .length <
+                                                23
+                                            ? widget.transaction.description1
+                                            : widget.transaction.description1
+                                                .substring(0, 23))
+                                        : (widget.transaction.description2
+                                                    .length <
+                                                23
+                                            ? widget.transaction.description2
+                                            : widget.transaction.description2
+                                                .substring(0, 23)),
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                    )),
+                                Spacer(),
+                                Text(
+                                  widget.transaction.debitAmount > 0
+                                      ? "- ${numberFormat.format(widget.transaction.debitAmount)}"
+                                      : "+ ${numberFormat.format(widget.transaction.creditAmount)}",
+                                  style: TextStyle(
+                                    color: widget.transaction.debitAmount > 0
+                                        ? Theme.of(context).bottomAppBarColor
+                                        : Theme.of(context).accentColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Wrap(
+                            spacing: 4.0,
+                            children: <Widget>[
+                              for (var i = 0; i < transactionTypes.length; i++)
+                                ActionChip(
+                                    elevation: 4.0,
+                                    padding: const EdgeInsets.all(8.0),
+                                    avatar: CircleAvatar(
+                                        backgroundColor: Colors.black,
+                                        foregroundColor: Colors.white,
+                                        child: Icon(
+                                            getIconDataByCode(
+                                                transactionTypes[i].code),
+                                            size: 15)),
+                                    label: Text(transactionTypes[i].label),
+                                    onPressed: () async {
+                                      if (currentTransaction.type !=
+                                          transactionTypes[i].code) {
+                                        currentTransaction.type =
+                                            transactionTypes[i].code;
 
-                                      await widget.transactionProvider
-                                          .updateTransaction(currentTransaction,
-                                              currentTransaction.id);
-                                    }
-
-                                    Navigator.pop(context);
-                                  })
-                          ],
-                        ),
-                      );
+                                        await widget.transactionProvider
+                                            .updateTransaction(
+                                                currentTransaction,
+                                                currentTransaction.id);
+                                      }
+                                      Navigator.pop(context);
+                                    })
+                            ],
+                          ),
+                        ],
+                      ));
                     }));
           },
           child: IconButton(

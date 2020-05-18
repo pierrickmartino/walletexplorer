@@ -20,7 +20,10 @@ class _TransactionCounterState extends State<TransactionCounter> {
               Text(
                 widget.numberOfTransactions.toString() +
                     " transactions (limit:50)",
-                style: TextStyle(color: Theme.of(context).cursorColor),
+                style: TextStyle(
+                  color: Theme.of(context).cursorColor,
+                  fontSize: 12,
+                ),
               ),
             ]));
   }
