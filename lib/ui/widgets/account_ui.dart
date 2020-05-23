@@ -2,25 +2,38 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:snack/snack.dart';
 
 import '../../util/const.dart';
 import '../../ui/widgets/account_header.dart';
+import '../../core/models/transaction.dart';
+import '../../core/models/statistic.dart';
+import '../../core/viewmodels/CRUDModel.dart';
 
 class AccountUI extends StatefulWidget {
   final String name;
   final String icon;
   final double balance;
+  final double totalInflow;
+  final double totalOutflow;
   final String currency;
   final String depositary;
+  final String shortname;
   final charts.Color color;
   AccountUI(
       {Key key,
       this.name,
       this.icon,
       this.balance,
+      this.totalInflow,
+      this.totalOutflow,
       this.color,
       this.currency,
-      this.depositary})
+      this.depositary,
+      this.shortname})
       : super(key: key);
 
   @override
@@ -35,6 +48,13 @@ class ClicksPerYear {
   ClicksPerYear(this.year, this.clicks, Color color)
       : this.color = new charts.Color(
             r: color.red, g: color.green, b: color.blue, a: color.alpha);
+}
+
+class LinearToken {
+  final int day;
+  final int value;
+
+  LinearToken(this.day, this.value);
 }
 
 class _AccountState extends State<AccountUI> {
@@ -74,8 +94,6 @@ class _AccountState extends State<AccountUI> {
     LinearToken(31, random.nextInt(300)),
   ];
 
-  final Color leftBarColor = const Color(0xff53fdd7);
-  final Color rightBarColor = const Color(0xffff5182);
   final double width = 7;
 
   List<BarChartGroupData> rawBarGroups;
@@ -83,8 +101,109 @@ class _AccountState extends State<AccountUI> {
 
   int touchedGroupIndex;
 
+  final SnackBar bar =
+      SnackBar(content: Text('Statistics data updated for this account !'));
+
+  double findTotalInFlowByAccount(String name) {
+    Future<List<Statistic>> statistics;
+
+    final CRUDModel firebaseProvider =
+        Provider.of<CRUDModel>(context, listen: false);
+
+    double credit = 0.0;
+
+    statistics = firebaseProvider.fetchStatisticsByAccountByCode(name, 'YEAR');
+    statistics.then((value) {
+      credit = value.singleWhere((element) => element.year == '2019').credit;
+      print(name);
+      print(credit);
+      return credit;
+    });
+
+    print(credit);
+    return credit;
+    //return credit;
+  }
+
+  void initStatisticsData(String account) {
+    Future<List<Transaction>> transactions;
+
+    final int thisYear = DateTime.now().year;
+
+    final CRUDModel firebaseProvider =
+        Provider.of<CRUDModel>(context, listen: false);
+
+    for (var i = thisYear; i > thisYear - nbYearForStatisticsDepth; i--) {
+      transactions = firebaseProvider.fetchTransactionsByAccountByDateRange(
+          account, DateTime(i, 1, 1), DateTime(i + 1, 1, 1));
+
+      transactions.then((value) => value.forEach((element) {
+            double creditCounterYear = 0.00;
+            double debitCounterYear = 0.00;
+            creditCounterYear = value.fold(
+                0,
+                (previousValue, element) =>
+                    previousValue + element.creditAmount);
+
+            debitCounterYear = value.fold(
+                0,
+                (previousValue, element) =>
+                    previousValue + element.debitAmount);
+
+            /* on last iteration */
+            if (value.last.id == element.id) {
+              print('total Credit ' +
+                  i.toString() +
+                  ': ' +
+                  creditCounterYear.roundToDouble().toString());
+              print('total Debit ' +
+                  i.toString() +
+                  ': ' +
+                  debitCounterYear.roundToDouble().toString());
+
+              String key = 'STAT_' + account + '_YEAR_' + i.toString();
+              Statistic statistic = Statistic(
+                  id: key,
+                  code: 'YEAR',
+                  bank: '',
+                  credit: creditCounterYear.roundToDouble(),
+                  debit: debitCounterYear.roundToDouble(),
+                  currency: '',
+                  month: '',
+                  product: account,
+                  quarter: '',
+                  relation: '',
+                  year: i.toString(),
+                  lastUpdatedDate: DateTime.now());
+
+              firebaseProvider.removeStatistic(key);
+              firebaseProvider.setStatistic(statistic, key);
+            }
+          }));
+    }
+
+    bar.show(context);
+  }
+
+  Statistic currentStatistic = Statistic();
+
   @override
   Widget build(BuildContext context) {
+    BarChartGroupData makeGroupData(int x, double y1, double y2) {
+      return BarChartGroupData(barsSpace: 4, x: x, barRods: [
+        BarChartRodData(
+          y: y1,
+          color: Theme.of(context).accentColor,
+          width: width,
+        ),
+        BarChartRodData(
+          y: y2,
+          color: Theme.of(context).bottomAppBarColor,
+          width: width,
+        ),
+      ]);
+    }
+
     final BarChartGroupData barGroup1 = makeGroupData(0, 5, 12);
     final BarChartGroupData barGroup2 = makeGroupData(1, 16, 12);
     final BarChartGroupData barGroup3 = makeGroupData(2, 18, 5);
@@ -114,38 +233,15 @@ class _AccountState extends State<AccountUI> {
     ];
 
     rawBarGroups = items;
-
     showingBarGroups = rawBarGroups;
 
-    List<ClicksPerYear> dataBar = [
-      new ClicksPerYear('2016', 12, Colors.red),
-      new ClicksPerYear('2017', 42, Colors.yellow),
-      new ClicksPerYear('2018', 33, Colors.green),
-    ];
-
-    List<charts.Series<ClicksPerYear, String>> series = [
-      new charts.Series(
-        id: 'Clicks',
-        domainFn: (ClicksPerYear clickData, _) => clickData.year,
-        measureFn: (ClicksPerYear clickData, _) => clickData.clicks,
-        //colorFn: (ClicksPerYear clickData, _) => clickData.color,
-        data: dataBar,
-      ),
-    ];
-
-    charts.BarChart barchart = charts.BarChart(
-      series,
-      animate: true,
-      primaryMeasureAxis: charts.NumericAxisSpec(
-        renderSpec: charts.NoneRenderSpec(),
-      ),
-    );
-
-    charts.PieChart piechart = charts.PieChart(series,
-        animate: true,
-        defaultRenderer: new charts.ArcRendererConfig(
-            arcWidth: 60,
-            arcRendererDecorators: [new charts.ArcLabelDecorator()]));
+    final CRUDModel firebaseProvider = Provider.of<CRUDModel>(context);
+    firebaseProvider
+        .getStatisticById('STAT_' + widget.name + '_YEAR_2019')
+        .then((value) => currentStatistic = value)
+        .catchError((error) {
+      print(error);
+    });
 
     BarChart barchartpermonth = BarChart(
       BarChartData(
@@ -224,158 +320,119 @@ class _AccountState extends State<AccountUI> {
       ),
     );
 
-    return Card(
-      elevation: 4.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(10),
-        ),
-      ),
-      child: Column(
-        children: <Widget>[
-          AccountHeader(
-              name: widget.name,
-              icon: widget.icon,
-              balance: widget.balance,
-              currency: widget.currency,
-              depositary: widget.depositary,
-              color: widget.color),
-          Container(
-            height: 300,
-            padding: const EdgeInsets.fromLTRB(5, 10, 10, 10),
-            child: ListView(
-              scrollDirection: Axis.horizontal,
+    return FutureBuilder(
+        future: firebaseProvider
+            .getStatisticById('STAT_' + widget.name + '_YEAR_2019'),
+        builder: (context, snapshot) {
+          return Card(
+            elevation: 4.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
+            ),
+            child: Column(
               children: <Widget>[
-                Card(
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            const Text(
-                              'Credit/Debit',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
-                            ),
-                            const SizedBox(
-                              width: 6,
-                            ),
-                            const Text(
-                              'per month',
-                              style: TextStyle(
-                                  color: Color(0xff77839a), fontSize: 14),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 38,
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: barchartpermonth,
+                AccountHeader(
+                    name: widget.name,
+                    icon: widget.icon,
+                    balance: widget.balance,
+                    currency: widget.currency,
+                    depositary: widget.depositary,
+                    shortname: widget.shortname,
+                    totalInflow: currentStatistic.credit ?? 0.0,
+                    totalOutflow: currentStatistic.debit ?? 0.0,
+                    color: widget.color),
+                Container(
+                  height: 300,
+                  padding: const EdgeInsets.fromLTRB(5, 10, 10, 10),
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: <Widget>[
+                      Card(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            children: <Widget>[
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  const Text(
+                                    'Credit/Debit',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 18),
+                                  ),
+                                  const SizedBox(
+                                    width: 6,
+                                  ),
+                                  const Text(
+                                    'per month',
+                                    style: TextStyle(
+                                        color: Color(0xff77839a), fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 38,
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: barchartpermonth,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                            ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-                Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text('Graph 2'),
-                        ),
-                        Container(
-                          width: 300,
-                          height: 220,
-                          child: barchart,
-                        ),
-                      ],
-                    )),
-                Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text('Graph 3'),
-                        ),
-                        Container(
-                          width: 300,
-                          height: 220,
-                          child: piechart,
-                        ),
-                      ],
-                    )),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    // FlatButton(
+                    //     onPressed: () {
+                    //       Navigator.pushNamed(
+                    //         context,
+                    //         transactionsRoute,
+                    //         arguments: widget.name,
+                    //       );
+                    //     },
+                    //     child: Text('see untyped transactions')),
+                    FlatButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            transactionsRoute,
+                            arguments: widget.name,
+                          );
+                        },
+                        child: Text('see all transactions')),
+                    IconButton(
+                      icon: Icon(MaterialCommunityIcons.refresh),
+                      tooltip: 'Refresh statistics data',
+                      onPressed: () {
+                        initStatisticsData(widget.name);
+                      },
+                    ),
+                  ],
+                ),
               ],
             ),
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              // FlatButton(
-              //     onPressed: () {
-              //       Navigator.pushNamed(
-              //         context,
-              //         transactionsRoute,
-              //         arguments: widget.name,
-              //       );
-              //     },
-              //     child: Text('see untyped transactions')),
-              FlatButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      transactionsRoute,
-                      arguments: widget.name,
-                    );
-                  },
-                  child: Text('see all transactions'))
-            ],
-          ),
-        ],
-      ),
-    );
+          );
+        });
   }
-
-  BarChartGroupData makeGroupData(int x, double y1, double y2) {
-    return BarChartGroupData(barsSpace: 4, x: x, barRods: [
-      BarChartRodData(
-        y: y1,
-        color: Theme.of(context).accentColor,
-        width: width,
-      ),
-      BarChartRodData(
-        y: y2,
-        color: Theme.of(context).bottomAppBarColor,
-        width: width,
-      ),
-    ]);
-  }
-}
-
-class LinearToken {
-  final int day;
-  final int value;
-
-  LinearToken(this.day, this.value);
 }

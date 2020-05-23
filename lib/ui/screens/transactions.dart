@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
-import 'package:walletexplorer/ui/widgets/transaction_counter.dart';
-import 'package:walletexplorer/ui/widgets/transaction_ui.dart';
 
 import '../../core/viewmodels/CRUDModel.dart';
 import '../../core/models/transaction.dart';
 import '../../core/models/account.dart';
 import '../../ui/widgets/account_header.dart';
 import '../../ui/widgets/customAppBar.dart';
+import '../../ui/widgets/transaction_counter.dart';
+import '../../ui/widgets/transaction_ui.dart';
 
 class Transactions extends StatefulWidget {
   final String product;

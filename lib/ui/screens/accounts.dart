@@ -44,6 +44,7 @@ class _AccountsState extends State<Accounts> {
                   balance: accounts[index].balance,
                   currency: accounts[index].currency,
                   depositary: accounts[index].bank,
+                  shortname: accounts[index].short,
                   color: charts.MaterialPalette.blue.shadeDefault,
                 );
               },

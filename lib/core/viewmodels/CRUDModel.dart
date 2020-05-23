@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart' as _firestore;
 import '../models/account.dart';
 import '../models/transaction_type.dart';
 import '../models/transaction.dart';
+import '../models/statistic.dart';
 import '../services/api_firestore.dart';
 import '../../locator.dart';
 
@@ -14,15 +15,36 @@ class CRUDModel extends ChangeNotifier {
       locator<ApiFirestoreTransactions>();
   ApiFirestoreTransactionTypes _apiTransactionTypes =
       locator<ApiFirestoreTransactionTypes>();
+  ApiFirestoreStatistics _apiStatistics = locator<ApiFirestoreStatistics>();
 
   List<Transaction> transactions;
   List<TransactionType> transactionTypes;
   List<Account> accounts;
+  List<Statistic> statistics;
 
   /* Transactions */
   Future<List<Transaction>> fetchTransactions() async {
     _firestore.QuerySnapshot result =
         await _apiTransactions.getDataCollection();
+    transactions = result.documents
+        .map((doc) => Transaction.fromMap(doc.data, doc.documentID))
+        .toList();
+    return transactions;
+  }
+
+  Future<List<Transaction>> fetchTransactionsByAccount(String account) async {
+    _firestore.QuerySnapshot result =
+        await _apiTransactions.getDataCollectionByAccount(account);
+    transactions = result.documents
+        .map((doc) => Transaction.fromMap(doc.data, doc.documentID))
+        .toList();
+    return transactions;
+  }
+
+  Future<List<Transaction>> fetchTransactionsByAccountByDateRange(
+      String account, DateTime minDate, DateTime maxDate) async {
+    _firestore.QuerySnapshot result = await _apiTransactions
+        .getDataCollectionByAccountByDateRange(account, minDate, maxDate);
     transactions = result.documents
         .map((doc) => Transaction.fromMap(doc.data, doc.documentID))
         .toList();
@@ -136,6 +158,57 @@ class CRUDModel extends ChangeNotifier {
   Future addTransactionType(TransactionType data) async {
     _firestore.DocumentReference result =
         await _apiTransactionTypes.addDocument(data.toJson());
+
+    return;
+  }
+
+/* Statistics */
+  Future<List<Statistic>> fetchStatistics() async {
+    _firestore.QuerySnapshot result = await _apiStatistics.getDataCollection();
+    statistics = result.documents
+        .map((doc) => Statistic.fromMap(doc.data, doc.documentID))
+        .toList();
+    return statistics;
+  }
+
+  Future<List<Statistic>> fetchStatisticsByAccountByCode(
+      String account, String code) async {
+    _firestore.QuerySnapshot result =
+        await _apiStatistics.getDataCollectionByAccountByCode(account, code);
+    statistics = result.documents
+        .map((doc) => Statistic.fromMap(doc.data, doc.documentID))
+        .toList();
+    return statistics;
+  }
+
+  Stream<_firestore.QuerySnapshot> fetchStatisticsAsStream() =>
+      _apiStatistics.streamDataCollection();
+
+  Future<Statistic> getStatisticById(String id) async {
+    _firestore.DocumentSnapshot doc = await _apiStatistics.getDocumentById(id);
+    return Statistic.fromMap(doc.data, doc.documentID);
+  }
+
+  Future removeStatistic(String id) async {
+    await _apiStatistics.removeDocument(id);
+    return;
+  }
+
+  Future updateStatistic(Statistic data, String id) async {
+    await _apiStatistics.updateDocument(data.toJson(), id);
+    return;
+  }
+
+  Future addStatistic(Statistic data) async {
+    _firestore.DocumentReference result =
+        await _apiStatistics.addDocument(data.toJson());
+
+    return;
+  }
+
+  Future setStatistic(Statistic data, String id) async {
+    _firestore.DocumentReference result =
+        await _apiStatistics.setDocument(data.toJson(), id);
 
     return;
   }

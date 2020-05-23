@@ -35,11 +35,12 @@ class _SettingsState extends State<Settings> {
             : Brightness.dark);
   }
 
-  void cleanDateFormatinDatabase() {
+  void cleanDateFormatInDatabase() {
     Future<List<Transaction>> transactions;
 
     final CRUDModel transactionProvider =
         Provider.of<CRUDModel>(context, listen: false);
+
     transactions = transactionProvider.fetchTransactions();
 
     transactions.then((value) => value.forEach((element) async {
@@ -52,7 +53,8 @@ class _SettingsState extends State<Settings> {
           await transactionProvider.updateTransaction(element, element.id);
         }));
 
-    //bar.show(context);
+    /* TODO - Bug on bar snap display (Scaffold.of) */
+    //transactions.whenComplete(() => bar.show(context));
   }
 
   @override
@@ -182,7 +184,7 @@ class _SettingsState extends State<Settings> {
                     ),
                   ),
                   onTap: () {
-                    cleanDateFormatinDatabase();
+                    cleanDateFormatInDatabase();
                   },
                 ),
                 ListTile(

@@ -7,6 +7,8 @@ const String transactionsRoute = '/transactions';
 const String settingsRoute = '/settings';
 const String analysisRoute = '/analysis';
 
+const int nbYearForStatisticsDepth = 5;
+
 class Constants {
   static String appName = "Wallet Explorer";
 
