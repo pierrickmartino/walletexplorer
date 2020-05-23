@@ -104,26 +104,26 @@ class _AccountState extends State<AccountUI> {
   final SnackBar bar =
       SnackBar(content: Text('Statistics data updated for this account !'));
 
-  double findTotalInFlowByAccount(String name) {
-    Future<List<Statistic>> statistics;
+  // double findTotalInFlowByAccount(String name) {
+  //   Future<List<Statistic>> statistics;
 
-    final CRUDModel firebaseProvider =
-        Provider.of<CRUDModel>(context, listen: false);
+  //   final CRUDModel firebaseProvider =
+  //       Provider.of<CRUDModel>(context, listen: false);
 
-    double credit = 0.0;
+  //   double credit = 0.0;
 
-    statistics = firebaseProvider.fetchStatisticsByAccountByCode(name, 'YEAR');
-    statistics.then((value) {
-      credit = value.singleWhere((element) => element.year == '2019').credit;
-      print(name);
-      print(credit);
-      return credit;
-    });
+  //   statistics = firebaseProvider.fetchStatisticsByAccountByCode(name, 'YEAR');
+  //   statistics.then((value) {
+  //     credit = value.singleWhere((element) => element.year == '2019').credit;
+  //     //print(name);
+  //     //print(credit);
+  //     return credit;
+  //   });
 
-    print(credit);
-    return credit;
-    //return credit;
-  }
+  //   //print(credit);
+  //   return credit;
+  //   //return credit;
+  // }
 
   void initStatisticsData(String account) {
     Future<List<Transaction>> transactions;
@@ -336,7 +336,7 @@ class _AccountState extends State<AccountUI> {
                 AccountHeader(
                     name: widget.name,
                     icon: widget.icon,
-                    balance: widget.balance,
+                    balance: widget.balance ?? 0.0,
                     currency: widget.currency,
                     depositary: widget.depositary,
                     shortname: widget.shortname,

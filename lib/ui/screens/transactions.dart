@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../core/viewmodels/CRUDModel.dart';
 import '../../core/models/transaction.dart';
 import '../../core/models/account.dart';
+import '../../core/models/statistic.dart';
 import '../../ui/widgets/account_header.dart';
 import '../../ui/widgets/customAppBar.dart';
 import '../../ui/widgets/transaction_counter.dart';
@@ -38,10 +39,20 @@ class _TransactionsState extends State<Transactions> {
     super.initState();
   }
 
+  Statistic currentStatistic = Statistic();
+
   @override
   Widget build(BuildContext context) {
     final CRUDModel transactionProvider = Provider.of<CRUDModel>(context);
     final CRUDModel accountProvider = Provider.of<CRUDModel>(context);
+    final CRUDModel firebaseProvider = Provider.of<CRUDModel>(context);
+
+    firebaseProvider
+        .getStatisticById('STAT_' + widget.product + '_YEAR_2019')
+        .then((value) => currentStatistic = value)
+        .catchError((error) {
+      print(error);
+    });
 
     accountProvider
         .getAccountById(widget.product)
@@ -74,6 +85,9 @@ class _TransactionsState extends State<Transactions> {
                   balance: currentAccount.balance,
                   currency: currentAccount.currency,
                   depositary: currentAccount.bank,
+                  shortname: currentAccount.short,
+                  totalInflow: currentStatistic.credit ?? 0.0,
+                  totalOutflow: currentStatistic.debit ?? 0.0,
                 ),
                 TransactionCounter(
                     numberOfTransactions: transactions.length.toString()),
