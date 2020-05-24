@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class OverviewTotalInflows extends StatefulWidget {
+  final double totalInflow;
+
+  OverviewTotalInflows({Key key, this.totalInflow}) : super(key: key);
+
   @override
   _OverviewTotalInflowsState createState() => _OverviewTotalInflowsState();
 }
 
 class _OverviewTotalInflowsState extends State<OverviewTotalInflows> {
+  NumberFormat numberFormat =
+      NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 0);
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -43,7 +51,7 @@ class _OverviewTotalInflowsState extends State<OverviewTotalInflows> {
               height: 12,
             ),
             Text(
-              r"+ $21.67",
+              "${numberFormat.format(widget.totalInflow)}",
               style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,

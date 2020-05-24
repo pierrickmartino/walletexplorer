@@ -181,6 +181,15 @@ class CRUDModel extends ChangeNotifier {
     return statistics;
   }
 
+  Future<List<Statistic>> fetchStatisticsByYear(String year) async {
+    _firestore.QuerySnapshot result =
+        await _apiStatistics.getDataCollectionByYear(year);
+    statistics = result.documents
+        .map((doc) => Statistic.fromMap(doc.data, doc.documentID))
+        .toList();
+    return statistics;
+  }
+
   Stream<_firestore.QuerySnapshot> fetchStatisticsAsStream() =>
       _apiStatistics.streamDataCollection();
 

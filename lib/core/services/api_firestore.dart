@@ -93,6 +93,8 @@ class ApiFirestoreStatistics {
           .where('product', isEqualTo: account)
           .where('code', isEqualTo: code)
           .getDocuments();
+  Future<QuerySnapshot> getDataCollectionByYear(String year) =>
+      ref.where('year', isEqualTo: year).getDocuments();
   Future<DocumentSnapshot> getDocumentById(String id) => ref.document(id).get();
   Future<void> removeDocument(String id) => ref.document(id).delete();
   Future<DocumentReference> addDocument(Map data) => ref.add(data);
