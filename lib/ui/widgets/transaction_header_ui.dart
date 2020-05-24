@@ -15,7 +15,7 @@ class TransactionHeaderUI extends StatefulWidget {
 
 class _TransactionHeaderState extends State<TransactionHeaderUI> {
   NumberFormat numberFormat =
-      NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 2);
+      NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 0);
 
   IconData getIconDataByCode(String transactionTypeCode) {
     switch (transactionTypeCode) {

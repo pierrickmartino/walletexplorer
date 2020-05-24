@@ -31,7 +31,7 @@ class AccountHeader extends StatefulWidget {
 
 class _AccountHeaderState extends State<AccountHeader> {
   NumberFormat numberFormat =
-      NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 2);
+      NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 0);
 
   @override
   Widget build(BuildContext context) {
