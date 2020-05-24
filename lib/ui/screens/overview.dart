@@ -6,8 +6,7 @@ import 'package:snack/snack.dart';
 import '../../util/const.dart';
 import '../../util/data.dart';
 import '../widgets/position.dart';
-import '../widgets/overview_total_inflows.dart';
-import '../widgets/overview_total_outflows.dart';
+import '../widgets/overview_total_with_title.dart';
 import '../../core/models/statistic.dart';
 import '../../core/viewmodels/CRUDModel.dart';
 
@@ -98,11 +97,17 @@ class _OverviewState extends State<Overview> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  OverviewTotalInflows(
-                    totalInflow: currentStatistic.credit ?? 0.0,
+                  OverviewTotalWithTitle(
+                    amount: currentStatistic.credit ?? 0.0,
+                    title: 'Total inflows',
+                    subtitle: 'per year',
+                    amountColor: Theme.of(context).accentColor,
                   ),
-                  OverviewTotalOutflows(
-                    totalOutflow: currentStatistic.debit ?? 0.0,
+                  OverviewTotalWithTitle(
+                    amount: currentStatistic.debit ?? 0.0,
+                    title: 'Total outflows',
+                    subtitle: 'per year',
+                    amountColor: Theme.of(context).bottomAppBarColor,
                   ),
                 ],
               ),

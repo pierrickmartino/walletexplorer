@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class OverviewTotalInflows extends StatefulWidget {
-  final double totalInflow;
+class OverviewTotalWithTitle extends StatefulWidget {
+  final double amount;
+  final String title;
+  final String subtitle;
+  final Color amountColor;
 
-  OverviewTotalInflows({Key key, this.totalInflow}) : super(key: key);
+  OverviewTotalWithTitle(
+      {Key key, this.amount, this.title, this.subtitle, this.amountColor})
+      : super(key: key);
 
   @override
-  _OverviewTotalInflowsState createState() => _OverviewTotalInflowsState();
+  _OverviewTotalWithTitleState createState() => _OverviewTotalWithTitleState();
 }
 
-class _OverviewTotalInflowsState extends State<OverviewTotalInflows> {
+class _OverviewTotalWithTitleState extends State<OverviewTotalWithTitle> {
   NumberFormat numberFormat =
       NumberFormat.currency(locale: 'de_CH', symbol: '', decimalDigits: 0);
 
@@ -34,15 +39,15 @@ class _OverviewTotalInflowsState extends State<OverviewTotalInflows> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                const Text(
-                  "Total inflows",
+                Text(
+                  "${widget.title}",
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
                 const SizedBox(
                   width: 6,
                 ),
-                const Text(
-                  'per year',
+                Text(
+                  "${widget.subtitle}",
                   style: TextStyle(color: Color(0xff77839a), fontSize: 14),
                 ),
               ],
@@ -51,11 +56,11 @@ class _OverviewTotalInflowsState extends State<OverviewTotalInflows> {
               height: 12,
             ),
             Text(
-              "${numberFormat.format(widget.totalInflow)}",
+              "${numberFormat.format(widget.amount)}",
               style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).accentColor,
+                color: widget.amountColor,
               ),
             ),
           ],
