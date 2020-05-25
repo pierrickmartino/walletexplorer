@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:snack/snack.dart';
+import 'package:date_format/date_format.dart';
 
 import '../../util/const.dart';
 import '../../util/data.dart';
@@ -76,7 +77,7 @@ class _OverviewState extends State<Overview> {
     bar.show(context);
   }
 
-  Statistic currentStatistic = Statistic();
+  Statistic currentStatistic = Statistic(lastUpdatedDate: DateTime(1900, 1, 1));
 
   @override
   Widget build(BuildContext context) {
@@ -144,6 +145,28 @@ class _OverviewState extends State<Overview> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Text(
+                        formatDate(currentStatistic.lastUpdatedDate, [
+                          yyyy,
+                          '-',
+                          mm,
+                          '-',
+                          dd,
+                          ' ',
+                          HH,
+                          ':',
+                          nn,
+                          ':',
+                          ss
+                        ]),
+                        style: TextStyle(
+                            fontSize: 12, color: const Color(0xff7589a2)),
+                      ),
+                    ),
+                  ),
                   FlatButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),

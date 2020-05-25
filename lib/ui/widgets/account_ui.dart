@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:snack/snack.dart';
+import 'package:date_format/date_format.dart';
 
 import '../../util/const.dart';
 import '../../ui/widgets/account_header.dart';
@@ -38,16 +39,6 @@ class AccountUI extends StatefulWidget {
 
   @override
   _AccountState createState() => _AccountState();
-}
-
-class ClicksPerYear {
-  final String year;
-  final int clicks;
-  final charts.Color color;
-
-  ClicksPerYear(this.year, this.clicks, Color color)
-      : this.color = new charts.Color(
-            r: color.red, g: color.green, b: color.blue, a: color.alpha);
 }
 
 class LinearToken {
@@ -131,14 +122,14 @@ class _AccountState extends State<AccountUI> {
 
             /* on last iteration */
             if (value.last.id == element.id) {
-              print('total Credit ' +
-                  i.toString() +
-                  ': ' +
-                  creditCounterYear.roundToDouble().toString());
-              print('total Debit ' +
-                  i.toString() +
-                  ': ' +
-                  debitCounterYear.roundToDouble().toString());
+              // print('total Credit ' +
+              //     i.toString() +
+              //     ': ' +
+              //     creditCounterYear.roundToDouble().toString());
+              // print('total Debit ' +
+              //     i.toString() +
+              //     ': ' +
+              //     debitCounterYear.roundToDouble().toString());
 
               String key = 'STAT_' + account + '_YEAR_' + i.toString();
               Statistic statistic = Statistic(
@@ -164,7 +155,7 @@ class _AccountState extends State<AccountUI> {
     bar.show(context);
   }
 
-  Statistic currentStatistic = Statistic();
+  Statistic currentStatistic = Statistic(lastUpdatedDate: DateTime(1900, 1, 1));
 
   @override
   Widget build(BuildContext context) {
@@ -389,6 +380,28 @@ class _AccountState extends State<AccountUI> {
                     //       );
                     //     },
                     //     child: Text('see untyped transactions')),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          formatDate(currentStatistic.lastUpdatedDate, [
+                            yyyy,
+                            '-',
+                            mm,
+                            '-',
+                            dd,
+                            ' ',
+                            HH,
+                            ':',
+                            nn,
+                            ':',
+                            ss
+                          ]),
+                          style: TextStyle(
+                              fontSize: 12, color: const Color(0xff7589a2)),
+                        ),
+                      ),
+                    ),
                     FlatButton(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
