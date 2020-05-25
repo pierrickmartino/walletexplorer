@@ -7,6 +7,7 @@ import '../../util/const.dart';
 import '../../util/data.dart';
 import '../widgets/position.dart';
 import '../widgets/overview_total_with_title.dart';
+import '../widgets/overview_text_with_title.dart';
 import '../../core/models/statistic.dart';
 import '../../core/viewmodels/CRUDModel.dart';
 
@@ -97,17 +98,45 @@ class _OverviewState extends State<Overview> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  OverviewTotalWithTitle(
-                    amount: currentStatistic.credit ?? 0.0,
-                    title: 'Total inflows',
-                    subtitle: 'per year',
-                    amountColor: Theme.of(context).accentColor,
+                  Expanded(
+                    child: OverviewTextWithTitle(
+                      text: '2019',
+                      title: 'Year',
+                      subtitle: '',
+                      amountColor: Theme.of(context).cursorColor,
+                      /* TODO */
+                    ),
                   ),
-                  OverviewTotalWithTitle(
-                    amount: currentStatistic.debit ?? 0.0,
-                    title: 'Total outflows',
-                    subtitle: 'per year',
-                    amountColor: Theme.of(context).bottomAppBarColor,
+                  Expanded(
+                    child: OverviewTotalWithTitle(
+                      amount: 0.0,
+                      title: 'Evolution',
+                      subtitle: 'per year',
+                      amountColor: Colors.grey,
+                      /* TODO */
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Expanded(
+                    child: OverviewTotalWithTitle(
+                      amount: currentStatistic.credit ?? 0.0,
+                      title: 'Total inflows',
+                      subtitle: 'per year',
+                      amountColor: Theme.of(context).accentColor,
+                    ),
+                  ),
+                  Expanded(
+                    child: OverviewTotalWithTitle(
+                      amount: currentStatistic.debit ?? 0.0,
+                      title: 'Total outflows',
+                      subtitle: 'per year',
+                      amountColor: Theme.of(context).bottomAppBarColor,
+                    ),
                   ),
                 ],
               ),
