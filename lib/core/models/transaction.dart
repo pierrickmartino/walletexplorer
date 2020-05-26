@@ -71,6 +71,7 @@ class Transaction {
         valueDate = snapshot['valueDate'] ?? '',
         type = snapshot['type'] ?? '',
         currency = snapshot['currency'] ?? '',
+        //sortAccountingDate = DateTime.now();
         sortAccountingDate = (snapshot['sortAccountingDate']).toDate();
 
   toJson() {

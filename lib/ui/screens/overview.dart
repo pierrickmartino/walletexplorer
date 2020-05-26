@@ -30,8 +30,13 @@ class _OverviewState extends State<Overview> {
     final CRUDModel firebaseProvider =
         Provider.of<CRUDModel>(context, listen: false);
 
-    for (var i = thisYear; i > thisYear - nbYearForStatisticsDepth; i--) {
-      statistics = firebaseProvider.fetchStatisticsByYear(i.toInt().toString());
+    for (int i = thisYear; i > thisYear - nbYearForStatisticsDepth; i--) {
+      String key = 'STAT_ALL_YEAR_' + i.toString();
+      firebaseProvider.removeStatistic(key);
+    }
+
+    for (int i = thisYear; i > thisYear - nbYearForStatisticsDepth; i--) {
+      statistics = firebaseProvider.fetchStatisticsByYear(i.toString());
 
       statistics.then((value) => value.forEach((element) {
             double creditCounterYear = 0.00;
@@ -44,14 +49,14 @@ class _OverviewState extends State<Overview> {
 
             /* on last iteration */
             if (value.last.id == element.id) {
-              print('total Credit ' +
-                  i.toString() +
-                  ': ' +
-                  creditCounterYear.roundToDouble().toString());
-              print('total Debit ' +
-                  i.toString() +
-                  ': ' +
-                  debitCounterYear.roundToDouble().toString());
+              // print('total Credit ' +
+              //     i.toString() +
+              //     ': ' +
+              //     creditCounterYear.roundToDouble().toString());
+              // print('total Debit ' +
+              //     i.toString() +
+              //     ': ' +
+              //     debitCounterYear.roundToDouble().toString());
 
               String key = 'STAT_ALL_YEAR_' + i.toString();
               Statistic statistic = Statistic(
@@ -68,7 +73,6 @@ class _OverviewState extends State<Overview> {
                   year: i.toString(),
                   lastUpdatedDate: DateTime.now());
 
-              firebaseProvider.removeStatistic(key);
               firebaseProvider.setStatistic(statistic, key);
             }
           }));
@@ -110,10 +114,15 @@ class _OverviewState extends State<Overview> {
                   ),
                   Expanded(
                     child: OverviewTotalWithTitle(
-                      amount: 0.0,
+                      amount: (currentStatistic.credit ?? 0.0) -
+                          (currentStatistic.debit ?? 0.0),
                       title: 'Evolution',
                       subtitle: 'per year',
-                      amountColor: Colors.grey,
+                      amountColor: ((currentStatistic.credit ?? 0.0) -
+                                  (currentStatistic.debit ?? 0.0) >
+                              0.0)
+                          ? (Theme.of(context).accentColor)
+                          : (Theme.of(context).bottomAppBarColor),
                       /* TODO */
                     ),
                   ),
@@ -126,7 +135,7 @@ class _OverviewState extends State<Overview> {
                   Expanded(
                     child: OverviewTotalWithTitle(
                       amount: currentStatistic.credit ?? 0.0,
-                      title: 'Total inflows',
+                      title: 'Total in',
                       subtitle: 'per year',
                       amountColor: Theme.of(context).accentColor,
                     ),
@@ -134,7 +143,7 @@ class _OverviewState extends State<Overview> {
                   Expanded(
                     child: OverviewTotalWithTitle(
                       amount: currentStatistic.debit ?? 0.0,
-                      title: 'Total outflows',
+                      title: 'Total out',
                       subtitle: 'per year',
                       amountColor: Theme.of(context).bottomAppBarColor,
                     ),
