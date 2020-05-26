@@ -104,6 +104,11 @@ class _AccountState extends State<AccountUI> {
         Provider.of<CRUDModel>(context, listen: false);
 
     for (var i = thisYear; i > thisYear - nbYearForStatisticsDepth; i--) {
+      String key = 'STAT_' + account + '_YEAR_' + i.toString();
+      firebaseProvider.removeStatistic(key);
+    }
+
+    for (var i = thisYear; i > thisYear - nbYearForStatisticsDepth; i--) {
       transactions = firebaseProvider.fetchTransactionsByAccountByDateRange(
           account, DateTime(i, 1, 1), DateTime(i + 1, 1, 1));
 
@@ -146,7 +151,6 @@ class _AccountState extends State<AccountUI> {
                   year: i.toString(),
                   lastUpdatedDate: DateTime.now());
 
-              firebaseProvider.removeStatistic(key);
               firebaseProvider.setStatistic(statistic, key);
             }
           }));
