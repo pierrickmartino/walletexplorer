@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart' as _firestore;
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:snack/snack.dart';
 
 import '../../core/models/transaction.dart';
 import '../../core/viewmodels/CRUDModel.dart';
