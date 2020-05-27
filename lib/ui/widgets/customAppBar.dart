@@ -3,18 +3,28 @@ import 'package:flutter_icons/flutter_icons.dart';
 
 import '../../util/const.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final double height;
   final String title;
 
-  const CustomAppBar({
+  CustomAppBar({
     Key key,
     @required this.height,
     this.title,
   }) : super(key: key);
 
   @override
+  _CustomAppBarState createState() => _CustomAppBarState();
+
+  @override
+  Size get preferredSize => Size.fromHeight(height);
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
+  @override
   Widget build(BuildContext context) {
+    String _value = '2019';
+
     return Column(
       children: <Widget>[
         Container(
@@ -23,16 +33,40 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              title != 'Overview'
+              widget.title != 'Overview'
                   ? IconButton(
                       iconSize: 24,
                       color: Theme.of(context).cursorColor,
-                      icon: Icon(MaterialCommunityIcons.arrow_left),
+                      icon: Icon(
+                        MaterialCommunityIcons.arrow_left,
+                        size: 24,
+                      ),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                     )
                   : Text(''),
+              DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                value: _value,
+                items: <DropdownMenuItem<String>>[
+                  new DropdownMenuItem(
+                    child: new Text('2020'),
+                    value: '2020',
+                  ),
+                  new DropdownMenuItem(
+                    child: new Text('2019'),
+                    value: '2019',
+                  ),
+                  new DropdownMenuItem(
+                    child: new Text('2018'),
+                    value: '2018',
+                  ),
+                ],
+                onChanged: (String value) {
+                  setState(() => _value = value);
+                },
+              )),
               // Text(
               //   title,
               //   style: TextStyle(
@@ -42,7 +76,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  title != 'Overview'
+                  (widget.title != 'Overview' && widget.title != 'Settings')
                       ? IconButton(
                           icon: Icon(MaterialCommunityIcons.table_search),
                           iconSize: 24,
@@ -50,14 +84,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           onPressed: () {},
                         )
                       : Text(''),
-                  IconButton(
-                    icon: Icon(MaterialCommunityIcons.settings),
-                    iconSize: 24,
-                    color: Theme.of(context).cursorColor,
-                    onPressed: () {
-                      Navigator.pushNamed(context, settingsRoute);
-                    },
-                  ),
+                  widget.title != 'Settings'
+                      ? IconButton(
+                          icon: Icon(MaterialCommunityIcons.settings),
+                          iconSize: 24,
+                          color: Theme.of(context).cursorColor,
+                          onPressed: () {
+                            Navigator.pushNamed(context, settingsRoute);
+                          },
+                        )
+                      : Text(''),
                 ],
               ),
             ],
@@ -66,7 +102,4 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ],
     );
   }
-
-  @override
-  Size get preferredSize => Size.fromHeight(height);
 }

@@ -30,7 +30,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(height: 70, title: 'Overview'),
+      appBar: CustomAppBar(height: 80, title: 'Overview'),
       body: Column(
         children: <Widget>[
           Container(
