@@ -24,6 +24,7 @@ class AccountUI extends StatefulWidget {
   final String depositary;
   final String shortname;
   final charts.Color color;
+  final String year;
   AccountUI(
       {Key key,
       this.name,
@@ -34,7 +35,8 @@ class AccountUI extends StatefulWidget {
       this.color,
       this.currency,
       this.depositary,
-      this.shortname})
+      this.shortname,
+      this.year})
       : super(key: key);
 
   @override

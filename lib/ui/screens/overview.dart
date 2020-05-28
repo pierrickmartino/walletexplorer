@@ -13,6 +13,10 @@ import '../../core/models/statistic.dart';
 import '../../core/viewmodels/CRUDModel.dart';
 
 class Overview extends StatefulWidget {
+  final String year;
+
+  const Overview({Key key, this.year}) : super(key: key);
+
   @override
   _OverviewState createState() => _OverviewState();
 }
@@ -20,6 +24,9 @@ class Overview extends StatefulWidget {
 class _OverviewState extends State<Overview> {
   final SnackBar bar =
       SnackBar(content: Text('Statistics data updated for this account !'));
+
+  Statistic currentStatistic =
+      Statistic(lastUpdatedDate: DateTime(1900, 1, 1), credit: 0.0, debit: 0.0);
 
   void initAggregatedStatisticsData() {
     //Future<List<Transaction>> transactions;
@@ -81,20 +88,19 @@ class _OverviewState extends State<Overview> {
     bar.show(context);
   }
 
-  Statistic currentStatistic = Statistic(lastUpdatedDate: DateTime(1900, 1, 1));
-
   @override
   Widget build(BuildContext context) {
     final CRUDModel firebaseProvider = Provider.of<CRUDModel>(context);
     firebaseProvider
-        .getStatisticById('STAT_ALL_YEAR_2019')
+        .getStatisticById('STAT_ALL_YEAR_' + widget.year)
         .then((value) => currentStatistic = value)
         .catchError((error) {
       print(error);
     });
 
     return FutureBuilder(
-        future: firebaseProvider.getStatisticById('STAT_ALL_YEAR_2019'),
+        future:
+            firebaseProvider.getStatisticById('STAT_ALL_YEAR_' + widget.year),
         builder: (context, snapshot) {
           return Scaffold(
               body: Column(
@@ -105,7 +111,7 @@ class _OverviewState extends State<Overview> {
                 children: <Widget>[
                   Expanded(
                     child: OverviewTextWithTitle(
-                      text: '2019',
+                      text: widget.year,
                       title: 'Year',
                       subtitle: '',
                       amountColor: Theme.of(context).cursorColor,
@@ -183,6 +189,7 @@ class _OverviewState extends State<Overview> {
                         Navigator.pushNamed(
                           context,
                           accountsRoute,
+                          arguments: widget.year,
                         );
                       },
                       child: Text('see all accounts')),

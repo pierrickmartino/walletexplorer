@@ -6,11 +6,16 @@ import '../../util/const.dart';
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final double height;
   final String title;
+  final String year;
+
+  final ValueChanged<String> parentAction;
 
   CustomAppBar({
     Key key,
     @required this.height,
     this.title,
+    this.year,
+    this.parentAction,
   }) : super(key: key);
 
   @override
@@ -23,7 +28,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
 class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
-    String _value = '2019';
+    String _value = widget.year ?? '';
 
     return Column(
       children: <Widget>[
@@ -42,31 +47,43 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         size: 24,
                       ),
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.pop(context);
                       },
                     )
                   : Text(''),
-              DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                value: _value,
-                items: <DropdownMenuItem<String>>[
-                  new DropdownMenuItem(
-                    child: new Text('2020'),
-                    value: '2020',
-                  ),
-                  new DropdownMenuItem(
-                    child: new Text('2019'),
-                    value: '2019',
-                  ),
-                  new DropdownMenuItem(
-                    child: new Text('2018'),
-                    value: '2018',
-                  ),
-                ],
-                onChanged: (String value) {
-                  setState(() => _value = value);
-                },
-              )),
+              widget.title == 'Overview'
+                  ? DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                      value: _value,
+                      items: <DropdownMenuItem<String>>[
+                        new DropdownMenuItem(
+                          child: new Text('2020'),
+                          value: '2020',
+                        ),
+                        new DropdownMenuItem(
+                          child: new Text('2019'),
+                          value: '2019',
+                        ),
+                        new DropdownMenuItem(
+                          child: new Text('2018'),
+                          value: '2018',
+                        ),
+                      ],
+                      onChanged: (String value) {
+                        setState(() {
+                          _value = value;
+                          widget.parentAction(value);
+                        });
+                      },
+                    ))
+                  : Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 12.0, horizontal: 16.0),
+                      child: Text(
+                        _value,
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
+                    ),
               // Text(
               //   title,
               //   style: TextStyle(

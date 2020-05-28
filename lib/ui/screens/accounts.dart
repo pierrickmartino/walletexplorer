@@ -8,16 +8,34 @@ import '../widgets/account_ui.dart';
 import '../../ui/widgets/customAppBar.dart';
 
 class Accounts extends StatefulWidget {
+  final String year;
+
+  const Accounts({Key key, this.year}) : super(key: key);
+
   @override
   _AccountsState createState() => _AccountsState();
 }
 
 class _AccountsState extends State<Accounts> {
   List<Account> accounts;
+  String settingYear;
+
+  _updateSettingYear(String year) {
+    setState(() {
+      settingYear = year;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    settingYear = widget.year;
+  }
 
   @override
   Widget build(BuildContext context) {
     final CRUDModel accountProvider = Provider.of<CRUDModel>(context);
+    //settingYear = widget.year;
 
     return StreamBuilder(
       stream: accountProvider.fetchAccountsAsStream(),
@@ -33,7 +51,11 @@ class _AccountsState extends State<Accounts> {
               .toList();
 
           return Scaffold(
-            appBar: CustomAppBar(height: 80, title: 'Accounts'),
+            appBar: CustomAppBar(
+                height: 70,
+                title: 'Accounts',
+                parentAction: _updateSettingYear,
+                year: settingYear),
             body: ListView.builder(
               primary: false,
               itemCount: accounts.length,
@@ -46,6 +68,7 @@ class _AccountsState extends State<Accounts> {
                   depositary: accounts[index].bank,
                   shortname: accounts[index].short,
                   color: charts.MaterialPalette.blue.shadeDefault,
+                  year: widget.year,
                 );
               },
             ),

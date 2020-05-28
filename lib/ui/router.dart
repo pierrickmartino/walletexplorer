@@ -16,9 +16,11 @@ class Router {
       case loginRoute:
         return MaterialPageRoute(builder: (_) => RootPage(auth: new Auth()));
       case homeRoute:
-        return MaterialPageRoute(builder: (_) => HomeView());
+        var data = settings.arguments as String;
+        return MaterialPageRoute(builder: (_) => HomeView(year: data));
       case accountsRoute:
-        return MaterialPageRoute(builder: (_) => Accounts());
+        var data = settings.arguments as String;
+        return MaterialPageRoute(builder: (_) => Accounts(year: data));
       case transactionsRoute:
         var data = settings.arguments as String;
         return MaterialPageRoute(builder: (_) => Transactions(product: data));

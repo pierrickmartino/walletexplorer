@@ -77,7 +77,7 @@ class _TransactionsState extends State<Transactions> {
               .toList();
 
           return Scaffold(
-              appBar: CustomAppBar(height: 80, title: 'Transactions'),
+              appBar: CustomAppBar(height: 70, title: 'Transactions'),
               body: Column(children: <Widget>[
                 AccountHeader(
                   name: currentAccount.product,

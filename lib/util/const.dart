@@ -8,6 +8,7 @@ const String settingsRoute = '/settings';
 const String analysisRoute = '/analysis';
 
 const int nbYearForStatisticsDepth = 5;
+const String defaultYeartoDisplay = '2019';
 
 class Constants {
   static String appName = "Wallet Explorer";

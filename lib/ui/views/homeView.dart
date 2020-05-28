@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
 
 import '../screens/overview.dart';
-import '../../core/services/authentication.dart';
 import '../screens/header.dart';
 import '../widgets/customAppBar.dart';
+import '../../util/const.dart';
+import '../../core/services/authentication.dart';
 
 class HomeView extends StatefulWidget {
-  HomeView({Key key, this.auth, this.userId, this.logoutCallback})
-      : super(key: key);
-
   final BaseAuth auth;
   final VoidCallback logoutCallback;
   final String userId;
+  final String year;
+
+  HomeView({Key key, this.auth, this.userId, this.logoutCallback, this.year})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
+  String settingYear = '2019';
+
   signOut() async {
     try {
       await widget.auth.signOut();
@@ -27,10 +31,26 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
+  _updateSettingYear(String year) {
+    setState(() {
+      settingYear = year;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    settingYear = widget.year ?? defaultYeartoDisplay;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(height: 80, title: 'Overview'),
+      appBar: CustomAppBar(
+          height: 70,
+          title: 'Overview',
+          parentAction: _updateSettingYear,
+          year: settingYear),
       body: Column(
         children: <Widget>[
           Container(
@@ -42,7 +62,9 @@ class _HomeViewState extends State<HomeView> {
             thickness: 1,
           ),
           Expanded(
-            child: Overview(),
+            child: Overview(
+              year: settingYear,
+            ),
           )
         ],
       ),
