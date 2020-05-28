@@ -52,7 +52,7 @@ class _AccountsState extends State<Accounts> {
 
           return Scaffold(
             appBar: CustomAppBar(
-                height: 70,
+                height: 50,
                 title: 'Accounts',
                 parentAction: _updateSettingYear,
                 year: settingYear),

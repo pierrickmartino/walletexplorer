@@ -31,9 +31,18 @@ class _CustomAppBarState extends State<CustomAppBar> {
     String _value = widget.year ?? '';
 
     return Column(
+      mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         Container(
-          margin: EdgeInsets.fromLTRB(20, 20, 0, 0),
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.topRight,
+                  colors: [
+                Theme.of(context).backgroundColor,
+                Theme.of(context).dividerColor
+              ])),
+          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,

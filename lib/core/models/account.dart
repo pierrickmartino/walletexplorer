@@ -31,7 +31,7 @@ class Account {
   @override
   Account.fromMap(Map snapshot, String id)
       : id = id ?? '',
-        balance = snapshot['balance'] ?? '',
+        balance = snapshot['balance'] ?? 0.0,
         bank = snapshot['bank'] ?? '',
         currency = snapshot['currency'] ?? '',
         description = snapshot['description'] ?? '',

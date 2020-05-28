@@ -114,9 +114,15 @@ class _AccountState extends State<AccountUI> {
       transactions = firebaseProvider.fetchTransactionsByAccountByDateRange(
           account, DateTime(i, 1, 1), DateTime(i + 1, 1, 1));
 
+      int counter = 0;
+
       transactions.then((value) => value.forEach((element) {
             double creditCounterYear = 0.00;
             double debitCounterYear = 0.00;
+
+            counter =
+                value.fold(0, (previousValue, element) => previousValue + 1);
+
             creditCounterYear = value.fold(
                 0,
                 (previousValue, element) =>
@@ -151,6 +157,7 @@ class _AccountState extends State<AccountUI> {
                   quarter: '',
                   relation: '',
                   year: i.toString(),
+                  counter: counter,
                   lastUpdatedDate: DateTime.now());
 
               firebaseProvider.setStatistic(statistic, key);

@@ -60,7 +60,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(height: 70, title: 'Settings'),
+      appBar: CustomAppBar(height: 50, title: 'Settings'),
       body: Theme(
         data: Theme.of(context).copyWith(),
         child: DefaultTextStyle(

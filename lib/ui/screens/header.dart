@@ -19,11 +19,12 @@ class _Header extends State<Header> {
           backgroundImage: AssetImage(
             "assets/cm${random.nextInt(10)}.jpeg",
           ),
-          radius: 20,
+          radius: 18,
         ),
         title: Text(name),
         subtitle: Text(name.toLowerCase().replaceAll(" ", ".") + "@gmail.com"),
         isThreeLine: true,
+        dense: true,
       ),
     );
   }

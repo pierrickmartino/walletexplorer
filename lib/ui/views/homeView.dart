@@ -47,14 +47,15 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-          height: 70,
+          height: 50,
           title: 'Overview',
           parentAction: _updateSettingYear,
           year: settingYear),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            height: 60,
+            height: 50,
             child: Header(),
           ),
           Divider(

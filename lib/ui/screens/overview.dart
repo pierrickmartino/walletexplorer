@@ -25,8 +25,11 @@ class _OverviewState extends State<Overview> {
   final SnackBar bar =
       SnackBar(content: Text('Statistics data updated for this account !'));
 
-  Statistic currentStatistic =
-      Statistic(lastUpdatedDate: DateTime(1900, 1, 1), credit: 0.0, debit: 0.0);
+  Statistic currentStatistic = Statistic(
+      lastUpdatedDate: DateTime(1900, 1, 1),
+      credit: 0.0,
+      debit: 0.0,
+      counter: 0);
 
   void initAggregatedStatisticsData() {
     //Future<List<Transaction>> transactions;
@@ -45,9 +48,15 @@ class _OverviewState extends State<Overview> {
     for (int i = thisYear; i > thisYear - nbYearForStatisticsDepth; i--) {
       statistics = firebaseProvider.fetchStatisticsByYear(i.toString());
 
+      int counter = 0;
+
       statistics.then((value) => value.forEach((element) {
             double creditCounterYear = 0.00;
             double debitCounterYear = 0.00;
+
+            counter = value.fold(
+                0, (previousValue, element) => previousValue + element.counter);
+
             creditCounterYear = value.fold(
                 0, (previousValue, element) => previousValue + element.credit);
 
@@ -78,6 +87,7 @@ class _OverviewState extends State<Overview> {
                   quarter: '',
                   relation: '',
                   year: i.toString(),
+                  counter: counter,
                   lastUpdatedDate: DateTime.now());
 
               firebaseProvider.setStatistic(statistic, key);
@@ -115,7 +125,6 @@ class _OverviewState extends State<Overview> {
                       title: 'Year',
                       subtitle: '',
                       amountColor: Theme.of(context).cursorColor,
-                      /* TODO */
                     ),
                   ),
                   Expanded(
@@ -129,7 +138,6 @@ class _OverviewState extends State<Overview> {
                               0.0)
                           ? (Theme.of(context).accentColor)
                           : (Theme.of(context).bottomAppBarColor),
-                      /* TODO */
                     ),
                   ),
                 ],
@@ -154,6 +162,28 @@ class _OverviewState extends State<Overview> {
                       amountColor: Theme.of(context).bottomAppBarColor,
                     ),
                   ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Expanded(
+                    child: OverviewTotalWithTitle(
+                      amount: currentStatistic.counter ?? 0.0,
+                      title: 'Transactions',
+                      subtitle: 'per year',
+                      amountColor: Theme.of(context).cursorColor,
+                    ),
+                  ),
+                  // Expanded(
+                  //   child: OverviewTotalWithTitle(
+                  //     amount: currentStatistic.debit ?? 0.0,
+                  //     title: 'Total out',
+                  //     subtitle: 'per year',
+                  //     amountColor: Theme.of(context).bottomAppBarColor,
+                  //   ),
+                  // ),
                 ],
               ),
               Row(
