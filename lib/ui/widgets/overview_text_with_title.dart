@@ -37,14 +37,18 @@ class _OverviewTextWithTitleState extends State<OverviewTextWithTitle> {
               children: <Widget>[
                 Text(
                   "${widget.title}",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
+                  style: Theme.of(context).textTheme.headline6,
+                  //style: TextStyle(
+
+                  //color: Theme.of(context).cursorColor, fontSize: 18),
                 ),
                 const SizedBox(
                   width: 6,
                 ),
                 Text(
                   "${widget.subtitle}",
-                  style: TextStyle(color: Color(0xff77839a), fontSize: 14),
+                  style: Theme.of(context).textTheme.subtitle1,
+                  //style: TextStyle(color: Color(0xff77839a), fontSize: 14),
                 ),
               ],
             ),

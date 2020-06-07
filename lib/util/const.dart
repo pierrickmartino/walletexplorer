@@ -21,13 +21,13 @@ class Constants {
   static const String analysisRoute = '/analysis';
 
   //Colors for theme
-  static Color lightPrimary = Color(0xFFF9F9F9);
-  static Color lightBG = Color(0xFFF9F9F9);
+  static Color lightPrimary = Color(0xFFf2f5f9);
+  static Color lightBG = Color(0xFFf2f5f9);
   static Color lightFirstColor = Colors.green[400];
   static Color lightSecondColor = Color(0xffff5182);
-  static Color lightSecondary = Color(0xff3D3B8E);
+  static Color lightSecondary = Color(0xff1d3f98);
   static Color lightBarColor = Color(0xffE0FF4F);
-  static Color lightCardColor = Color(0x1A6883BA);
+  static Color lightCardColor = Color(0xFFFFFFFF);
   static Color lightCardColorLight = Color(0xFF6883BA);
 
   static Color darkPrimary = Color(0xff001513);
@@ -67,8 +67,8 @@ class Constants {
     scaffoldBackgroundColor: darkBG,
     cursorColor: darkSecondary,
     buttonColor: darkFirstColor,
-    canvasColor: darkPrimary,
-    dividerColor: darkCardColorLight,
+    canvasColor: darkCardColorLight,
+    dividerColor: darkSecondary,
     cardColor: darkCardColor,
     appBarTheme: AppBarTheme(
       elevation: 0,

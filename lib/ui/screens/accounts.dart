@@ -56,21 +56,24 @@ class _AccountsState extends State<Accounts> {
                 title: 'Accounts',
                 parentAction: _updateSettingYear,
                 year: settingYear),
-            body: ListView.builder(
-              primary: false,
-              itemCount: accounts.length,
-              itemBuilder: (BuildContext context, int index) {
-                return AccountUI(
-                  name: accounts[index].product,
-                  icon: "asset_icon.png",
-                  balance: accounts[index].balance,
-                  currency: accounts[index].currency,
-                  depositary: accounts[index].bank,
-                  shortname: accounts[index].short,
-                  color: charts.MaterialPalette.blue.shadeDefault,
-                  year: widget.year,
-                );
-              },
+            body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: ListView.builder(
+                primary: false,
+                itemCount: accounts.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return AccountUI(
+                    name: accounts[index].product,
+                    icon: "asset_icon.png",
+                    balance: accounts[index].balance,
+                    currency: accounts[index].currency,
+                    depositary: accounts[index].bank,
+                    shortname: accounts[index].short,
+                    color: charts.MaterialPalette.blue.shadeDefault,
+                    year: widget.year,
+                  );
+                },
+              ),
             ),
           );
         }

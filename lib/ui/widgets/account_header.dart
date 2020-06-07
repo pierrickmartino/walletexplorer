@@ -52,9 +52,7 @@ class _AccountHeaderState extends State<AccountHeader> {
                   SizedBox(width: 10),
                   Text(
                     "${widget.shortname}",
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 ],
               ),
@@ -62,10 +60,7 @@ class _AccountHeaderState extends State<AccountHeader> {
                 "${widget.currency}"
                 " "
                 "${numberFormat.format(widget.balance)}",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(context).textTheme.headline6,
               ),
             ],
           ),
@@ -81,18 +76,19 @@ class _AccountHeaderState extends State<AccountHeader> {
                   SizedBox(width: 35),
                   Text(
                     "${widget.name}",
-                    style: TextStyle(
-                      fontSize: 12,
-                    ),
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
                 ],
               ),
               Text(
                 "${widget.currency} ${numberFormat.format(widget.totalInflow)}",
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Theme.of(context).accentColor,
-                ),
+                style: Theme.of(context).textTheme.subtitle1.copyWith(
+                      color: Theme.of(context).accentColor,
+                    ),
+                // style: TextStyle(
+                //   fontSize: 12,
+                //   color: Theme.of(context).accentColor,
+                // ),
               ),
             ],
           ),
@@ -108,18 +104,19 @@ class _AccountHeaderState extends State<AccountHeader> {
                   SizedBox(width: 35),
                   Text(
                     "${widget.depositary}",
-                    style: TextStyle(
-                      fontSize: 12,
-                    ),
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
                 ],
               ),
               Text(
                 "${widget.currency} ${numberFormat.format(widget.totalOutflow)}",
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Theme.of(context).bottomAppBarColor,
-                ),
+                style: Theme.of(context).textTheme.subtitle1.copyWith(
+                      color: Theme.of(context).bottomAppBarColor,
+                    ),
+                // style: TextStyle(
+                //   fontSize: 12,
+                //   color: Theme.of(context).bottomAppBarColor,
+                // ),
               ),
             ],
           ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
-import '../../util/const.dart';
+//import '../../util/const.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final double height;
@@ -34,32 +34,38 @@ class _CustomAppBarState extends State<CustomAppBar> {
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  colors: [
-                Theme.of(context).backgroundColor,
-                Theme.of(context).dividerColor
-              ])),
+          color: Theme.of(context).backgroundColor,
           margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              widget.title != 'Overview'
-                  ? IconButton(
-                      iconSize: 24,
-                      color: Theme.of(context).cursorColor,
-                      icon: Icon(
-                        MaterialCommunityIcons.arrow_left,
-                        size: 24,
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    )
-                  : Text(''),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  widget.title != 'Overview'
+                      ? IconButton(
+                          iconSize: 24,
+                          color: Theme.of(context).cursorColor,
+                          icon: Icon(
+                            MaterialCommunityIcons.arrow_left,
+                            size: 24,
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        )
+                      : Text(''),
+
+                  // IconButton(
+                  //   icon: Icon(MaterialCommunityIcons.alpha_w_circle_outline),
+                  //   iconSize: 24,
+                  //   color: Theme.of(context).dividerColor,
+                  //   onPressed: () {},
+                  // ),
+                ],
+              ),
               widget.title == 'Overview'
                   ? DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
@@ -110,16 +116,16 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           onPressed: () {},
                         )
                       : Text(''),
-                  widget.title != 'Settings'
-                      ? IconButton(
-                          icon: Icon(MaterialCommunityIcons.settings),
-                          iconSize: 24,
-                          color: Theme.of(context).cursorColor,
-                          onPressed: () {
-                            Navigator.pushNamed(context, settingsRoute);
-                          },
-                        )
-                      : Text(''),
+                  // widget.title != 'Settings'
+                  //     ? IconButton(
+                  //         icon: Icon(MaterialCommunityIcons.settings),
+                  //         iconSize: 24,
+                  //         color: Theme.of(context).cursorColor,
+                  //         onPressed: () {
+                  //           Navigator.pushNamed(context, settingsRoute);
+                  //         },
+                  //       )
+                  //     : Text(''),
                 ],
               ),
             ],
